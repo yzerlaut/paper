@@ -184,14 +184,15 @@ def process_manuscript(args):
                 PAPER['text'] += '\label{sec:methods}\n'
             elif (line=='* References\n') and not args.figures_only:
                 PAPER['text'] += '\small \\normalfont \n'
-                PAPER['text'] += '\subsection*{References}\n\quad'
+                PAPER['text'] += '\subsection*{References} \n'
                 # load libarry reference:
                 LIBRARY = np.load('biblio.npz')
                 # looping over references
                 for ref in LIBRARY.keys():
                     if len(PAPER['text'].split(ref))>1:
-                        print(LIBRARY[ref])
-                        PAPER['text'] += LIBRARY[ref].item()['APA']+' \\newline \n'
+                        new_key = ref.replace('., ', '_').replace(', ', '_').replace(' ', '_')
+                        PAPER['text'] = PAPER['text'].replace(ref, '\\hyperlink{'+new_key+'}{'+LIBRARY[ref].item()['correct_abbrev']+'}')
+                        PAPER['text'] += '\hypertarget{'+new_key+'}{'+LIBRARY[ref].item()['APA']+'} \\newline \n'
                 # iline+=2 # we progress in the lines
                 # line = content[iline]
                 # while (line[0]!='#') and (line[0]!='*'):
@@ -345,12 +346,12 @@ def process_manuscript(args):
             iline+=1
 
     ## LOOPING ON REFERENCES FOR CROSS REFERENCING
-    if not args.journal_submission:
-        for new_key, key  in PAPER['refs'].items():
-            PAPER['text'] = PAPER['text'].replace(key, '\\hyperlink{'+new_key+'}{'+key+'}')
-            # now reformatting for the case: in Author et al. (20XX)
-            new_string = key.replace(', ', ' (')+')'
-            PAPER['text'] = PAPER['text'].replace(new_string, '\\hyperlink{'+new_key+'}{'+new_string+'}')
+    # if not args.journal_submission:
+    #     for new_key, key  in PAPER['refs'].items():
+    #         PAPER['text'] = PAPER['text'].replace(key, '\\hyperlink{'+new_key+'}{'+key+'}')
+    #         # now reformatting for the case: in Author et al. (20XX)
+    #         new_string = key.replace(', ', ' (')+')'
+    #         PAPER['text'] = PAPER['text'].replace(new_string, '\\hyperlink{'+new_key+'}{'+new_string+'}')
 
     ## LOOPING ON FIGURES FOR CROSS REFERENCING
     if not args.journal_submission:

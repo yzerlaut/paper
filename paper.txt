@@ -16,7 +16,7 @@ Correspondence: firstname.lastname@domain.country
 *Org-Mode* is for keeping notes, maintaining TODO lists, planning projects, and authoring documents with a fast and effective plain-text system. Visit \url{http://orgmode.org/}. 
 Here we build up a template for scientific papers with the following characteristics:
 
-we can play with references (Telenczuk et al., 2016; Destexhe et al., 2003; Chance et al., 2002) and also include them in text, such as in Destexhe et al. (2003). We make a a reference to Figure {Fig1}a,c and Figure {Fig3}B and Figure {Fig2}(ii).
+we can play with references (Telenczuk et al., 2017; Destexhe et al., 2003; Chance et al., 2002) and also include them in text, such as in Destexhe et al. (2003). We make a a reference to Figure {Fig1}a,c and Figure {Fig3}B and Figure {Fig2}(ii).
 
 * Significance statement
 

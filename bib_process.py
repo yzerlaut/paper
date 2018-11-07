@@ -74,7 +74,7 @@ def build_apa_citation(entry, AD):
     volume = '}'
     if 'volume' in entry:
         volume = " "+entry['volume']+volume
-    return authors+"("+entry['year']+") "+entry['title']+ " \\textit{"+entry['journal']+volume+number_pages
+    return authors+"("+entry['year']+") "+entry['title']+ ". \\textit{"+entry['journal']+volume+number_pages
 
 def build_library(verbose=False, find_duplicates=False):
 
