@@ -53,8 +53,18 @@ def remove_complex_characters_in_string(s):
     return s2
 
 
-def build_apa_citation(entry):
+def build_apa_citation(entry, AD):
     # print(entry)
+    authors = ''
+    for i, ad in enumerate(AD):
+        authors += ad['lastname']+' '
+        for fn in ad['firstname']:
+            authors += fn[0]
+        if i<(len(AD)-1):
+            authors += ', '
+        else:
+            authors += ' '
+        
     if 'number' in entry:
         number_pages = '('+entry['number']+')'
     else:
@@ -64,7 +74,7 @@ def build_apa_citation(entry):
     volume = '}'
     if 'volume' in entry:
         volume = " "+entry['volume']+volume
-    return entry['author']+" ("+entry['year']+") \textit{"+entry['journal']+volume+number_pages
+    return authors+"("+entry['year']+") "+entry['title']+ " \\textit{"+entry['journal']+volume+number_pages
 
 def build_library(verbose=False, find_duplicates=False):
 
@@ -85,7 +95,7 @@ def build_library(verbose=False, find_duplicates=False):
             LIBRARY[abbrev_of_entry] = {'correct_abbrev':true_abbrev_of_entry,
                                         'correct_intext_abbrev':true_intext_abbrev_of_entry,
                                         'intext_abbrev':intext_abbrev_of_entry,
-                                        'APA':build_apa_citation(entry)}
+                                        'APA':build_apa_citation(entry, AD)}
         except KeyError:
             print('----------------------------------------------------')
             print('problems with entry:')
@@ -149,14 +159,16 @@ if __name__=='__main__':
     elif sys.argv[-1]=='clean':
         print('[...] clean the biblio.bib file')
         DUPLICATES = find_duplicates(verbose=True)
-    elif sys.argv[1]=='check':
+    elif (len(sys.argv)>1) and (sys.argv[1]=='check'):
         LIBRARY = dict(np.load('biblio.npz'))
-        print(LIBRARY[sys.argv[2]])
+        print(LIBRARY[sys.argv[2]].item()['APA'])
     else:
-        print('--------------------------')
-        print(' need ot provide an argument, either:')
-        print(' build')
-        print(' clean')
+        print('[...] creating the library file')
+        DUPLICATES = build_library()
+        # print('--------------------------')
+        # print(' need ot provide an argument, either:')
+        # print(' build')
+        # print(' clean')
         
 
 

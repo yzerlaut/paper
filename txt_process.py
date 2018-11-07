@@ -185,19 +185,26 @@ def process_manuscript(args):
             elif (line=='* References\n') and not args.figures_only:
                 PAPER['text'] += '\small \\normalfont \n'
                 PAPER['text'] += '\subsection*{References}\n\quad'
-                iline+=2 # we progress in the lines
-                line = content[iline]
-                while (line[0]!='#') and (line[0]!='*'):
-                    key = line.split(']] ')[0].replace('[[','')
-                    new_key = key.replace('., ', '_').replace(', ', '_').replace(' ', '_')
-                    value = line.split(']] ')[1]
-                    PAPER['refs'][new_key] = key
-                    if args.journal_submission:
-                        PAPER['text'] += value+'\n'
-                    else:
-                        PAPER['text'] += '\n\hypertarget{'+new_key+'}{'+value.replace('\n', '}\n')
-                    iline+=2 # we progress in the lines
-                    line = content[iline]
+                # load libarry reference:
+                LIBRARY = np.load('biblio.npz')
+                # looping over references
+                for ref in LIBRARY.keys():
+                    if len(PAPER['text'].split(ref))>1:
+                        print(LIBRARY[ref])
+                        PAPER['text'] += LIBRARY[ref].item()['APA']+' \\newline \n'
+                # iline+=2 # we progress in the lines
+                # line = content[iline]
+                # while (line[0]!='#') and (line[0]!='*'):
+                #     key = line.split(']] ')[0].replace('[[','')
+                #     new_key = key.replace('., ', '_').replace(', ', '_').replace(' ', '_')
+                #     value = line.split(']] ')[1]
+                #     PAPER['refs'][new_key] = key
+                #     if args.journal_submission:
+                #         PAPER['text'] += value+'\n'
+                #     else:
+                #         PAPER['text'] += '\n\hypertarget{'+new_key+'}{'+value.replace('\n', '}\n')
+                #     iline+=2 # we progress in the lines
+                #     line = content[iline]
             elif (line=='* Supplementary Material\n') and args.figures_only:
                 Supplementary_Flag = True # for Figures
                 PAPER['text'] += '\\beginsupplement \n'
