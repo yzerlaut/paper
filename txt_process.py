@@ -119,8 +119,15 @@ BASIC_TEX = \
 
 from functions import *
 
+def choose_style_from_journal(args):
+
+    if (args.journal=='Nature') or (args.journal=='PloS'):
+        args.citation_style = 'number'
+        
 
 def process_manuscript(args):
+
+    choose_style_from_journal(args)
     
     Supplementary_Flag = False # for Figures
     
@@ -141,10 +148,25 @@ def process_manuscript(args):
             if len(SECTIONS[i][:15].split(key))>1:
                 PAPER[key] = SECTIONS[i]
 
+    # process figures
+    transform_preamble_into_title_props(PAPER, args)
+    
+    # process figures
     process_figures(PAPER, args)
-    process_tables(PAPER, args)
+    
+    # manuscript organization: assemble the text from the sections
     process_section_titles(PAPER, args)
+    assemble_text(PAPER, args)
+    
+    replace_text_indication_with_latex_fig(PAPER, args)
 
+    process_references(PAPER, args)
+    
+
+    with open(args.filename.replace('.txt', '.tex'), 'w') as f:
+        final_text = TEX.format(**PAPER)
+        f.write(TEX.format(**PAPER))
+        f.write(final_text)
                 
 def export_to_pdf(args):
     os.system('if [ -d "tex/" ]; then echo ""; else mkdir tex/; fi;')
@@ -185,14 +207,16 @@ if __name__=='__main__':
     parser.add_argument("-tk", "--table_key", help="Type of references to tables: either 'Table' of 'Tab.' ", default='Table')
     parser.add_argument("-p", "--print", help="print the tex file", action="store_true")
     parser.add_argument("-js", "--journal_submission", help="format for submitting to journals", action="store_true")
+    parser.add_argument("--citation_style", help="number / text ", type=str, default='text')
+    parser.add_argument("--reference_style", help="APA / [...] ", type=str, default='APA')
     parser.add_argument("-wdoc", "--with_doc_export", help="with Ms-Word export", action="store_true")
     
     args = parser.parse_args()
 
     process_manuscript(args)
     
-    # if args.with_doc_export:
-    #     export_to_docx(args)
-    # else:
-    #     export_to_pdf(args)
+    if args.with_doc_export:
+        export_to_docx(args)
+    else:
+        export_to_pdf(args)
     

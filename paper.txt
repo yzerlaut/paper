@@ -5,17 +5,17 @@ Short Authors: Author et al.
 Affiliations: 1. My first affiliation, 2. Second author affiliation
 Correspondence: firstname.lastname@domain.country
 
-* Key Points Summary
-
-- \LaTeX\, is very powerful for generating scientific manuscripts, Org-Mode/Txt-files allow to focus on the content 
-
-- Second point
-
-- Third point
-
 * Abstract
 
 *Org-Mode* is for keeping notes, maintaining TODO lists, planning projects, and authoring documents with a fast and effective plain-text system. Visit \url{http://orgmode.org/}. Here we build up a template for scientific papers with the following characteristics:Praesent blandit blandit mauris. Praesent lectus tellus, aliquet aliquam, luctus a, egestas a, turpis. Mauris lacinia lorem sit amet ipsum. Nunc quis urna dictum turpis accumsan semper.
+
+* Key Points
+
+- \LaTeX\, is very powerful for generating scientific manuscripts, Org-Mode/Txt-files allow to focus on the content 
+
+- Lorem ipsum dolor sit amet, consectetuer adipisc ing elit.
+
+- Lorem ipsum dolor sit amet, consectetuer adipisc ing elit.
 
 * Significance
 
@@ -33,8 +33,6 @@ We make a a reference to Figure {Fig1}a,c and Figure {Fig3}B and Figure {Fig2}.
 
 * Results
 
-[[Figure {Fig1} around here]]
-
 *** Section talking abour first result
 
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Etiam lobortis facilisis sem. Nullam necmi et neque pharetra sollicitudin. Praesent imperdiet mi nec ante. Donec ullamcorper, felis non sodales commodo, lectus velit ultrices augue, a dignissim nibh lectus placerat pede. Vivamus nuncnunc, molestie ut, ultricies vel, semper in, velit. Ut porttitor. Praesent in sapien. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Duis fringilla tristique neque. Sed interdum libero ut metus. Pellentesque placerat. Nam rutrum augue a leo. Morbi sed elit sit amet ante lobortis sollicitudin. Praesent blandit blandit mauris. Praesent lectus tellus, aliquet aliquam, luctus a, egestas a, turpis. Mauris lacinia lorem sit amet ipsum. Nunc quis urna dictum turpis accumsan semper. \todo{this additional analysis}
@@ -47,6 +45,10 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Etiam lobortis facilis
 \end{split}
 \right.
 \end{equation}
+
+
+[[Figure {Fig1} around here]]
+
 
 [[Figure {Fig12} around here]]
 
@@ -111,23 +113,23 @@ a,turpis. Mauris lacinia lorem sit amet ipsum. Nuncquis urna dictum
 turpis accumsan semper.
 
 
-
 #+NAME: table:1
 #+CAPTION: *And of course the awesome =Org-mode= tables interface*. So convenient, see =org= file.
 | model   | \(P_0\)(mV) | \(P_\mu\)(mV)             | \(P_\sigma\)(mV) | \(P_\tau\)(mV) |
 |---------+-------------+---------------------------+------------------+----------------|
 | simple  | 8           | 9                         |                4 |            387 |
-| complex | \(\pi/d^4\) | \(\frac{\pi}{\sqrt{28}}\) |                  |                |
+| complex | \(\pi/d^4\) | \(\frac{\pi}{\sqrt{28}}\) |                  |              3 |
+| 0       |             |                           |                  |                |
 |---------+-------------+---------------------------+------------------+----------------|
 
 
-playing with somereference here [[Destexhe et al., 2003]]
+playing with some reference here (Destexhe et al., 2003)
 
-*** Competing interests.
+*** Competing interests
 
 All manuscripts must contain a statement regarding Competing interests. If there are no competing interests, a statement to this effect must be included. All authors should disclose any conflict of interest in accordance with journal policy.
 
-*** Author contributions.
+*** Author contributions
 
 This section must state the laboratory where the experiments were performed and list the contribution (in words) of each author (using their initials) to the following aspects of the study:
 
@@ -147,11 +149,11 @@ Contributors who do not meet the above criteria for authorship should not be lis
 
 Additional information such as ‘X and Y have contributed equally to this work’ may be added as a footnote on the title page.
 
-*** Funding.
+*** Funding
 
 Authors must indicate all sources of funding, including grant numbers. If authors have not received funding, this must be stated.
 
-*** Acknowledgements.
+*** Acknowledgements
 
 Acknowledgements should be the minimum consistent with courtesy. The wording of acknowledgements of scientific assistance or advice must have been seen and approved by the persons concerned. This section should not include details of funding.
 
@@ -189,7 +191,7 @@ Patrick & 4321 & 25\\
 
 * Discussion
 
-Lorem ipsum dolor sit amet, consectetuer adipisc- ing elit. Etiam lobortis facilisis sem. Nullam nec mi et neque pharetra sollicitudin. Praesent im- perdiet mi nec ante. Donec ullamcorper, felis non sodales commodo, lectus velit ultrices augue, a dig- nissim nibh lectus placerat pede. Vivamus nunc nunc, molestie ut, ultricies vel, semper in, velit.  Ut porttitor. Praesent in sapien. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Duis fringilla tristique neque. Sed interdum libero ut metus. Pellentesque placerat. Nam rutrum augue a leo. Morbi sed elit sit amet ante lobortis sollici- tudin. Praesent blandit blandit mauris. Praesent lectus tellus, aliquet aliquam, luctus a, egestas a, turpis. Mauris lacinia lorem sit amet ipsum. Nunc quis urna dictum turpis accumsan semper.Lorem ipsum dolor sit amet, consectetuer adipisc- ing elit. Etiam lobortis facilisis sem. Nullam nec mi et neque pharetra sollicitudin. 
+Lorem ipsum dolor sit amet, consectetuer adipisc- ing elit. Etiam lobortis facilisis sem. Nullam nec mi et neque pharetra sollicitudin. Praesent im- perdiet mi nec ante. Donec ullamcorper, felis non sodales commodo, lectus velit ultrices augue, a dig- nissim nibh lectus placerat pede. Vivamus nunc nunc, molestie ut, ultricies vel, semper in, velit.  Ut porttitor. Praesent in sapien. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Duis fringilla tristique neque. Sed interdum libero ut metus. Pellentesque placerat. Nam rutrum augue a leo. Morbi sed elit sit amet ante lobortis sollici- tudin. Praesent blandit blandit mauris. Praesent lectus tellus, aliquet aliquam, luctus a, egestas a, turpis. Mauris lacinia lorem sit amet ipsum. Nunc quis urna dictum turpis accumsan semper.Lorem ipsum dolor sit amet, consectetuer adipisc- ing elit. Etiam lobortis facilisis sem. Nullam nec mi et neque pharetra sollicitudin. (Telenczuk et al., 2017; Destexhe et al., 2003; Chance et al., 2002)
 
 * Supplementary
 ** Supplementary Text
@@ -245,7 +247,7 @@ Patrick & 4321 & 25\\
 # | Anna    |     4321 |  25 |
 # | Patrick |     4321 |  25 |
 
-* Notes :noexport:
+* Notes /not exported/
 
 ** Constructing tables
 | Name    | Phone | Age |
