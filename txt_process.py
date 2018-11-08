@@ -6,11 +6,18 @@ import string
 import numpy as np
 
 NEW = []
-PAPER = {'text':'', 'refs':{},\
+PAPER = {'text':'',
+         'Preamble':'',
+         'Significance':'','Key Points':'', 'Abstract':'',
+         'Introduction':'','Methods':'','Results':'','Discussion':'',
+         'Figures':'', 'Tables':'', 'Supplementary':'',
+         'References':'',
+         'refs':{},\
          'authors':'', 'short_authors':'',
          'title':'', 'short_title':'',
          'affiliations':'', 'correspondence':'',
          'FIGS':[], 'TABLES':[], 'EQS':[]}
+
 TEX = \
 """
 %\\documentclass[8pt, a4paper, twocolumn, twoside, colorlinks]{{article}}
@@ -110,356 +117,35 @@ BASIC_TEX = \
 \\end{{document}}
 """
 
-def process_detailed_caption(caption):
-    new_caption = caption
-    for s in string.ascii_lowercase:
-        new_caption = new_caption.replace('('+s+')', '\\textbf{('+s+')}')
-        new_caption = new_caption.replace('*'+s+'*', '\\textbf{'+s+'}')
-    for s in string.ascii_uppercase:
-        new_caption = new_caption.replace('('+s+')', '\\textbf{('+s+')}')
-        new_caption = new_caption.replace('*'+s+'*', '\\textbf{'+s+'}')
-    return new_caption
+from functions import *
+
 
 def process_manuscript(args):
+    
     Supplementary_Flag = False # for Figures
+    
+    # extracting the full text from the manuscript
     with open(args.filename) as f:
         content = f.readlines()
-        iline = 0
-        line = content[iline]
-        while (line!='* Notes :noexport:\n') and (iline<len(content)):
-            line = content[iline]
+        full_text = ''
+        for c in content:
+            full_text+=c
 
-            new_line = ''
-            # if COMMENT
-            if (line[0]=='#'):
-                pass # this is a comment
-            # IF TITLE
-            elif (iline==0):
-                PAPER['title'] = line
-            # IF SHORT_TITLE
-            elif line.split('Short Title: ')[0]=='':
-                PAPER['short_title'] = line.replace('Short Title: ', '')
-            # IF AUTHORS
-            elif line.split('Authors: ')[0]=='':
-                PAPER['authors'] = line.split('Authors: ')[1].replace('}', '}$').replace('{', '$^{')
-            elif line.split('Short Authors: ')[0]=='':
-                PAPER['short_authors'] = line.split('Short Authors: ')[1]
-            # IF AFFILIATIONS
-            elif line.split('Affiliations: ')[0]=='':
-                aaff = line.split('Affiliations: ')[1]
-                for i in range(30):
-                    aaff = aaff.replace('*'+str(i)+'* ', '\\textbf{\\textsuperscript{'+str(i)+'}}')
-                PAPER['affiliations'] = aaff
-            # If Correspondence
-            elif line.split('Correspondence: ')[0]=='':
-                corresp = line.split('Correspondence: ')[1]
-                corresp = corresp.replace('[[', '\\mailto{')
-                corresp = corresp.replace(']]', '}')
-                PAPER['correspondence'] = corresp
+    # organizing the text, secion by section
+    SECTIONS = full_text.split('\n* ') # separator for the start of a given section in org-mode
+    PAPER['Preamble'] = SECTIONS[0] # text above the section is the preamble
+    for key in ['Abstract', 'Introduction', 'Methods', 'Results',\
+                'Supplementary','References', 'Figures', 'Tables',\
+                'Significance', 'Discussion', 'Key Points']:
+        for i in range(len(SECTIONS)):
+            if len(SECTIONS[i][:15].split(key))>1:
+                PAPER[key] = SECTIONS[i]
 
-            # IF SECTIONS
-            elif (line=='* Key Points Summary\n') and not args.figures_only:
-                PAPER['text'] += '\\normalsize \\bfseries \n'
-                PAPER['text'] += '\subsection*{Key Points Summary}\n'
-                PAPER['text'] += '\label{sec:key}\n'
-            elif (line=='* Significance statement\n') and not args.figures_only:
-                PAPER['text'] += '\\normalsize \\bfseries \n'
-                PAPER['text'] += '\subsection*{Significance statement}\n'
-            elif (line=='* Abstract\n') and not args.figures_only:
-                PAPER['text'] += '\\normalsize \\bfseries \n'
-                PAPER['text'] += '\subsection*{Abstract}\n'
-            elif (line=='* Introduction\n') and not args.figures_only:
-                PAPER['text'] += '\\normalsize \\normalfont \n'
-                PAPER['text'] += '\subsection*{Introduction}\n'
-            elif (line=='* Results\n') and not args.figures_only:
-                PAPER['text'] += '\\normalsize \\normalfont \n'
-                PAPER['text'] += '\subsection*{Results}\n'
-                PAPER['text'] += '\label{sec:results}\n'
-            elif (line=='* Discussion\n') and not args.figures_only:
-                PAPER['text'] += '\\normalsize \\normalfont \n'
-                PAPER['text'] += '\subsection*{Discussion}'
-            elif (line=='* Materials and Methods\n') and not args.figures_only:
-                PAPER['text'] += '\small \\normalfont \n'
-                PAPER['text'] += '\subsection*{Materials and Methods}\n'
-                PAPER['text'] += '\label{sec:methods}\n'
-            elif (line=='* References\n') and not args.figures_only:
-                PAPER['text'] += '\small \\normalfont \n'
-                PAPER['text'] += '\subsection*{References} \n'
-                # load libarry reference:
-                LIBRARY = np.load('biblio.npz')
-                # looping over references
-                for ref in LIBRARY.keys():
-                    if len(PAPER['text'].split(ref))>1:
-                        new_key = ref.replace('., ', '_').replace(', ', '_').replace(' ', '_')
-                        PAPER['text'] = PAPER['text'].replace(ref, '\\hyperlink{'+new_key+'}{'+LIBRARY[ref].item()['correct_abbrev']+'}')
-                        PAPER['text'] += '\hypertarget{'+new_key+'}{'+LIBRARY[ref].item()['APA']+'} \\newline \n'
-                # iline+=2 # we progress in the lines
-                # line = content[iline]
-                # while (line[0]!='#') and (line[0]!='*'):
-                #     key = line.split(']] ')[0].replace('[[','')
-                #     new_key = key.replace('., ', '_').replace(', ', '_').replace(' ', '_')
-                #     value = line.split(']] ')[1]
-                #     PAPER['refs'][new_key] = key
-                #     if args.journal_submission:
-                #         PAPER['text'] += value+'\n'
-                #     else:
-                #         PAPER['text'] += '\n\hypertarget{'+new_key+'}{'+value.replace('\n', '}\n')
-                #     iline+=2 # we progress in the lines
-                #     line = content[iline]
-            elif (line=='* Supplementary Material\n') and args.figures_only:
-                Supplementary_Flag = True # for Figures
-                PAPER['text'] += '\\beginsupplement \n'
-            elif (line=='* Supplementary Material\n'):
-                Supplementary_Flag = True # for Figures
-                PAPER['text'] += '\\newpage \n'
-                PAPER['text'] += '\small \\normalfont \n'
-                PAPER['text'] += '\subsection*{Supplementary Material}\n'
-                PAPER['text'] += '\label{sec:supp}\n'
-                PAPER['text'] += '\\beginsupplement \n'
+    process_figures(PAPER, args)
+    process_tables(PAPER, args)
+    process_section_titles(PAPER, args)
 
-            # IF FIGURE
-            elif (line[:11]=='*** FIGURE:'):
-                PAPER['FIGS'].append({'extent':'doublecolumn',
-                                      'width':1.,
-                                      'scale':1.,
-                                      'label':'fig'+str(len(PAPER['FIGS'])+1),
-                                      'sidecap':(0,0,0),
-                                      'wrapfig':False,
-                                      'wrapfig_space_before':0.,
-                                      'wrapfig_space_after':0.,
-                                      'number':len(PAPER['FIGS'])+1,
-                                      'supp':Supplementary_Flag})
-                PAPER['FIGS'][-1]['caption_title'] = line.replace('*** FIGURE: ', '').replace('\n', '')
-                iline+=1 # we progress in the lines
-                if len(content[iline].split('#+options'))>1: # meaning it is an option line
-                    exec("global params; params = "+content[iline].split('#+options : ')[1])
-                    for key in params.keys():
-                        PAPER['FIGS'][-1][key] = params[key]
-                    # the first remaining key is the Figure ID
-                    iline+=1 # we progress in the lines
-                PAPER['FIGS'][-1]['detailed_caption'] = process_detailed_caption(content[iline].replace('\n', ''))
-                iline+=1 # we progress in the lines
-                PAPER['FIGS'][-1]['figure_filename'] = content[iline].replace('[[','').replace(']]\n','') # we progress in the lines
-
-                if (PAPER['FIGS'][-1]['extent']=='singlecolumn') or args.figures_only:
-                    figure = 'figure'
-                else:
-                    figure = 'figure*'
-                    
-                if not args.journal_submission:
-                    if args.figures_only:
-                        PAPER['text'] += '\\hfill \\newpage \n'
-                    PAPER['text'] += '\\begin{'+figure+'}[tb!]\n'
-                    
-                    if PAPER['FIGS'][-1]['sidecap']!=(0,0,0): # meaning using minipage
-                        PAPER['text'] += '\\centering\n'
-                        PAPER['text'] += '\\begin{minipage}{'+str(PAPER['FIGS'][-1]['sidecap'][0])+'\linewidth}\n'
-                        PAPER['text'] += '\\includegraphics[scale='+str(PAPER['FIGS'][-1]['scale'])+']{'+\
-                                                                   PAPER['FIGS'][-1]['figure_filename']+'}\n'                       
-                        PAPER['text'] += '\\end{minipage}\n'
-                        PAPER['text'] += '\\hspace{'+str(PAPER['FIGS'][-1]['sidecap'][1])+'\linewidth}\n'
-                        PAPER['text'] += '\\begin{minipage}{'+str(PAPER['FIGS'][-1]['sidecap'][2])+'\linewidth}\n'
-                        PAPER['text'] += '\\caption{ \\label{fig:'+PAPER['FIGS'][-1]['label']+'} \n \small \\bfseries '+\
-                                     PAPER['FIGS'][-1]['caption_title']+\
-                                     ' \\normalfont '+PAPER['FIGS'][-1]['detailed_caption']+' \\normalsize }\n'
-                        PAPER['text'] += '\\end{minipage}\n'
-                        
-                    elif PAPER['FIGS'][-1]['wrapfig']:
-                        PAPER['text'] += '\\captionsetup{labelformat=empty,font=small}'
-                        PAPER['text'] += '\\caption{\\label{fig:'+PAPER['FIGS'][-1]['label']+'} \\vspace{-2em} }'
-                        PAPER['text'] += '\\vspace{'+str(PAPER['FIGS'][-1]['wrapfig_space_before'])+'em}\n'
-                        PAPER['text'] += '\\begin{wrapfigure}{l}{'+str(PAPER['FIGS'][-1]['width'])+'\linewidth}\n'
-                        PAPER['text'] += '\\includegraphics[scale='+str(PAPER['FIGS'][-1]['scale'])+']{'+\
-                                         PAPER['FIGS'][-1]['figure_filename']+'}\n'
-                        PAPER['text'] += '\\vspace{'+str(PAPER['FIGS'][-1]['wrapfig_space_after'])+'em}\n'
-                        PAPER['text'] += '\\end{wrapfigure}\n'
-                        PAPER['text'] += '\\small \\bfseries Figure \\ref{fig:'+PAPER['FIGS'][-1]['label']+'}. '+\
-                                         PAPER['FIGS'][-1]['caption_title']+\
-                                         ' \\normalfont '+PAPER['FIGS'][-1]['detailed_caption']+' \\normalsize \n'
-                        
-                    else:
-                        PAPER['text'] += '\\centering\n'
-                        PAPER['text'] += '\\vspace{'+str(PAPER['FIGS'][-1]['wrapfig_space_before'])+'em}\n'
-                        PAPER['text'] += '\\includegraphics[scale='+str(PAPER['FIGS'][-1]['scale'])+']{'+\
-                                                                   PAPER['FIGS'][-1]['figure_filename']+'}\n'
-                        PAPER['text'] += '\\vspace{'+str(PAPER['FIGS'][-1]['wrapfig_space_after'])+'em}\n'
-                        PAPER['text'] += '\\caption{ \\label{fig:'+PAPER['FIGS'][-1]['label']+'} \n \small \\bfseries '+\
-                                     PAPER['FIGS'][-1]['caption_title']+\
-                                     ' \\normalfont '+PAPER['FIGS'][-1]['detailed_caption']+' \\normalsize }\n'
-
-                    PAPER['text'] += '\\end{'+figure+'}\n'
-
-            # IF TABLE
-            # elif (line[:10]=='*** TABLE:'):
-            #     PAPER['TABLES'].append({'extent':'doublecolumn', 'width':'',
-            #                             'label':'fig'+str(len(PAPER['TABLES'])+1),
-            #                             'sidecap':(0,0,0),
-            #                             'number':len(PAPER['TABLES'])+1,
-            #                             'supp':Supplementary_Flag})
-            #     PAPER['TABLES'][-1]['caption_title'] = line.replace('*** TABLE: ', '').replace('\n', '')
-            #     iline+=1 # we progress in the lines
-            #     if len(content[iline].split('#+options'))>1: # meaning it is an option line
-            #         exec("global params; params = "+content[iline].split('#+options : ')[1])
-            #         for key in params.keys():
-            #             PAPER['TABLES'][-1][key] = params[key]
-            #         # the first remaining key is the Table ID
-            #         iline+=1 # we progress in the lines
-            #     PAPER['TABLES'][-1]['table_content'] = content[iline].replace('\n', '')
-
-            #     if (PAPER['TABLES'][-1]['extent']=='singlecolumn') or args.figures_only:
-            #         table = 'table'
-            #     else:
-            #         table = 'table*'
-                    
-            #     if not args.journal_submission:
-            #         if args.figures_only:
-            #             PAPER['text'] += '\\hfill \\newpage \n'
-            #         PAPER['text'] += '\\begin{'+table+'}[tb!]\n'
-            #         PAPER['text'] += '\\centering\n'
-            #         if PAPER['TABLES'][-1]['sidecap']!=(0,0,0): # meaning using minipage
-            #             PAPER['text'] += '\\begin{minipage}{'+str(PAPER['TABLES'][-1]['sidecap'][0])+'\linewidth}\n'
-            #         PAPER['text'] += PAPER['TABLES'][-1]['table_content']
-            #         if PAPER['TABLES'][-1]['sidecap']!=(0,0,0): # meaning using minipage
-            #             PAPER['text'] += '\\end{minipage}\n'
-            #             PAPER['text'] += '\\hspace{'+str(PAPER['TABLES'][-1]['sidecap'][1])+'\linewidth}\n'
-            #             PAPER['text'] += '\\begin{minipage}{'+str(PAPER['TABLES'][-1]['sidecap'][2])+'\linewidth}\n'
-            #         PAPER['text'] += '\\caption{ \\label{table:'+PAPER['TABLES'][-1]['label']+'} \n \small \\bfseries '+\
-            #                          PAPER['TABLES'][-1]['caption_title']+' \\normalsize }\n'
-            #         if PAPER['TABLES'][-1]['sidecap']!=(0,0,0): # meaning using minipage
-            #             PAPER['text'] += '\\end{minipage}\n'
-            #         PAPER['text'] += '\\end{'+table+'}\n'
-                    
-            # IF SUBSECTIONS
-            elif (line[:4]=='*** ') and not args.figures_only:
-                PAPER['text'] += '\\subsubsection*{'+line.replace('*** ', '')+'}'
-                subtitle = line.replace('*** ', '').split(' ')
-                new_subtitle = subtitle[0]
-                for i in range(min([3,len(subtitle)])):
-                    new_subtitle += '_'+subtitle[i]
-                PAPER['text'] += '\label{sec:'+new_subtitle+'}\n'
-
-            elif (line!='* Notes :noexport:\n') and not args.figures_only:
-                PAPER['text'] += line
-            else:
-                pass
-
-            iline+=1
-
-    ## LOOPING ON REFERENCES FOR CROSS REFERENCING
-    # if not args.journal_submission:
-    #     for new_key, key  in PAPER['refs'].items():
-    #         PAPER['text'] = PAPER['text'].replace(key, '\\hyperlink{'+new_key+'}{'+key+'}')
-    #         # now reformatting for the case: in Author et al. (20XX)
-    #         new_string = key.replace(', ', ' (')+')'
-    #         PAPER['text'] = PAPER['text'].replace(new_string, '\\hyperlink{'+new_key+'}{'+new_string+'}')
-
-    ## LOOPING ON FIGURES FOR CROSS REFERENCING
-    if not args.journal_submission:
-        for fig in PAPER['FIGS']:
-            figure_string = 'Figure {'+fig['label']+'}'
-            ii, ref_loc = 0, PAPER['text'].find(figure_string)
-            while ref_loc>0:
-                ii += ref_loc
-                next_string = PAPER['text'][ii+len(figure_string):ii+100+len(figure_string)]
-                to_be_added, to_be_kept = '', PAPER['text'][ii+len(figure_string):ii+100+len(figure_string)]
-                s, jj = next_string[0], 0
-                while ((s in string.ascii_lowercase) or (s in string.ascii_uppercase) or (s==',') or (s=='(') or (s==')') or (s=='-')) and (jj<6):
-                    to_be_added += s
-                    to_be_kept = to_be_kept[1:]
-                    jj+=1
-                    s = next_string[jj]
-                if (jj>0) and (s==' ') and (to_be_added[-1]==','): # to handle the case Figure 3c, while keeping Figure 3c,d
-                    to_be_kept = ','+to_be_kept
-                    to_be_added = to_be_added[:-1]
-                PAPER['text'] = PAPER['text'].replace(figure_string+next_string, '\\hyperref[{fig:'+\
-                                                      fig['label']+'}]{'+args.figure_key+'\,\\ref*{fig:'+fig['label']+'}'+to_be_added+'}'+to_be_kept)
-                # and find the next occurence
-                ref_loc = PAPER['text'][ii:].find(figure_string)
-    else:
-        # simple substitution with \ref
-        for fig in PAPER['FIGS']:
-            PAPER['text'] = PAPER['text'].replace('Figure {'+fig['label']+'}', args.figure_key+'\,'+str(fig['number']))
-                    
-    ## LOOKING FOR REFERENCED TABLES
-    table_string = '\label{table:'
-    ii, ref_loc = 0, PAPER['text'].find(table_string)
-    while ref_loc>0:
-        ii += ref_loc+len(table_string)
-        next_string = PAPER['text'][ii:ii+100]
-        table_label, jj = '', 0
-        while next_string[jj]!='}':
-            table_label += next_string[jj]
-            jj+=1
-        PAPER['TABLES'].append(table_label)
-        ref_loc = PAPER['text'][ii:].find(table_string)
-        
-    ## LOOPING ON TABLES FOR CROSS REFERENCING
-    for table in PAPER['TABLES']:
-        table_string = 'Table {'+table+'}'
-        if not args.journal_submission:
-            PAPER['text'] = PAPER['text'].replace(table_string,
-                                                  '\\hyperref[{table:'+table+'}]{'+\
-                                                  args.table_key+'\,\\ref*{table:'+table+'}}')
-        else:
-            # simple substitution with \ref
-            PAPER['text'] = PAPER['text'].replace('Table {'+table+'}', args.table_key+'\,\\ref{table:'+table+'}')
-            
-    ## LOOKING FOR REFERENCED EQUATIONS
-    equation_string = '\label{eq:'
-    ii, ref_loc = 0, PAPER['text'].find(equation_string)
-    while ref_loc>0:
-        ii += ref_loc+len(equation_string)
-        next_string = PAPER['text'][ii:ii+100]
-        eq_label, jj = '', 0
-        while next_string[jj]!='}':
-            eq_label += next_string[jj]
-            jj+=1
-        PAPER['EQS'].append(eq_label)
-        ref_loc = PAPER['text'][ii:].find(equation_string)
-
-    ## LOOPING ON EQUATIONS FOR CROSS REFERENCING
-    for eq in PAPER['EQS']:
-        equation_string = 'Equation {'+eq+'}'
-        if not args.journal_submission:
-            PAPER['text'] = PAPER['text'].replace(equation_string,
-                                                  '\\hyperref[{eq:'+eq+'}]{'+\
-                                                  args.equation_key+'\,\\ref*{eq:'+eq+'}}')
-        else:
-            # simple substitution with \ref
-            PAPER['text'] = PAPER['text'].replace('Equation {'+eq+'}', args.equation_key+'\,\\ref{eq:'+eq+'}')
-    
-    if args.journal_submission:
-        # we add the figures at the end
-        PAPER['text'] += '\\newpage \\subsection*{Figures} \n'
-        for i, fig in enumerate(PAPER['FIGS']):
-            PAPER['text'] += '\\begin{center} \\includegraphics{'+fig['figure_filename']+'} \\end{center} \n'
-            PAPER['text'] += '\\qquad \\newline \\qquad \\newline \n'
-            PAPER['text'] += '\\textbf{ Figure '+str(i+1)+'. '+fig['caption_title']+\
-                             '} '+fig['detailed_caption']+'\n'
-            PAPER['text'] += '\\qquad \\newpage\n'
-
-    # to remove the org-mode formatting
-    PAPER['text'] = PAPER['text'].replace('[[', '')
-    PAPER['text'] = PAPER['text'].replace(']]', '')
-
-    if os.path.isfile(args.analysis_output_file):
-        for key, val in dict(np.load(args.analysis_output_file)).items():
-            PAPER['text'] = PAPER['text'].replace('{'+key+'}', str(val))
-    else:
-        print('No analysis file used ...')
-        print('"'+args.analysis_output_file+'" not found')
-    final_text = BASIC_TEX.format(**PAPER)
-    with open(args.filename.replace('.txt', '.tex'), 'w') as f:
-        if args.journal_submission or args.figures_only:
-            final_text = BASIC_TEX.format(**PAPER)
-        else:
-            final_text = TEX.format(**PAPER)
-            f.write(TEX.format(**PAPER))
-        if args.print:
-            print(final_text)
-        f.write(final_text)
-
-
+                
 def export_to_pdf(args):
     os.system('if [ -d "tex/" ]; then echo ""; else mkdir tex/; fi;')
     tex_file = args.filename.replace('.txt', '.tex')
@@ -490,6 +176,7 @@ if __name__=='__main__':
     ,formatter_class=argparse.RawTextHelpFormatter)
     
     parser.add_argument("--filename", '-f', help="filename",type=str, default='paper.txt')
+    parser.add_argument('-j', "--journal", help="journal type", type=str, default='preprint')
     parser.add_argument('-af', "--analysis_output_file", help="analysis filename", type=str, default='paper.npz')
     parser.add_argument("-r", "--report", help="", action="store_true")
     parser.add_argument("-fo", "--figures_only", help="", action="store_true")
@@ -504,8 +191,8 @@ if __name__=='__main__':
 
     process_manuscript(args)
     
-    if args.with_doc_export:
-        export_to_docx(args)
-    else:
-        export_to_pdf(args)
+    # if args.with_doc_export:
+    #     export_to_docx(args)
+    # else:
+    #     export_to_pdf(args)
     
