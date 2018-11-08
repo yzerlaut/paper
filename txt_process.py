@@ -20,8 +20,8 @@ PAPER = {'text':'',
 
 TEX = \
 """
-%\\documentclass[8pt, a4paper, twocolumn, twoside, colorlinks]{{article}}
-\\documentclass[9pt, a4paper, colorlinks]{{article}}
+\\documentclass[8pt, a4paper, twocolumn, twoside, colorlinks]{{article}}
+%\\documentclass[9pt, a4paper, colorlinks]{{article}}
 \\usepackage[utf8]{{inputenc}}
 \\usepackage[T1]{{fontenc}}
 \\usepackage{{longtable, float, wrapfig, rotating, graphicx, multirow}}
@@ -44,8 +44,8 @@ TEX = \
 % \\def\\todo#1{{\\marginpar{{\\colorbox{{red}}{{TODO}}}}{{(TODO: \\textit{{#1}})}}}}
 % \\def\\todo#1{{\\colorbox{{red}}{{TODO}}{{(\\underline{{#1}})}}}}
 % \\def\\note#1{{\\colorbox{{green}}{{\\underline{{#1}}}}}}
-\\def\\todo#1{{\\colorbox{{red}}{{TODO: \\underline{{#1}}}}{{}}}}
-\\def\\note#1{{\\colorbox{{green}}{{\\underline{{#1}}}}{{}}}}
+\\def\\TODO#1{{\\colorbox{{red}}{{TODO: \\underline{{#1}}}}{{}}}}
+\\def\\NOTE#1{{\\colorbox{{green}}{{\\underline{{#1}}}}{{}}}}
 \\usepackage{{fancyhdr}} % Headers and footers
 \\pagestyle{{fancy}} % All pages have headers and footers
 \\fancyhead{{}} % Blank out the default header
@@ -54,7 +54,7 @@ TEX = \
 \\fancyfoot[C]{{\\thepage}} % Custom footer text
 \\makeatletter
 \\usepackage{{titlesec}} % Allows customization of titles
-\\def\\@maketitle{{  \\newpage  \\null  \\vspace{{-10mm}}   \\begin{{center}}  \\let \\footnote \\thanks    {{\\Large \\textbf{{\\@title}} \\par}}    \\vskip 1.2em    {{\\large      \\lineskip .5em      \\begin{{tabular}}[t]{{c}}        \\scshape      \\normalsize        \\@author      \\end{{tabular}}\\par}}   \\vskip .6em   {{ \\@date}}  \\end{{center}}  \\par  \\vskip 1em}}
+\\def\\@maketitle{{  \\newpage  \\null  \\vspace{{-10mm}}   \\begin{{center}}  \\let \\footnote \\thanks    {{\\Large \\textbf{{\\@title}} \\par}}    \\vskip 1.2em    {{\\large      \\lineskip .5em      \\begin{{tabular}}[t]{{c}}        \\scshape      \\normalsize        \\@author      \\end{{tabular}}\\par}}   \\vskip .6em   {{ \\@date}}  \\end{{center}}  \\par  \\vskip 0.1em}}
 \\makeatother
 
 \\newcommand{{\\beginsupplement}}{{
@@ -84,7 +84,6 @@ TEX = \
 *Correspondence: 
 {correspondence} 
 }}
-
 
 {text}
 
@@ -153,21 +152,28 @@ def process_manuscript(args):
     
     # process figures
     process_figures(PAPER, args)
+    process_tables(PAPER, args)
     
     # manuscript organization: assemble the text from the sections
     process_section_titles(PAPER, args)
     assemble_text(PAPER, args)
-    
+
+    # first including the latex figures
     replace_text_indication_with_latex_fig(PAPER, args)
+    replace_text_indication_with_latex_table(PAPER, args)
+    # then cross-referencing
+    include_figure_cross_referencing(PAPER, args)
+    include_table_cross_referencing(PAPER, args)
 
     process_references(PAPER, args)
-    
+    process_equations(PAPER, args)
 
     with open(args.filename.replace('.txt', '.tex'), 'w') as f:
         final_text = TEX.format(**PAPER)
         f.write(TEX.format(**PAPER))
         f.write(final_text)
-                
+
+        
 def export_to_pdf(args):
     os.system('if [ -d "tex/" ]; then echo ""; else mkdir tex/; fi;')
     tex_file = args.filename.replace('.txt', '.tex')
