@@ -35,11 +35,30 @@ def transform_preamble_into_title_props(PAPER, args):
             corresp = corresp.replace('[[', '\\mailto{')
             corresp = corresp.replace(']]', '}')
             PAPER['correspondence'] = corresp
+        # If Conflict of Interset
+        elif line.split('Conflict of interest: ')[0]=='':
+            conflict = line.split('Conflict of interest: ')[1]
+            PAPER['conflict_of_interest'] = conflict
+        # If Acknowledgments
+        elif line.split('Acknowledgements: ')[0]=='':
+            conflict = line.split('Acknowledgements: ')[1]
+            PAPER['Acknowledgements'] = conflict
+        # If Keywords
+        elif line.split('Keywords: ')[0]=='':
+            PAPER['Keywords'] = line.split('Keywords: ')[1]
+        # If Funding
+        elif line.split('Funding: ')[0]=='':
+            PAPER['funding'] = line.split('Funding: ')[1]
         else:
             print('-------------------------------')
             print('the following line in the Premable was not recognized: ')
             print(line)
 
+    for key in ['conflict_of_interest', 'funding', 'correspondence', 'Acknowledgements']:
+        if key not in PAPER:
+            PAPER[key] = ' [...] '
+    
+            
 #########################################################################
 ########## HANDLING EQUATIONS ###########################################
 #########################################################################
@@ -153,7 +172,7 @@ def insert_figure(PAPER, FIG, args):
 
     FIG['detailed_caption'] = process_detailed_caption(FIG['detailed_caption'])
     
-    if (FIG['extent']=='singlecolumn') or args.figures_only:
+    if (FIG['extent']=='singlecolumn') or args.figures_only or args.manuscript_submission:
         figure = 'figure'
     else:
         figure = 'figure*'
@@ -161,7 +180,14 @@ def insert_figure(PAPER, FIG, args):
     figure_text = ''
     figure_text += '\\begin{'+figure+'}[tb!]\n'
                     
-    if 'sidecap' in FIG: # meaning using minipage
+    if args.manuscript_submission: # meaning using minipage
+        figure_text += '\\centering\n'
+        figure_text += '\\includegraphics[scale=1.]{'+FIG['file']+'}\n'                       
+        figure_text += '\\caption{ \\label{fig:'+FIG['label']+'} \n \small \\bfseries '+\
+                       FIG['caption_title']+\
+                       ' \\normalfont '+FIG['detailed_caption']+' \\normalsize }\n'
+        
+    elif 'sidecap' in FIG: # meaning using minipage
         figure_text += '\\centering\n'
         figure_text += '\\begin{minipage}{'+str(FIG['sidecap'][0])+'\linewidth}\n'
         figure_text += '\\includegraphics[scale='+str(FIG['scale'])+']{'+\
@@ -186,7 +212,6 @@ def insert_figure(PAPER, FIG, args):
         figure_text += '\\small \\bfseries Figure \\ref{fig:'+FIG['label']+'}. '+\
                        FIG['caption_title']+\
                        ' \\normalfont '+FIG['detailed_caption']+' \\normalsize \n'
-                        
     else:
         figure_text += '\\centering\n'
         figure_text += '\\vspace{'+str(FIG['wrapfig_space_before'])+'em}\n'
@@ -261,11 +286,25 @@ def include_figure_cross_referencing(PAPER, args):
 ########## HANDLING SECTOINS ##############################################
 #########################################################################
 
+def count_words_per_sections(PAPER):
+    """
+    just using the "space" has the default word separator
+    """
+    for section in ['Abstract', 'Introduction', 'Discussion', 'Methods', 'Results']:
+        PAPER['Num_Words_of_'+section] = str(len(PAPER[section].replace(section+'\n', '').split(' ')))
+    
+    
+    
 def process_section_titles(PAPER, args):
     """
     
     """
-    PAPER['Methods'] = PAPER['Methods'].replace('Methods\n', '\small \\normalfont \n \subsection*{Materials and Methods}\n \label{sec:methods} \n')
+    # before making latex substitutions, we count the words
+    count_words_per_sections(PAPER)
+    
+    PAPER['Abstract'] = PAPER['Abstract'].replace('Abstract\n', '')
+    PAPER['Significance'] = PAPER['Significance'].replace('Significance\n', '')
+    PAPER['Methods'] = PAPER['Methods'].replace('Methods\n','\small \\normalfont \n \subsection*{Materials and Methods}\n \label{sec:methods} \n')
     PAPER['Results'] = PAPER['Results'].replace('Results\n', '\\normalsize \\normalfont \n \subsection*{Results}\n')
     PAPER['Introduction'] = PAPER['Introduction'].replace('Introduction\n', '\\normalsize \\normalfont \n \subsection*{Introduction}\n')
     PAPER['Discussion'] = PAPER['Discussion'].replace('Discussion\n', '\\normalsize \\normalfont \n \subsection*{Discussion}\n')
@@ -343,7 +382,6 @@ def process_references(PAPER, args):
     PAPER['text'] += PAPER['References']
         
 
-    
 #########################################################################
 ########## MANUSCRIPT ORGANIZATION ######################################
 #########################################################################
@@ -351,14 +389,17 @@ def process_references(PAPER, args):
 def assemble_text(PAPER, args):
 
     PAPER['text'] = ''
-    
+
+    # this is now donw in the tex_templates.py
+    """
     if args.journal=='Cell':
         PAPER['Abstract'] = PAPER['Abstract'].replace('Abstract', '\\bfseries \\normalsize \n \subsection*{Summary}')
     else:
         PAPER['Abstract'] = PAPER['Abstract'].replace('Abstract', '\\bfseries \\normalsize \n \subsection*{Abstract}')
         PAPER['Abstract'] = PAPER['Abstract'].replace('Abstract', '')
+    """
         
-    PAPER['text'] += '\n  '+PAPER['Abstract']
+    # PAPER['text'] += '\n  '+PAPER['Abstract']
 
     for key in ['Introduction', 'Results', 'Methods', 'Discussion']:
         PAPER['text'] += PAPER[key]
@@ -366,3 +407,9 @@ def assemble_text(PAPER, args):
     process_subsection_titles(PAPER, args)
 
 
+def final_manuscript_analysis(PAPER, args):
+
+    PAPER['Num_of_Tables'] = len(PAPER['TABLES'])
+    PAPER['Num_of_Figures'] = len(PAPER['FIGS'])
+    
+    

@@ -1,7 +1,6 @@
 TEX = \
 """
 \\documentclass[8pt, a4paper, twocolumn, twoside, colorlinks]{{article}}
-%\\documentclass[9pt, a4paper, colorlinks]{{article}}
 \\usepackage[utf8]{{inputenc}}
 \\usepackage[T1]{{fontenc}}
 \\usepackage{{longtable, float, wrapfig, rotating, graphicx, multirow}}
@@ -67,6 +66,60 @@ TEX = \
 
 {text}
 
+\\end{{document}}
+"""
+
+JNEUROSCI = \
+"""
+\\documentclass[9pt, a4paper, colorlinks]{{article}}
+\\linespread{{1.5}}
+\\usepackage[utf8]{{inputenc}}
+\\usepackage[T1]{{fontenc, fixltx2e, graphicx, longtable, float, wrapfig, rotating, graphicx}}
+\\usepackage{{amsmath, textcomp, marvosym, wasysym, amssymb, lmodern}}
+\\usepackage{{hyperref}}
+\\hypersetup{{allcolors = [rgb]{{0.1,0.1,0.6}} }} % to have all the hyperlinks in 1 color
+\\usepackage[utf8]{{inputenc}}
+\\usepackage[T1]{{fontenc}}
+\\usepackage{{geometry}}
+\\geometry{{a4paper,total={{210mm,297mm}}, left=20mm, right=20mm, top=25mm, bottom=25mm, bindingoffset=0mm}}
+\\usepackage{{lineno}}
+\\title{{ {title} }}
+\\author{{ {authors}  }}
+\\date{{ \\vspace{{ 2cm }} }}
+
+\\begin{{document}}
+\\maketitle
+
+\\underline{{\\textsc{{Affiliations:}}}} {affiliations} \\newline \\vspace{{ 1mm }}
+
+\\underline{{\\textsc{{Abbreviated Title:}}}} {short_title} \\newline \\vspace{{ 1mm }}
+
+\\underline{{\\textsc{{Correspondence:}}}} {correspondence} \\newline \\vspace{{ 1mm }}
+
+\\underline{{\\textsc{{Keywords:}}}} {Keywords} \\newline \\vspace{{ 1mm }}
+
+\\underline{{\\textsc{{Number of Figures:}}}} {Num_of_Figures} \\newline \\vspace{{ 1mm }}
+
+\\underline{{\\textsc{{Number of Tables:}}}}  {Num_of_Tables} \\newline \\vspace{{ 1mm }}
+
+\\underline{{\\textsc{{Number of Words:}}}} Abstract ({Num_Words_of_Abstract} words), Introduction ({Num_Words_of_Introduction} words), Discussion ({Num_Words_of_Discussion} words) \\newline \\vspace{{ 1mm }}
+
+\\underline{{\\textsc{{Conflict of Interest:}}}} {conflict_of_interest} \\newline \\vspace{{ 1mm }}
+
+\\underline{{\\textsc{{Acknowledgements:}}}} {Acknowledgements} {Funding} \\newline \\vspace{{ 1mm }}
+
+\\newpage 
+\\linenumbers
+
+\\subsection*{{Abstract}}
+\\bfseries
+{Abstract}
+\\normalfont
+
+\\subsection*{{Significance Statement}}
+{Significance}
+
+{text}
 \\end{{document}}
 """
 

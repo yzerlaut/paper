@@ -1,37 +1,62 @@
 Title: A template for scientific papers
 Short Title: Paper Template
-Authors: First Author{1}, Second Author*{1,2}
+Authors: First Author{1}, Second Author{1,2}*
 Short Authors: Author et al.
 Affiliations: 1. My first affiliation, 2. Second author affiliation
 Correspondence: firstname.lastname@domain.country
+Keywords: scientific papers; biology journals; txt files; Org-Mode; $\LaTeX$
+Conflict of interest: All manuscripts must contain a statement regarding Competing interests. If there are no competing interests, a statement to this effect must be included. All authors should disclose any conflict of interest in accordance with journal policy.
+Acknowledgements: Acknowledgements should be the minimum consistent with courtesy. The wording of acknowledgements of scientific assistance or advice must have been seen and approved by the persons concerned. This section should not include details of funding. 
+Funding: Authors must indicate all sources of funding, including grant numbers. If authors have not received funding, this must be stated.
 
 * Abstract
 
-Org-Mode is for keeping notes, maintaining TODO lists, planning projects, and authoring documents with a fast and effective plain-text system. Visit \url{http://orgmode.org/}. Here we build up a template for scientific papers with the following characteristics:Praesent blandit blandit mauris. Praesent lectus tellus, aliquet aliquam, luctus a, egestas a, turpis. Mauris lacinia lorem sit amet ipsum. Nunc quis urna dictum turpis accumsan semper.
-
-* Key Points
-
-- \LaTeX\, is very powerful for generating scientific manuscripts, Org-Mode/Txt-files allow to focus on the content 
-
-- Lorem ipsum dolor sit amet, consectetuer adipisc ing elit.
-
-- Lorem ipsum dolor sit amet, consectetuer adipisc ing elit.
+Org-Mode is for keeping notes, maintaining TODO lists, planning
+projects, and authoring documents with a fast and effective plain-text
+system. Visit \url{http://orgmode.org/}. Here we build up a template
+for scientific papers with the following characteristics:Praesent
+blandit blandit mauris. Praesent lectus tellus, aliquet aliquam,
+luctus a, egestas a, turpis. Mauris lacinia lorem sit amet ipsum. Nunc
+quis urna dictum turpis accumsan semper. Sed interdum libero ut
+metus. Pellentesque placerat. Nam rutrum augue a leo. Morbi sed elit
+sit amet ante lobortis sollicitudin. Praesent blandit blandit
+mauris. Praesent lectus tellus, aliquet aliquam, luctus a, egestas a,
+turpis. Mauris lacinia lorem sit amet ipsum. Nunc quis urna dictum
+turpis accumsan semper.
 
 * Significance
 
-Lorem ipsum dolor sit amet, consectetuer adipisc ing elit. Etiam lobortis facilisis sem. Nullam nec mi et neque pharetra sollicitudin. Praesent imperdiet mi nec ante. Donec ullamcorper, felis non sodales commodo, lectus velit ultrices augue, a dignissim nibh lectus placerat pede. Vivamus nunc nunc, molestie ut, ultricies vel, semper in, velit.  Ut porttitor. Praesent in sapien. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Duis fringilla tristique neque. Sed interdum libero ut metus. Pellentesque placerat. Nam rutrum augue a leo. Morbi sed elit sit amet ante lobortis sollicitudin. Praesent blandit blandit mauris. Praesent lectus tellus, aliquet aliquam, luctus a, egestas a, turpis. Mauris lacinia lorem sit amet ipsum. Nunc quis urna dictum turpis accumsan semper.
+Lorem ipsum dolor sit amet, consectetuer adipisc ing elit. Etiam
+lobortis facilisis sem. Nullam nec mi et neque pharetra
+sollicitudin. Praesent imperdiet mi nec ante. Donec ullamcorper, felis
+non sodales commodo, lectus velit ultrices augue, a dignissim nibh
+lectus placerat pede. Vivamus nunc nunc, molestie ut, ultricies vel,
+semper in, velit.  Ut porttitor. Praesent in sapien. Lorem ipsum dolor
+sit amet, consectetuer adipiscing elit. Duis fringilla tristique
+neque.
 
 * Introduction
 
-we can play with references (Telenczuk et al., 2017; Destexhe et al., 2003; Chance et al., 2002) and also include them in text, such as in Destexhe et al. (2003). We make a a reference to Figure {Fig1}a,c and Figure {Fig3}B and Figure {Fig2}(ii).
+We can play with references (Telenczuk et al., 2017; Destexhe et al.,
+2003; Chance et al., 2002) and also include them in text, such as in
+Destexhe et al. (2003). We make a a reference to Figure {Fig1}a,c and
+Figure {Fig3}B and Figure {Fig2}(ii).
 
-Together with a reference to Equation {first} and Equation {eq1} and to Table {Tab1} and to Table {Tab2}.
+Together with a reference to Equation {first} and Equation {eq1} and
+to Table {Tab1} and to Table {Tab2}.
 
-Lorem ipsum dolor sit amet, consectetuer adipisc- ing elit. Etiam lobortis facilisis sem. Nullam nec mi et neque pharetra sollicitudin. Praesent im- perdiet mi nec ante. Donec ullamcorper, felis non sodales commodo, lectus velit ultrices augue, a dig- nissim nibh lectus placerat pede.
+Lorem ipsum dolor sit amet, consectetuer adipisc- ing elit. Etiam
+lobortis facilisis sem. Nullam nec mi et neque pharetra
+sollicitudin. Praesent im- perdiet mi nec ante. Donec ullamcorper,
+felis non sodales commodo, lectus velit ultrices augue, a dig- nissim
+nibh lectus placerat pede.
 
-we can play with references (Destexhe et al., 2003; Chance et al., 2002) and also include them in text, such as in Destexhe et al. (2003). \NOTE{add another reference here !}
+we can play with references (Destexhe et al., 2003; Chance et
+al., 2002) and also include them in text, such as in Destexhe et
+al. (2003). \NOTE{add another reference here !}
 
-We make a a reference to Figure {Fig1}a,c and Figure {Fig3}B and Figure {Fig2}.
+We make a a reference to Figure {Fig1}a,c and Figure {Fig3}B and
+Figure {Fig2}.
 
 * Results
 
@@ -121,38 +146,6 @@ turpis accumsan semper.
 
 
 playing with some reference here (Destexhe et al., 2003)
-
-*** Competing interests
-
-All manuscripts must contain a statement regarding Competing interests. If there are no competing interests, a statement to this effect must be included. All authors should disclose any conflict of interest in accordance with journal policy.
-
-*** Author contributions
-
-This section must state the laboratory where the experiments were performed and list the contribution (in words) of each author (using their initials) to the following aspects of the study:
-
-    1. conception or design of the work; or
-    2. acquisition, analysis, or interpretation of data for the work; AND
-    3. drafting the work or revising it critically for important intellectual content.
-
-All authors must have contributed to 1 or 2 AND 3.
-
-This section must also confirm that all authors:
-
-    4. approved the final version of the manuscript; AND
-    5. agree to be accountable for all aspects of the work in ensuring that questions related to the accuracy or integrity of any part of the work are appropriately investigated and resolved; AND
-    6. all persons designated as authors qualify for authorship, and all those who qualify for authorship are listed.
-
-Contributors who do not meet the above criteria for authorship should not be listed as authors, but have their contribution (e.g. acquisition of funding, general supervision of a research group, general administrative support, writing assistance, technical editing, language editing, or proofreading) listed in the Acknowledgements.
-
-Additional information such as ‘X and Y have contributed equally to this work’ may be added as a footnote on the title page.
-
-*** Funding
-
-Authors must indicate all sources of funding, including grant numbers. If authors have not received funding, this must be stated.
-
-*** Acknowledgements
-
-Acknowledgements should be the minimum consistent with courtesy. The wording of acknowledgements of scientific assistance or advice must have been seen and approved by the persons concerned. This section should not include details of funding.
 
 * Figures
 

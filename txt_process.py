@@ -9,7 +9,8 @@ from functions import *
 NEW = []
 PAPER = {'text':'',
          'Preamble':'',
-         'Significance':'','Key Points':'', 'Abstract':'',
+         'Abstract':'',
+         'Significance':'','Key Points':'','Keywords':'', 'Acknowledgements':'', 'Funding':'',
          'Introduction':'','Methods':'','Results':'','Discussion':'',
          'Figures':'', 'Tables':'', 'Supplementary':'',
          'References':'',
@@ -22,19 +23,21 @@ PAPER = {'text':'',
 
 def choose_style_from_journal(args):
 
-    if (args.journal=='Nature') or (args.journal=='PloS'):
-        args.citation_style = 'number'
-    elif (args.journal=='preprint'):
+    PAPER['TEX'] = BASIC_TEX
+    if (args.journal=='preprint'):
         PAPER['TEX'] = TEX
-    else:
-        PAPER['TEX'] = BASIC_TEX
+    elif (args.journal=='Nature'):
+        args.citation_style = 'number'
+    elif (args.journal=='PloS'):
+        args.citation_style = 'number'
+    elif (args.journal=='JNeurosci'):
+        args.manuscript_submission = True
+        PAPER['TEX'] = JNEUROSCI
 
         
-
 def process_manuscript(args):
 
     choose_style_from_journal(args)
-    
     
     # extracting the full text from the manuscript
     with open(args.filename) as f:
@@ -62,6 +65,7 @@ def process_manuscript(args):
     
     # manuscript organization: assemble the text from the sections
     process_section_titles(PAPER, args)
+
     assemble_text(PAPER, args)
 
     # first including the latex figures
@@ -77,12 +81,13 @@ def process_manuscript(args):
     if os.path.isfile(args.analysis_output_file):
         print('using "'+args.analysis_output_file+'" for analysis data')
         for key, val in dict(np.load(args.analysis_output_file)).items():
-            print('{'+key+'}', str(val))
             PAPER['text'] = PAPER['text'].replace('{'+key+'}', str(val))
     else:
         print('No analysis file used ...')
         print('"'+args.analysis_output_file+'" not found')
 
+    final_manuscript_analysis(PAPER, args)
+        
     with open(args.filename.replace('.txt', '.tex'), 'w') as f:
         final_text = PAPER['TEX'].format(**PAPER)
         f.write(final_text)
