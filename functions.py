@@ -1,5 +1,5 @@
 import numpy as np
-import string
+import string, os
 
 #########################################################################
 ########## PREAMBLE INFORMATIONS ########################################
@@ -177,15 +177,16 @@ def insert_figure(PAPER, FIG, args):
     else:
         figure = 'figure*'
 
-    figure_text = ''
-    figure_text += '\\begin{'+figure+'}[tb!]\n'
+    figure_text = '\\begin{'+figure+'}[tb!]\n'
                     
     if args.manuscript_submission: # meaning using minipage
-        figure_text += '\\centering\n'
+        figure_text += '\\centering \\begin{singlespace} \n'
+        figure_text += '\\vspace{-1cm}\n' # to stretch a bit the vertical spacing
         figure_text += '\\includegraphics[scale=1.]{'+FIG['file']+'}\n'                       
         figure_text += '\\caption{ \\label{fig:'+FIG['label']+'} \n \small \\bfseries '+\
                        FIG['caption_title']+\
-                       ' \\normalfont '+FIG['detailed_caption']+' \\normalsize }\n'
+                       ' \\normalfont '+FIG['detailed_caption']+' \\normalsize } \\end{singlespace} \n'
+        figure_text += '\\vspace{-0.5cm}\n' # to stretch a bit the vertical spacing
         
     elif 'sidecap' in FIG: # meaning using minipage
         figure_text += '\\centering\n'
@@ -332,10 +333,11 @@ def process_references(PAPER, args):
     finds the references within the text and replaces them with the accurate ones 
     """
     try:
-        LIBRARY = np.load('biblio.npz')
+        print('USING :', os.environ["DIR"]+os.path.sep+'biblio.npz')
+        LIBRARY = np.load(os.environ["DIR"]+os.path.sep+'biblio.npz')
     except FileNotFoundError:
-        print('biblio.npz', ' NOT FOUND !')
-        LIBRARY = []
+        print(os.environ["DIR"]+'biblio.npz', ' NOT FOUND !')
+        LIBRARY = {}
 
     PAPER['References'] = '\n \small \\normalfont \n \subsection*{References} \n'
 

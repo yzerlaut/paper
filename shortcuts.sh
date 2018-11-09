@@ -1,5 +1,6 @@
 # Finding the directlry of the script (to point to txt_process.py, see below)
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+export DIR
 
 # # ---------- EMACS & ORG-MODE & LATEX working for *.txt files !
 # # function for latex compil

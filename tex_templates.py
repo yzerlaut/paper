@@ -75,7 +75,7 @@ JNEUROSCI = \
 \\linespread{{1.5}}
 \\usepackage[utf8]{{inputenc}}
 \\usepackage[T1]{{fontenc, fixltx2e, graphicx, longtable, float, wrapfig, rotating, graphicx}}
-\\usepackage{{amsmath, textcomp, marvosym, wasysym, amssymb, lmodern}}
+\\usepackage{{amsmath, textcomp, marvosym, wasysym, amssymb, lmodern, setspace}}
 \\usepackage{{hyperref}}
 \\hypersetup{{allcolors = [rgb]{{0.1,0.1,0.6}} }} % to have all the hyperlinks in 1 color
 \\usepackage[utf8]{{inputenc}}

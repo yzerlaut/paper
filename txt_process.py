@@ -3,6 +3,7 @@ We start from a txt file compatible with the org-mode format and want to export 
 """
 import os
 import numpy as np
+
 from tex_templates import *
 from functions import *
 
@@ -24,6 +25,7 @@ PAPER = {'text':'',
 def choose_style_from_journal(args):
 
     PAPER['TEX'] = BASIC_TEX
+    args.manuscript_submission = False
     if (args.journal=='preprint'):
         PAPER['TEX'] = TEX
     elif (args.journal=='Nature'):
