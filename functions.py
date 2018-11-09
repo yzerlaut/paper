@@ -34,7 +34,7 @@ def transform_preamble_into_title_props(PAPER, args):
             corresp = line.split('Correspondence: ')[1]
             corresp = corresp.replace('[[', '\\mailto{')
             corresp = corresp.replace(']]', '}')
-            PAPER['correspondence'] = corresp
+            PAPER['Correspondence'] = corresp
         # If Conflict of Interset
         elif line.split('Conflict of interest: ')[0]=='':
             conflict = line.split('Conflict of interest: ')[1]
@@ -48,13 +48,16 @@ def transform_preamble_into_title_props(PAPER, args):
             PAPER['Keywords'] = line.split('Keywords: ')[1]
         # If Funding
         elif line.split('Funding: ')[0]=='':
-            PAPER['funding'] = line.split('Funding: ')[1]
+            PAPER['Funding'] = line.split('Funding: ')[1]
         else:
             print('-------------------------------')
             print('the following line in the Premable was not recognized: ')
             print(line)
 
-    for key in ['conflict_of_interest', 'funding', 'correspondence', 'Acknowledgements']:
+    if 'conflict_of_interest' not in PAPER:
+        PAPER['conflict_of_interest'] = 'The authors declare no conflict of interest.'
+        
+    for key in ['Funding', 'Correspondence']:
         if key not in PAPER:
             PAPER[key] = ' [...] '
     
@@ -96,11 +99,15 @@ def insert_table(PAPER, TAB, args):
     """
     Constructs the LateX figure string to insert in the 
     """
-
-    TAB['latex_code'] = '\\begin{table}[tb!]\n  \\centering \n'+\
-                        TAB['table_latex_code']+\
-                        '\n \\caption{ \\label{tab:'+TAB['label']+'} \n \small \\bfseries '+\
-                        TAB['caption_title']+ ' \\normalfont \\normalsize }\n \\end{table}'
+    print(TAB['table_latex_code'])
+    # TAB['latex_code'] = '\\begin{table}[tb!]\n  \\centering \n'+\
+    #                     TAB['table_latex_code']+\
+    #                     '\n \\caption{ \\label{tab:'+TAB['label']+'} \n \small \\bfseries '+\
+    #                     TAB['caption_title']+ ' \\normalfont \\normalsize }\n \\end{table}'
+    # TAB['latex_code'] = TAB['table_latex_code']+\
+    #                     '\n \\caption{ \\label{tab:'+TAB['label']+'} \n \small \\bfseries '+\
+    #                     TAB['caption_title']+ ' \\normalfont \\normalsize }\n'
+    TAB['latex_code'] = '' #TAB['table_latex_code']
 
 
 def process_tables(PAPER, args):
@@ -177,18 +184,21 @@ def insert_figure(PAPER, FIG, args):
     else:
         figure = 'figure*'
 
-    figure_text = '\\begin{'+figure+'}[tb!]\n'
-                    
+    figure_text = '\\begin{'+figure+'}[tb!]\n \\centering \n'
     if args.manuscript_submission: # meaning using minipage
-        figure_text += '\\centering \\begin{singlespace} \n'
+        figure_text += '\\begin{singlespace} \n'
         figure_text += '\\vspace{-1cm}\n' # to stretch a bit the vertical spacing
-        figure_text += '\\includegraphics[scale=1.]{'+FIG['file']+'}\n'                       
-        figure_text += '\\caption{ \\label{fig:'+FIG['label']+'} \n \small \\bfseries '+\
-                       FIG['caption_title']+\
-                       ' \\normalfont '+FIG['detailed_caption']+' \\normalsize } \\end{singlespace} \n'
-        figure_text += '\\vspace{-0.5cm}\n' # to stretch a bit the vertical spacing
+                    
+    # if args.manuscript_submission: # meaning using minipage
+    #     figure_text += '\\centering \\begin{singlespace} \n'
+    #     figure_text += '\\vspace{-1cm}\n' # to stretch a bit the vertical spacing
+    #     figure_text += '\\includegraphics[scale=1.]{'+FIG['file']+'}\n'                       
+    #     figure_text += '\\caption{ \\label{fig:'+FIG['label']+'} \n \small \\bfseries '+\
+    #                    FIG['caption_title']+\
+    #                    ' \\normalfont '+FIG['detailed_caption']+' \\normalsize } \\end{singlespace} \n'
+    #     figure_text += '\\vspace{-0.5cm}\n' # to stretch a bit the vertical spacing
         
-    elif 'sidecap' in FIG: # meaning using minipage
+    if 'sidecap' in FIG: # meaning using minipage
         figure_text += '\\centering\n'
         figure_text += '\\begin{minipage}{'+str(FIG['sidecap'][0])+'\linewidth}\n'
         figure_text += '\\includegraphics[scale='+str(FIG['scale'])+']{'+\
@@ -223,6 +233,9 @@ def insert_figure(PAPER, FIG, args):
                        FIG['caption_title']+\
                        ' \\normalfont '+FIG['detailed_caption']+' \\normalsize }\n'
         
+    if args.manuscript_submission: # meaning using minipage
+        figure_text += '\\end{singlespace} \n'
+        figure_text += '\\vspace{-0.5cm}\n' # to stretch a bit the vertical spacing
     figure_text += '\\end{'+figure+'}\n'
 
     FIG['latex_code'] = figure_text
@@ -392,18 +405,7 @@ def assemble_text(PAPER, args):
 
     PAPER['text'] = ''
 
-    # this is now donw in the tex_templates.py
-    """
-    if args.journal=='Cell':
-        PAPER['Abstract'] = PAPER['Abstract'].replace('Abstract', '\\bfseries \\normalsize \n \subsection*{Summary}')
-    else:
-        PAPER['Abstract'] = PAPER['Abstract'].replace('Abstract', '\\bfseries \\normalsize \n \subsection*{Abstract}')
-        PAPER['Abstract'] = PAPER['Abstract'].replace('Abstract', '')
-    """
-        
-    # PAPER['text'] += '\n  '+PAPER['Abstract']
-
-    for key in ['Introduction', 'Results', 'Methods', 'Discussion']:
+    for key in PAPER['order']:
         PAPER['text'] += PAPER[key]
 
     process_subsection_titles(PAPER, args)
