@@ -7,7 +7,7 @@ Correspondence: firstname.lastname@domain.country
 
 * Abstract
 
-*Org-Mode* is for keeping notes, maintaining TODO lists, planning projects, and authoring documents with a fast and effective plain-text system. Visit \url{http://orgmode.org/}. Here we build up a template for scientific papers with the following characteristics:Praesent blandit blandit mauris. Praesent lectus tellus, aliquet aliquam, luctus a, egestas a, turpis. Mauris lacinia lorem sit amet ipsum. Nunc quis urna dictum turpis accumsan semper.
+Org-Mode is for keeping notes, maintaining TODO lists, planning projects, and authoring documents with a fast and effective plain-text system. Visit \url{http://orgmode.org/}. Here we build up a template for scientific papers with the following characteristics:Praesent blandit blandit mauris. Praesent lectus tellus, aliquet aliquam, luctus a, egestas a, turpis. Mauris lacinia lorem sit amet ipsum. Nunc quis urna dictum turpis accumsan semper.
 
 * Key Points
 
@@ -193,7 +193,7 @@ urna dictum turpis accumsan semper.
 \begin{tabular}{l|r|r}
 Name & Phone & Age\\
 \hline
-Peter & \{blabla\} & 17\\
+Peter & {blabla} & 17\\
 \hline
 Anna & 4321 & 25\\
 Patrick & 4321 & 25\\
@@ -220,7 +220,6 @@ complex & \(\pi/d^4\) & \(\frac{\pi}{\sqrt{28}}\) &  & 3\\
 \hline
 \end{tabular}
 \end{center}
-
 
 * Discussion
 

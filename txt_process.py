@@ -24,13 +24,17 @@ def choose_style_from_journal(args):
 
     if (args.journal=='Nature') or (args.journal=='PloS'):
         args.citation_style = 'number'
+    elif (args.journal=='preprint'):
+        PAPER['TEX'] = TEX
+    else:
+        PAPER['TEX'] = BASIC_TEX
+
         
 
 def process_manuscript(args):
 
     choose_style_from_journal(args)
     
-    Supplementary_Flag = False # for Figures
     
     # extracting the full text from the manuscript
     with open(args.filename) as f:
@@ -70,9 +74,17 @@ def process_manuscript(args):
     process_references(PAPER, args)
     process_equations(PAPER, args)
 
+    if os.path.isfile(args.analysis_output_file):
+        print('using "'+args.analysis_output_file+'" for analysis data')
+        for key, val in dict(np.load(args.analysis_output_file)).items():
+            print('{'+key+'}', str(val))
+            PAPER['text'] = PAPER['text'].replace('{'+key+'}', str(val))
+    else:
+        print('No analysis file used ...')
+        print('"'+args.analysis_output_file+'" not found')
+
     with open(args.filename.replace('.txt', '.tex'), 'w') as f:
-        final_text = TEX.format(**PAPER)
-        f.write(TEX.format(**PAPER))
+        final_text = PAPER['TEX'].format(**PAPER)
         f.write(final_text)
 
         
