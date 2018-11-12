@@ -26,6 +26,7 @@ def choose_style_from_journal(args):
 
     PAPER['TEX'] = BASIC_TEX
     args.manuscript_submission = False
+    PAPER['order'] = ['Introduction', 'Results', 'Methods', 'Discussion'] # default
     if (args.journal=='preprint'):
         PAPER['TEX'] = TEX
     elif (args.journal=='Nature'):
@@ -33,6 +34,7 @@ def choose_style_from_journal(args):
     elif (args.journal=='PloS'):
         args.citation_style = 'number'
     elif (args.journal=='JNeurosci'):
+        PAPER['order'] = ['Introduction', 'Methods', 'Results', 'Discussion']
         args.manuscript_submission = True
         PAPER['TEX'] = JNEUROSCI
 

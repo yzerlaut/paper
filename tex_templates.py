@@ -81,7 +81,7 @@ JNEUROSCI = \
 \\usepackage[utf8]{{inputenc}}
 \\usepackage[T1]{{fontenc}}
 \\usepackage{{geometry}}
-\\geometry{{a4paper,total={{210mm,297mm}}, left=20mm, right=20mm, top=25mm, bottom=25mm, bindingoffset=0mm}}
+\\geometry{{a4paper,total={{210mm,297mm}}, left=15mm, right=15mm, top=20mm, bottom=20mm, bindingoffset=0mm}}
 \\usepackage{{lineno}}
 \\title{{ {title} }}
 \\author{{ {authors}  }}
@@ -94,7 +94,7 @@ JNEUROSCI = \
 
 \\underline{{\\textsc{{Abbreviated Title:}}}} {short_title} \\newline \\vspace{{ 1mm }}
 
-\\underline{{\\textsc{{Correspondence:}}}} {correspondence} \\newline \\vspace{{ 1mm }}
+\\underline{{\\textsc{{Correspondence:}}}} {Correspondence} \\newline \\vspace{{ 1mm }}
 
 \\underline{{\\textsc{{Keywords:}}}} {Keywords} \\newline \\vspace{{ 1mm }}
 
