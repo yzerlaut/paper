@@ -1,6 +1,6 @@
-Title: A template for scientific papers
-Short Title: Paper Template
+#+TITLE: A template for scientific papers
 Authors: First Author{1}, Second Author{1,2}*
+Short Title: Paper Template
 Short Authors: Author et al.
 Affiliations: 1. My first affiliation, 2. Second author affiliation
 Correspondence: firstname.lastname@domain.country
@@ -280,4 +280,5 @@ Patrick & 4321 & 25\\
 | Peter   |  1234 |  17 |
 | Anna    |  4321 |  25 |
 | Patrick |  4321 |  25 |
+
 
