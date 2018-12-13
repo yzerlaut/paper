@@ -128,7 +128,7 @@ if __name__=='__main__':
     
     parser.add_argument("--filename", '-f', help="filename",type=str, default='paper.txt')
     parser.add_argument('-j', "--journal", help="journal type", type=str, default='preprint')
-    parser.add_argument('-af', "--analysis_output_file", help="analysis filename", type=str, default='paper.npz')
+    parser.add_argument('-af', "--analysis_output_file", help="analysis filename", type=str, default='analysis.npz')
     parser.add_argument("-r", "--report", help="", action="store_true")
     parser.add_argument("-fo", "--figures_only", help="", action="store_true")
     parser.add_argument("-fk", "--figure_key", help="Type of references to figures: either 'Figure' of 'Fig.' ", default='Fig.')
