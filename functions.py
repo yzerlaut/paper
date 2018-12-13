@@ -419,5 +419,5 @@ def final_manuscript_analysis(PAPER, args):
     
 if __name__=='__main__':
 
-    analysis = {'stat_test_example': 'c=0.5, p=0.003, Pearson correlation', 'data_output':'34$\pm$17.3'}
+    analysis = {'stat_test_example': 'c=0.5, p=0.003, Pearson correlation', 'data_output':'34$\pm$17.3mV'}
     np.savez('analysis.npz', **analysis)
