@@ -430,12 +430,20 @@ def process_references(PAPER, args):
 ########## MANUSCRIPT ORGANIZATION ######################################
 #########################################################################
 
+def insert_abstract(PAPER, args):
+
+    PAPER['text'] += '\n\\bfseries \n'
+    PAPER['text'] += PAPER['Abstract']+'\n'
+    PAPER['text'] += '\n \\normalfont \n'
+
+
 def assemble_text(PAPER, args):
 
     PAPER['text'] = ''
 
     if not args.figures_only:
-        
+
+        insert_abstract(PAPER, args)
         for key in PAPER['order']:
             PAPER['text'] += PAPER[key]
         process_subsection_titles(PAPER, args)
@@ -443,7 +451,6 @@ def assemble_text(PAPER, args):
     else:
         for FIG in PAPER['FIGS']:
             PAPER['text'] += '\\qquad \n '
-            # PAPER['text'] += '\\newpage \n \\qquad \n '
             PAPER['text'] += FIG['latex_code']
             PAPER['text'] += '\\newpage \n '
         
