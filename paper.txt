@@ -1,4 +1,4 @@
-#+TITLE: A template for scientific papers
+Title: A template for scientific papers
 Authors: First Author{1}, Second Author{1,2}*
 Short Title: Paper Template
 Short Authors: Author et al.
@@ -183,6 +183,7 @@ urna dictum turpis accumsan semper.
 
 *** Caption for the first table
 #+options : {'label':'Tab1', 'extent':'singlecolumn'}
+Subcaption for the first table
 | Name    |    Phone | Age |
 |---------+----------+-----|
 | Peter   | {blabla} |  17 |
@@ -200,24 +201,28 @@ Patrick & 4321 & 25\\
 
 *** Caption for the second table
 #+options : {'label':'Tab2', 'extent':'doublecolumn'}
+Subcaption for the second table
 | model   | \(P_0\)(mV) | \(P_\mu\)(mV)             | \(P_\sigma\)(mV) | \(P_\tau\)(mV) |
 |---------+-------------+---------------------------+------------------+----------------|
 | simple  | 8           | 9                         |                4 |            387 |
-| complex | \(\pi/d^4\) | \(\frac{\pi}{\sqrt{28}}\) |                  |              3 |
-| 0       |             |                           |                  |                |
+|---------+-------------+---------------------------+------------------+----------------|
+| complex | \(\pi/d^4\) | \(\frac{\pi}{\sqrt{28}}\) |               23 |              3 |
+|---------+-------------+---------------------------+------------------+----------------|
+| none    | 0           | 0                         |                0 |              0 |
 |---------+-------------+---------------------------+------------------+----------------|
 \begin{center}
-\begin{tabular}{l|l|l|r|r}
+\begin{tabular}{lrrrr}
 model & \(P_0\)(mV) & \(P_\mu\)(mV) & \(P_\sigma\)(mV) & \(P_\tau\)(mV)\\
 \hline
 simple & 8 & 9 & 4 & 387\\
 \hline
-complex & \(\pi/d^4\) & \(\frac{\pi}{\sqrt{28}}\) &  & 3\\
+complex & \(\pi/d^4\) & \(\frac{\pi}{\sqrt{28}}\) & 23 & 3\\
 \hline
-0 &  &  &  & \\
+none & 0 & 0 & 0 & 0\\
 \hline
 \end{tabular}
 \end{center}
+
 
 * Discussion
 

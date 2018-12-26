@@ -55,14 +55,8 @@ TEX = \
 
 \\maketitle
 
-\\blfootnote{{ 
- {affiliations} \, 
-}}
-
-\\blfootnote{{ 
-*Correspondence: 
-{correspondence} 
-}}
+\\blfootnote{{  {affiliations} \, }}
+\\blfootnote{{  *Correspondence: {correspondence} }}
 
 {text}
 
@@ -74,7 +68,7 @@ JNEUROSCI = \
 \\documentclass[9pt, a4paper, colorlinks]{{article}}
 \\linespread{{1.5}}
 \\usepackage[utf8]{{inputenc}}
-\\usepackage[T1]{{fontenc, fixltx2e, graphicx, longtable, float, wrapfig, rotating, graphicx}}
+\\usepackage[T1]{{fontenc, fixltx2e, graphicx, longtable, float, wrapfig, rotating, graphicx, multirow}}
 \\usepackage{{amsmath, textcomp, marvosym, wasysym, amssymb, lmodern, setspace}}
 \\usepackage{{hyperref}}
 \\hypersetup{{allcolors = [rgb]{{0.1,0.1,0.6}} }} % to have all the hyperlinks in 1 color
@@ -145,6 +139,22 @@ BASIC_TEX = \
 }}
 \\begin{{document}}
 \\maketitle
+{text}
+\\end{{document}}
+"""
+
+FIGURES_ONLY = \
+"""
+\\documentclass[9pt, a4paper]{{article}}
+\\usepackage[utf8]{{inputenc}}
+\\usepackage[labelfont=bf,labelsep=period,font=small]{{caption}}
+\\usepackage[T1]{{fontenc, fixltx2e, graphicx, longtable, float, wrapfig, rotating, graphicx}}
+\\usepackage{{amsmath, textcomp, marvosym, wasysym, amssymb, lmodern}}
+\\usepackage[utf8]{{inputenc}}
+\\usepackage[T1]{{fontenc}}
+\\usepackage{{geometry}}
+\\geometry{{a4paper,total={{210mm,297mm}}, left=15mm, right=15mm, top=20mm, bottom=20mm, bindingoffset=0mm, columnsep=.5cm}}\\geometry{{a4paper,total={{210mm,297mm}}, left=15mm, right=15mm, top=20mm, bottom=20mm, bindingoffset=0mm, columnsep=.5cm}}
+\\begin{{document}}
 {text}
 \\end{{document}}
 """

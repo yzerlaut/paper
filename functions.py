@@ -80,15 +80,17 @@ def process_equations(PAPER, args):
         PAPER['EQS'].append(eq_label)
         ref_loc = PAPER['text'][ii:].find(equation_string)
 
-    for eq in PAPER['EQS']:
+    for ne, eq in enumerate(PAPER['EQS']):
         equation_string = 'Equation {'+eq+'}'
-        if not args.journal_submission:
+        if not args.manuscript_submission:
             PAPER['text'] = PAPER['text'].replace(equation_string,
                                                   '\\hyperref[{eq:'+eq+'}]{'+\
                                                   args.equation_key+'\,\\ref*{eq:'+eq+'}}')
-        else:
+        elif args.cross_ref:
             # simple substitution with \ref
             PAPER['text'] = PAPER['text'].replace('Equation {'+eq+'}', args.equation_key+'\,\\ref{eq:'+eq+'}')
+        else:
+            PAPER['text'] = PAPER['text'].replace('Equation {'+eq+'}', args.equation_key+'\,'+str(ne+1)) # just text
 
 
 #########################################################################
@@ -99,15 +101,25 @@ def insert_table(PAPER, TAB, args):
     """
     Constructs the LateX figure string to insert in the 
     """
-    print(TAB['table_latex_code'])
-    # TAB['latex_code'] = '\\begin{table}[tb!]\n  \\centering \n'+\
-    #                     TAB['table_latex_code']+\
-    #                     '\n \\caption{ \\label{tab:'+TAB['label']+'} \n \small \\bfseries '+\
-    #                     TAB['caption_title']+ ' \\normalfont \\normalsize }\n \\end{table}'
-    # TAB['latex_code'] = TAB['table_latex_code']+\
-    #                     '\n \\caption{ \\label{tab:'+TAB['label']+'} \n \small \\bfseries '+\
-    #                     TAB['caption_title']+ ' \\normalfont \\normalsize }\n'
-    TAB['latex_code'] = '' #TAB['table_latex_code']
+    
+    if ('extent' in TAB) and TAB['extent']=='doublecolumn':
+        TAB['latex_code'] = '\\begin{table*}[tb!]\n'
+    else:
+        TAB['latex_code'] = '\\begin{table}[tb!]\n'
+        
+    TAB['latex_code'] += '\\centering \n'+TAB['table_latex_code']+'\n'
+    if args.cross_ref:
+        TAB['latex_code'] += ' \\caption{ \\label{tab:'+TAB['label']+'} \n \small \\bfseries '+\
+                            TAB['caption_title']+ ' \\normalfont '+TAB['caption_text']+' \\normalsize }\n'
+    else:
+        TAB['latex_code'] += ' \\caption{ \small \\bfseries '+args.table_key+'\,'+str(TAB['number']+1)+'. '+\
+                            TAB['caption_title']+ ' \\normalfont '+TAB['caption_text']+' \\normalsize }\n'
+        
+    if ('extent' in TAB) and TAB['extent']=='doublecolumn':
+        TAB['latex_code'] += '\\end{table*}[tb!]\n'
+    else:
+        TAB['latex_code'] += '\\end{table}[tb!]\n'
+
 
 
 def process_tables(PAPER, args):
@@ -121,13 +133,14 @@ def process_tables(PAPER, args):
         lines = text.split('\n')
         exec("global params; params = "+lines[1].split('#+options : ')[1])
         params['caption_title'] = lines[0]
+        params['caption_text'] = lines[2]
         params['table_latex_code'] = ''
-        for line in lines[2:]:
+        for line in lines[3:]:
             if (len(line)>1) and (line[0]!='|') and (line[0]!='#'):
-                params['table_latex_code'] += line
+                params['table_latex_code'] += line +'\n'
         params['number'] = len(PAPER['TABLES'])
         PAPER['TABLES'].append(params)
-
+        print(params['table_latex_code'])
     for tab in PAPER['TABLES']:
         insert_table(PAPER, tab, args)
 
@@ -145,8 +158,12 @@ def include_table_cross_referencing(PAPER, args):
     """
     """
     for tab in PAPER['TABLES']:
-        PAPER['text'] = PAPER['text'].replace('Table {'+tab['label']+'}', '\\hyperref[{tab:'+\
-                                              tab['label']+'}]{Table\,\\ref*{tab:'+tab['label']+'}}')
+        if args.cross_ref:
+            PAPER['text'] = PAPER['text'].replace('Table {'+tab['label']+'}', '\\hyperref[{tab:'+\
+                                                  tab['label']+'}]{Table\,\\ref*{tab:'+tab['label']+'}}')
+        else:
+            PAPER['text'] = PAPER['text'].replace('Table {'+tab['label']+'}', args.table_key+'\,'+str(tab['number']+1))
+        
         
 #########################################################################
 ########## HANDLING FIGURES #############################################
@@ -185,20 +202,26 @@ def insert_figure(PAPER, FIG, args):
         figure = 'figure*'
 
     figure_text = '\\begin{'+figure+'}[tb!]\n \\centering \n'
-    if args.manuscript_submission: # meaning using minipage
-        figure_text += '\\begin{singlespace} \n'
-        figure_text += '\\vspace{-1cm}\n' # to stretch a bit the vertical spacing
-                    
-    # if args.manuscript_submission: # meaning using minipage
-    #     figure_text += '\\centering \\begin{singlespace} \n'
-    #     figure_text += '\\vspace{-1cm}\n' # to stretch a bit the vertical spacing
-    #     figure_text += '\\includegraphics[scale=1.]{'+FIG['file']+'}\n'                       
-    #     figure_text += '\\caption{ \\label{fig:'+FIG['label']+'} \n \small \\bfseries '+\
-    #                    FIG['caption_title']+\
-    #                    ' \\normalfont '+FIG['detailed_caption']+' \\normalsize } \\end{singlespace} \n'
-    #     figure_text += '\\vspace{-0.5cm}\n' # to stretch a bit the vertical spacing
+    
+    if not args.cross_ref: # most simple version
+        figure_text += '\\centering \\begin{singlespace} \n'
+        # figure_text += '\\vspace{-1cm}\n' # to stretch a bit the vertical spacing
+        figure_text += '\\includegraphics[scale=1.]{'+FIG['file']+'}\n'                       
+        figure_text += '\\caption{ \small \\bfseries '+args.figure_key+'\,'+str(FIG['number']+1)+'. '+FIG['caption_title']+\
+                       ' \\normalfont '+FIG['detailed_caption']+' \\normalsize } \\end{singlespace} \n'
+        # figure_text += '\\vspace{-0.5cm}\n' # to stretch a bit the vertical spacing
         
-    if 'sidecap' in FIG: # meaning using minipage
+    elif args.manuscript_submission: # with cross referencing
+        figure_text += '\\centering \\begin{singlespace} \n'
+        figure_text += '\\vspace{-1cm}\n' # to stretch a bit the vertical spacing
+        figure_text += '\\includegraphics[scale=1.]{'+FIG['file']+'}\n'                       
+        figure_text += '\\caption{ \\label{fig:'+FIG['label']+'} \n \small \\bfseries '+\
+                       FIG['caption_title']+\
+                       ' \\normalfont '+FIG['detailed_caption']+' \\normalsize }\n'
+        figure_text += '\\end{singlespace} \n'
+        # figure_text += '\\vspace{1cm}\n' # to stretch a bit the vertical spacing
+                    
+    elif 'sidecap' in FIG: # meaning using minipage
         figure_text += '\\centering\n'
         figure_text += '\\begin{minipage}{'+str(FIG['sidecap'][0])+'\linewidth}\n'
         figure_text += '\\includegraphics[scale='+str(FIG['scale'])+']{'+\
@@ -233,9 +256,6 @@ def insert_figure(PAPER, FIG, args):
                        FIG['caption_title']+\
                        ' \\normalfont '+FIG['detailed_caption']+' \\normalsize }\n'
         
-    if args.manuscript_submission: # meaning using minipage
-        figure_text += '\\end{singlespace} \n'
-        figure_text += '\\vspace{-0.5cm}\n' # to stretch a bit the vertical spacing
     figure_text += '\\end{'+figure+'}\n'
 
     FIG['latex_code'] = figure_text
@@ -290,8 +310,12 @@ def include_figure_cross_referencing(PAPER, args):
             if (jj>0) and (s==' ') and (to_be_added[-1]==','): # to handle the case Figure 3c, while keeping Figure 3c,d
                 to_be_kept = ','+to_be_kept
                 to_be_added = to_be_added[:-1]
-            PAPER['text'] = PAPER['text'].replace(figure_string+next_string, '\\hyperref[{fig:'+\
+                
+            if args.cross_ref:
+                PAPER['text'] = PAPER['text'].replace(figure_string+next_string, '\\hyperref[{fig:'+\
                                                   fig['label']+'}]{'+args.figure_key+'\,\\ref*{fig:'+fig['label']+'}'+to_be_added+'}'+to_be_kept)
+            else:
+                PAPER['text'] = PAPER['text'].replace(figure_string+next_string, args.figure_key+'\,'+str(fig['number']+1)+next_string)
             # and find the next occurence
             ref_loc = PAPER['text'][ii:].find(figure_string)
     
@@ -372,9 +396,14 @@ def process_references(PAPER, args):
         REFS['numbers'] = np.argsort(REFS['abbrev_in_text'])
 
     for i0, i in enumerate(REFS['numbers']):
-        PAPER['text'] = PAPER['text'].replace(REFS['abbrev_in_text'][i],
+        if args.cross_ref:
+            PAPER['text'] = PAPER['text'].replace(REFS['abbrev_in_text'][i],
                                               '\\hyperlink{'+REFS['key'][i]+'}{'+REFS['correct_abbrev'][i]+'}')
-        if args.citation_style=='number':
+        if not args.cross_ref:
+            PAPER['text'] = PAPER['text'].replace(REFS['abbrev_in_text'][i], REFS['correct_abbrev'][i])
+            PAPER['References'] += '$\\cdot$ '+REFS['full_ref'][i]+' \\newline \n'
+            
+        elif args.citation_style=='number':
             PAPER['References'] += '\hypertarget{'+REFS['key'][i]+'}{['+str(i0+1)+'] '+REFS['full_ref'][i]+'} \\newline \n'
         else:
             PAPER['References'] += '$\\cdot$ \hypertarget{'+REFS['key'][i]+'}{'+REFS['full_ref'][i]+'} \\newline  \n'
@@ -405,17 +434,25 @@ def assemble_text(PAPER, args):
 
     PAPER['text'] = ''
 
-    for key in PAPER['order']:
-        PAPER['text'] += PAPER[key]
-
-    process_subsection_titles(PAPER, args)
-
+    if not args.figures_only:
+        
+        for key in PAPER['order']:
+            PAPER['text'] += PAPER[key]
+        process_subsection_titles(PAPER, args)
+        
+    else:
+        for FIG in PAPER['FIGS']:
+            PAPER['text'] += '\\qquad \n '
+            # PAPER['text'] += '\\newpage \n \\qquad \n '
+            PAPER['text'] += FIG['latex_code']
+            PAPER['text'] += '\\newpage \n '
+        
 
 def final_manuscript_analysis(PAPER, args):
 
     PAPER['Num_of_Tables'] = len(PAPER['TABLES'])
     PAPER['Num_of_Figures'] = len(PAPER['FIGS'])
-    
+
     
 if __name__=='__main__':
 

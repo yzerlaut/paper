@@ -25,20 +25,26 @@ PAPER = {'text':'',
 def choose_style_from_journal(args):
 
     PAPER['TEX'] = BASIC_TEX
-    args.manuscript_submission = False
+    args.manuscript_submission, args.cross_ref = False, True
     PAPER['order'] = ['Introduction', 'Results', 'Methods', 'Discussion'] # default
-    if (args.journal=='preprint'):
+    if args.figures_only:
+        PAPER['TEX'] = FIGURES_ONLY
+    elif (args.journal=='preprint'):
         PAPER['TEX'] = TEX
     elif (args.journal=='Nature'):
         args.citation_style = 'number'
-    elif (args.journal=='PloS'):
+    elif (args.journal=='PLoS'):
         args.citation_style = 'number'
     elif (args.journal=='JNeurosci'):
         PAPER['order'] = ['Introduction', 'Methods', 'Results', 'Discussion']
         args.manuscript_submission = True
         PAPER['TEX'] = JNEUROSCI
+    if args.with_doc_export:
+        args.cross_ref = False
+        args.manuscript_submission = True
+        PAPER['TEX'] = BASIC_TEX
 
-        
+
 def process_manuscript(args):
 
     choose_style_from_journal(args)
@@ -79,8 +85,9 @@ def process_manuscript(args):
     include_figure_cross_referencing(PAPER, args)
     include_table_cross_referencing(PAPER, args)
 
-    process_references(PAPER, args)
-    process_equations(PAPER, args)
+    if not args.figures_only:
+        process_references(PAPER, args)
+        process_equations(PAPER, args)
 
     if os.path.isfile(args.analysis_output_file):
         print('using "'+args.analysis_output_file+'" for analysis data')
