@@ -34,7 +34,7 @@ def transform_preamble_into_title_props(PAPER, args):
             corresp = line.split('Correspondence: ')[1]
             corresp = corresp.replace('[[', '\\mailto{')
             corresp = corresp.replace(']]', '}')
-            PAPER['Correspondence'] = corresp
+            PAPER['correspondence'] = corresp
         # If Conflict of Interset
         elif line.split('Conflict of interest: ')[0]=='':
             conflict = line.split('Conflict of interest: ')[1]
@@ -107,7 +107,7 @@ def insert_table(PAPER, TAB, args):
     else:
         TAB['latex_code'] = '\\begin{table}[tb!]\n'
         
-    TAB['latex_code'] += '\\centering \n'+TAB['table_latex_code']+'\n'
+    TAB['latex_code'] += '\\centering \\small \n'+TAB['table_latex_code']+'\n'
     if args.cross_ref:
         TAB['latex_code'] += ' \\caption{ \\label{tab:'+TAB['label']+'} \n \small \\bfseries '+\
                             TAB['caption_title']+ ' \\normalfont '+TAB['caption_text']+' \\normalsize }\n'
@@ -115,10 +115,11 @@ def insert_table(PAPER, TAB, args):
         TAB['latex_code'] += ' \\caption{ \small \\bfseries '+args.table_key+'\,'+str(TAB['number']+1)+'. '+\
                             TAB['caption_title']+ ' \\normalfont '+TAB['caption_text']+' \\normalsize }\n'
         
+    TAB['latex_code'] += '\\normalsize \n'
     if ('extent' in TAB) and TAB['extent']=='doublecolumn':
-        TAB['latex_code'] += '\\end{table*}[tb!]\n'
+        TAB['latex_code'] += '\\end{table*}\n'
     else:
-        TAB['latex_code'] += '\\end{table}[tb!]\n'
+        TAB['latex_code'] += '\\end{table}\n'
 
 
 
@@ -154,6 +155,23 @@ def replace_text_indication_with_latex_table(PAPER, args):
         PAPER['text'] = PAPER['text'].replace('[[Table {'+tab['label']+'} around here]]', '\n'+tab['latex_code']+'\n')
         
 
+def add_figures_and_tables_at_the_end(PAPER, args):
+
+    if len(PAPER['TABLES'])>0:
+        PAPER['text'] += '\\newpage \n  \subsection*{Tables} \n'
+        for Table in PAPER['TABLES']:
+            PAPER['text'] += '\\qquad \n \centering '
+            PAPER['text'] += Table['latex_code']
+            PAPER['text'] += '\\newpage \n '
+            
+    if len(PAPER['FIGS'])>0:
+        PAPER['text'] += '\\newpage \n \subsection*{Figures} \n'
+        for FIG in PAPER['FIGS']:
+            PAPER['text'] += '\\qquad \n \centering '
+            PAPER['text'] += FIG['latex_code']
+            PAPER['text'] += '\\newpage \n '
+
+            
 def include_table_cross_referencing(PAPER, args):
     """
     """
@@ -401,7 +419,8 @@ def process_references(PAPER, args):
                                               '\\hyperlink{'+REFS['key'][i]+'}{'+REFS['correct_abbrev'][i]+'}')
         if not args.cross_ref:
             PAPER['text'] = PAPER['text'].replace(REFS['abbrev_in_text'][i], REFS['correct_abbrev'][i])
-            PAPER['References'] += '$\\cdot$ '+REFS['full_ref'][i]+' \\newline \n'
+            # PAPER['References'] += '$\\cdot$ '+REFS['full_ref'][i]+' \\newline \n '
+            PAPER['References'] += ' \\qquad '+REFS['full_ref'][i]+' \\newline \n \n \, \\qquad \, \\newline \, '
             
         elif args.citation_style=='number':
             PAPER['References'] += '\hypertarget{'+REFS['key'][i]+'}{['+str(i0+1)+'] '+REFS['full_ref'][i]+'} \\newline \n'
@@ -432,10 +451,14 @@ def process_references(PAPER, args):
 
 def insert_abstract(PAPER, args):
 
-    PAPER['text'] += '\n\\bfseries \n'
+    PAPER['text'] += '\n\\bfseries \subsection*{Abstract} \n'
     PAPER['text'] += PAPER['Abstract']+'\n'
     PAPER['text'] += '\n \\normalfont \n'
 
+    PAPER['text'] += '\n\\bfseries \subsection*{Author Summary} \n'
+    PAPER['text'] += PAPER['Significance']+'\n'
+    PAPER['text'] += '\n \\normalfont \n'
+    
 
 def assemble_text(PAPER, args):
 
@@ -444,6 +467,7 @@ def assemble_text(PAPER, args):
     if not args.figures_only:
 
         insert_abstract(PAPER, args)
+        
         for key in PAPER['order']:
             PAPER['text'] += PAPER[key]
         process_subsection_titles(PAPER, args)

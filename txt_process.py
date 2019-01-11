@@ -25,8 +25,8 @@ PAPER = {'text':'',
 def choose_style_from_journal(args):
 
     PAPER['TEX'] = BASIC_TEX
-    args.manuscript_submission, args.cross_ref = False, True
-    PAPER['order'] = ['Introduction', 'Results', 'Methods', 'Discussion'] # default
+    args.manuscript_submission, args.figures_at_the_end, args.cross_ref = False, False, True
+    PAPER['order'] = ['Introduction', 'Results', 'Discussion', 'Methods'] # default
     if args.figures_only:
         PAPER['TEX'] = FIGURES_ONLY
     elif (args.journal=='preprint'):
@@ -42,6 +42,7 @@ def choose_style_from_journal(args):
     if args.with_doc_export:
         args.cross_ref = False
         args.manuscript_submission = True
+        args.figures_at_the_end = True
         PAPER['TEX'] = BASIC_TEX
 
 
@@ -79,8 +80,12 @@ def process_manuscript(args):
     assemble_text(PAPER, args)
 
     # first including the latex figures
-    replace_text_indication_with_latex_fig(PAPER, args)
-    replace_text_indication_with_latex_table(PAPER, args)
+    if not args.figures_at_the_end:
+        replace_text_indication_with_latex_fig(PAPER, args)
+        replace_text_indication_with_latex_table(PAPER, args)
+    else:
+        add_figures_and_tables_at_the_end(PAPER, args)
+        
     # then cross-referencing
     include_figure_cross_referencing(PAPER, args)
     include_table_cross_referencing(PAPER, args)
