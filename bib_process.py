@@ -81,17 +81,17 @@ def build_library(verbose=False, find_duplicates=False):
     LIBRARY = {}
     abbrevs = []
     for entry in bib_database.entries:
-        
-        AD = transform_author_to_list_of_dict(entry['author'])
-        
-        true_abbrev_of_entry = get_abbrev_of_entry(AD, entry, find_duplicates=find_duplicates)
-        abbrev_of_entry = remove_complex_characters_in_string(true_abbrev_of_entry)
-        true_intext_abbrev_of_entry = get_intext_abbrev_of_entry(AD, entry)
-        intext_abbrev_of_entry = remove_complex_characters_in_string(true_intext_abbrev_of_entry)
-        
-        abbrevs.append(abbrev_of_entry)
-        
+
         try:
+            AD = transform_author_to_list_of_dict(entry['author'])
+        
+            true_abbrev_of_entry = get_abbrev_of_entry(AD, entry, find_duplicates=find_duplicates)
+            abbrev_of_entry = remove_complex_characters_in_string(true_abbrev_of_entry)
+            true_intext_abbrev_of_entry = get_intext_abbrev_of_entry(AD, entry)
+            intext_abbrev_of_entry = remove_complex_characters_in_string(true_intext_abbrev_of_entry)
+
+            abbrevs.append(abbrev_of_entry)
+        
             LIBRARY[abbrev_of_entry] = {'correct_abbrev':true_abbrev_of_entry,
                                         'correct_intext_abbrev':true_intext_abbrev_of_entry,
                                         'intext_abbrev':intext_abbrev_of_entry,
@@ -100,6 +100,7 @@ def build_library(verbose=False, find_duplicates=False):
             print('----------------------------------------------------')
             print('problems with entry:')
             print(entry)
+            
         if verbose:
             print(abbrevs[-1])
             
@@ -125,8 +126,8 @@ def find_duplicates(verbose=False):
     if len(uabbrevs[dup_abbrevs_cond])>1:
         for ua in uabbrevs[dup_abbrevs_cond]:
             dup_indices = np.argwhere(ua==abbrevs).flatten()
-            if verbose:
-                print('conflicting fields for :', ua)
+            # if verbose:
+            #     print('conflicting fields for :', ua)
             for ud in dup_indices:
                 try:
                     if verbose:

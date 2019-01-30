@@ -1,4 +1,4 @@
-Title: A template for scientific papers
+Title: A template for scientific papers for dummies
 Authors: First Author{1}, Second Author{1,2}*
 Short Title: Paper Template
 Short Authors: Author et al.
