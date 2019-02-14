@@ -455,10 +455,18 @@ def insert_abstract(PAPER, args):
     PAPER['text'] += PAPER['Abstract']+'\n'
     PAPER['text'] += '\n \\normalfont \n'
 
-    PAPER['text'] += '\n\\bfseries \subsection*{Author Summary} \n'
-    PAPER['text'] += PAPER['Significance']+'\n'
-    PAPER['text'] += '\n \\normalfont \n'
-    
+    if args.manuscript_submission: # then simple version
+        PAPER['text'] += '\n\\bfseries \subsection*{Author Summary} \n'
+        PAPER['text'] += PAPER['Significance']+'\n'
+        PAPER['text'] += '\n \\normalfont \n'
+    else:
+        PAPER['text'] += '\n\\begin{figure}[b!]{\\linewidth} \n'
+        PAPER['text'] += '\n\\fcolorbox{black}{lightgray}{\\begin{minipage}{\\linewidth} \n'
+        PAPER['text'] += ' \\textbf{Author Summary} \\ \\vspace{.2em} \n'
+        PAPER['text'] += PAPER['Significance']
+        PAPER['text'] += '\n \\end{minipage} \\normalfont }\n'
+        PAPER['text'] += '\n \\end{figure}  \n'
+
 
 def assemble_text(PAPER, args):
 

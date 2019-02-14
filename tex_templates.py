@@ -3,7 +3,7 @@ TEX = \
 \\documentclass[8pt, a4paper, twocolumn, twoside, colorlinks]{{article}}
 \\usepackage[utf8]{{inputenc}}
 \\usepackage[T1]{{fontenc}}
-\\usepackage{{longtable, float, wrapfig, rotating, graphicx, multirow}}
+\\usepackage{{longtable, float, wrapfig, rotating, graphicx, multirow, xcolor}}
 \\usepackage{{amsmath, textcomp, marvosym, wasysym, amssymb, hyperref, wrapfig}}
 \\tolerance=1000
 \\setcounter{{tocdepth}}{{5}}
