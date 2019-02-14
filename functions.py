@@ -460,8 +460,8 @@ def insert_abstract(PAPER, args):
         PAPER['text'] += PAPER['Significance']+'\n'
         PAPER['text'] += '\n \\normalfont \n'
     else:
-        PAPER['text'] += '\n\\begin{figure}[b!]{\\linewidth} \n'
-        PAPER['text'] += '\n\\fcolorbox{black}{lightgray}{\\begin{minipage}{\\linewidth} \n'
+        PAPER['text'] += '\n\\begin{figure}[b!] \n'
+        PAPER['text'] += '\n\\fcolorbox{black}{lightgray}{\\begin{minipage}{.48\\textwidth} \n'
         PAPER['text'] += ' \\textbf{Author Summary} \\ \\vspace{.2em} \n'
         PAPER['text'] += PAPER['Significance']
         PAPER['text'] += '\n \\end{minipage} \\normalfont }\n'
