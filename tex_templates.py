@@ -8,7 +8,6 @@ TEX = \
 \\tolerance=1000
 \\setcounter{{tocdepth}}{{5}}
 \\usepackage[utf8]{{inputenc}}
-\\usepackage[T1]{{fontenc}}
 \\usepackage{{lmodern, microtype}} % Slightly tweak font spacing for aesthetics
 \\usepackage{{geometry}}
 \\geometry{{a4paper,total={{210mm,297mm}}, left=15mm, right=15mm, top=20mm, bottom=20mm, bindingoffset=0mm, columnsep=.5cm}}
@@ -68,7 +67,7 @@ JNEUROSCI = \
 \\documentclass[9pt, a4paper, colorlinks]{{article}}
 \\linespread{{1.5}}
 \\usepackage[utf8]{{inputenc}}
-\\usepackage[T1]{{fontenc, fixltx2e, graphicx, longtable, float, wrapfig, rotating, graphicx, multirow}}
+\\usepackage{{fixltx2e, graphicx, longtable, float, wrapfig, rotating, graphicx, multirow}}
 \\usepackage{{amsmath, textcomp, marvosym, wasysym, amssymb, lmodern, setspace}}
 \\usepackage{{hyperref}}
 \\hypersetup{{allcolors = [rgb]{{0.1,0.1,0.6}} }} % to have all the hyperlinks in 1 color

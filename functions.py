@@ -27,7 +27,7 @@ def transform_preamble_into_title_props(PAPER, args):
         elif line.split('Affiliations: ')[0]=='':
             aaff = line.split('Affiliations: ')[1]
             for i in range(30):
-                aaff = aaff.replace('*'+str(i)+'* ', '\\textbf{\\textsuperscript{'+str(i)+'}}')
+                aaff = aaff.replace('{'+str(i)+'}', '\\textbf{\\textsuperscript{'+str(i)+'}}')
             PAPER['affiliations'] = aaff
         # If Correspondence
         elif line.split('Correspondence: ')[0]=='':
@@ -451,18 +451,15 @@ def process_references(PAPER, args):
 
 def insert_abstract(PAPER, args):
 
-    PAPER['text'] += '\n\\bfseries \subsection*{Abstract} \n'
-    PAPER['text'] += PAPER['Abstract']+'\n'
-    PAPER['text'] += '\n \\normalfont \n'
-
-    if args.manuscript_submission: # then simple version
-        PAPER['text'] += '\n\\bfseries \subsection*{Author Summary} \n'
-        PAPER['text'] += PAPER['Significance']+'\n'
+    if args.journal=='preprint':
+        # Summary
+        PAPER['text'] += '\n\\bfseries \subsection*{Summary} \n'
+        PAPER['text'] += PAPER['Abstract']+'\n'
         PAPER['text'] += '\n \\normalfont \n'
-    else:
+        # Significance
         PAPER['text'] += '\n\\begin{figure}[b!] \n'
         PAPER['text'] += '\n\\fcolorbox{black}{lightgray}{\\begin{minipage}{.48\\textwidth} \n'
-        PAPER['text'] += ' \\textbf{Author Summary} \\ \\vspace{.2em} \n'
+        PAPER['text'] += ' \\textbf{Significance Statement} \\ \\vspace{.2em} \n'
         PAPER['text'] += PAPER['Significance']
         PAPER['text'] += '\n \\end{minipage} \\normalfont }\n'
         PAPER['text'] += '\n \\end{figure}  \n'

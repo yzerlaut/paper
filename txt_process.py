@@ -44,6 +44,9 @@ def choose_style_from_journal(args):
         args.manuscript_submission = True
         args.figures_at_the_end = True
         PAPER['TEX'] = BASIC_TEX
+    # # adding the draft option to debug
+    if args.debug_draft:
+        PAPER['TEX'] = PAPER['TEX'].replace('\\begin{{document}}', '\hypersetup{{draft}}\n\\begin{{document}}')
 
 
 def process_manuscript(args):
@@ -114,7 +117,7 @@ def export_to_pdf(args):
     tex_file = args.filename.replace('.txt', '.tex')
     pdf_file = args.filename.replace('.txt', '.pdf')
     os.system('mv '+tex_file+' tex/'+tex_file)
-    if args.debug:
+    if args.debug or args.debug_draft:
         os.system('pdflatex -output-directory=tex/ tex/'+tex_file)
     else:
         os.system('pdflatex -shell-escape -interaction=nonstopmode -output-directory=tex/ tex/'+tex_file+' > tex/compil_output')
@@ -155,6 +158,7 @@ if __name__=='__main__':
     parser.add_argument("--reference_style", help="APA / [...] ", type=str, default='APA')
     parser.add_argument("-wdoc", "--with_doc_export", help="with Ms-Word export", action="store_true")
     parser.add_argument("--debug", help="", action="store_true")
+    parser.add_argument("--debug_draft", help="", action="store_true")
     
     args = parser.parse_args()
 
@@ -164,4 +168,3 @@ if __name__=='__main__':
         export_to_docx(args)
     else:
         export_to_pdf(args)
-    
