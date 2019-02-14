@@ -27,7 +27,7 @@ def transform_preamble_into_title_props(PAPER, args):
         elif line.split('Affiliations: ')[0]=='':
             aaff = line.split('Affiliations: ')[1]
             for i in range(30):
-                aaff = aaff.replace('{'+str(i)+'}', '\\textbf{\\textsuperscript{'+str(i)+'}}')
+                aaff = aaff.replace('{'+str(i)+'} ', '\\textbf{\\textsuperscript{'+str(i)+'}}')
             PAPER['affiliations'] = aaff
         # If Correspondence
         elif line.split('Correspondence: ')[0]=='':
@@ -425,7 +425,7 @@ def process_references(PAPER, args):
         elif args.citation_style=='number':
             PAPER['References'] += '\hypertarget{'+REFS['key'][i]+'}{['+str(i0+1)+'] '+REFS['full_ref'][i]+'} \\newline \n'
         else:
-            PAPER['References'] += '$\\cdot$ \hypertarget{'+REFS['key'][i]+'}{'+REFS['full_ref'][i]+'} \\newline  \n'
+            PAPER['References'] += '\\noindent \hypertarget{'+REFS['key'][i]+'}{'+REFS['full_ref'][i]+'} \\vspace{.5em} \n \n '
 
     """
     Here we handle the Nature & Plos reference style

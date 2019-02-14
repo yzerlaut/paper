@@ -18,6 +18,7 @@ TEX = \
 \\newcommand\\mailto[1]{{\\href{{mailto:#1}}{{#1}}}}
 \\def\\dag{{$\\dagger$}}
 \\def\\shortdate{{\\today}}
+\\definecolor{{lightgray}}{{gray}}{{0.9}}
 \\hypersetup{{allcolors = [rgb]{{0.1,0.1,0.6}} }} % to have all the hyperlinks in 1 color
 % \\def\\todo#1{{\\marginpar{{\\colorbox{{red}}{{TODO}}}}{{(TODO: \\textit{{#1}})}}}}
 % \\def\\todo#1{{\\colorbox{{red}}{{TODO}}{{(\\underline{{#1}})}}}}

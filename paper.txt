@@ -1,8 +1,8 @@
-Title: A template for scientific papers for dummies
+Title: A template for scientific papers
 Authors: First Author{1}, Second Author{1,2}*
 Short Title: Paper Template
 Short Authors: Author et al.
-Affiliations: 1. My first affiliation, 2. Second author affiliation
+Affiliations: {1} My first affiliation, {2} Second author affiliation
 Correspondence: firstname.lastname@domain.country
 Keywords: scientific papers; biology journals; txt files; Org-Mode; $\LaTeX$
 Conflict of interest: All manuscripts must contain a statement regarding Competing interests. If there are no competing interests, a statement to this effect must be included. All authors should disclose any conflict of interest in accordance with journal policy.
@@ -243,7 +243,6 @@ none & 0 & 0 & 0 & 0\\
 \hline
 \end{tabular}
 \end{center}
-
 
 * Discussion
 
