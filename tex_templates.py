@@ -63,6 +63,48 @@ TEX = \
 \\end{{document}}
 """
 
+JPHYSIOL = \
+"""
+\\documentclass[9pt, a4paper, colorlinks]{{article}}
+\\linespread{{1.5}}
+\\usepackage[utf8]{{inputenc}}
+\\usepackage{{fixltx2e, graphicx, longtable, float, wrapfig, rotating, graphicx, multirow}}
+\\usepackage{{amsmath, textcomp, marvosym, wasysym, amssymb, lmodern, setspace}}
+\\usepackage{{hyperref}}
+\\hypersetup{{allcolors = [rgb]{{0.1,0.1,0.6}} }} % to have all the hyperlinks in 1 color
+\\usepackage[utf8]{{inputenc}}
+\\usepackage[T1]{{fontenc}}
+\\usepackage{{geometry}}
+\\geometry{{a4paper,total={{210mm,297mm}}, left=15mm, right=15mm, top=20mm, bottom=20mm, bindingoffset=0mm}}
+\\usepackage{{lineno}}
+\\title{{ {title} }}
+\\author{{ {authors}  }}
+\\date{{ \\vspace{{ 2cm }} }}
+
+\\begin{{document}}
+\\maketitle
+
+\\noindent \\underline{{\\textsc{{Running Title:}}}} {short_title} \\\\[.2cm]
+\\noindent \\underline{{\\textsc{{Keywords:}}}} {Keywords} \\\\[.2cm]
+\\noindent \\underline{{\\textsc{{Affiliations:}}}} {affiliations} \\\\[.2cm]
+\\noindent \\underline{{\\textsc{{Correspondence:}}}} {Correspondence} \\\\[.2cm]
+\\noindent \\underline{{\\textsc{{Table of content:}}}} Neuroscience \\\\[.2cm]
+
+\\subsection*{{Key point summary}}
+\\begin{{itemize}}
+{Key Points}
+\\end{{itemize}}
+\\newpage 
+\\linenumbers
+\\subsection*{{Abstract}}
+\\bfseries
+{Abstract}
+\\normalfont
+{text}
+\\end{{document}}
+"""
+
+
 JNEUROSCI = \
 """
 \\documentclass[9pt, a4paper, colorlinks]{{article}}
@@ -84,23 +126,15 @@ JNEUROSCI = \
 \\begin{{document}}
 \\maketitle
 
-\\underline{{\\textsc{{Affiliations:}}}} {affiliations} \\newline \\vspace{{ 1mm }}
-
-\\underline{{\\textsc{{Abbreviated Title:}}}} {short_title} \\newline \\vspace{{ 1mm }}
-
-\\underline{{\\textsc{{Correspondence:}}}} {Correspondence} \\newline \\vspace{{ 1mm }}
-
-\\underline{{\\textsc{{Keywords:}}}} {Keywords} \\newline \\vspace{{ 1mm }}
-
-\\underline{{\\textsc{{Number of Figures:}}}} {Num_of_Figures} \\newline \\vspace{{ 1mm }}
-
-\\underline{{\\textsc{{Number of Tables:}}}}  {Num_of_Tables} \\newline \\vspace{{ 1mm }}
-
-\\underline{{\\textsc{{Number of Words:}}}} Abstract ({Num_Words_of_Abstract} words), Introduction ({Num_Words_of_Introduction} words), Discussion ({Num_Words_of_Discussion} words) \\newline \\vspace{{ 1mm }}
-
-\\underline{{\\textsc{{Conflict of Interest:}}}} {conflict_of_interest} \\newline \\vspace{{ 1mm }}
-
-\\underline{{\\textsc{{Acknowledgements:}}}} {Acknowledgements} {Funding} \\newline \\vspace{{ 1mm }}
+\\noindent \\underline{{\\textsc{{Affiliations:}}}} {affiliations}\\\\[.2cm]
+\\noindent \\underline{{\\textsc{{Abbreviated Title:}}}} {short_title}\\\\[.2cm]
+\\noindent\\underline{{\\textsc{{Correspondence:}}}} {Correspondence}\\\\[.2cm]
+\\noindent\\underline{{\\textsc{{Keywords:}}}} {Keywords}\\\\[.2cm]
+\\noindent\\underline{{\\textsc{{Number of Figures:}}}} {Num_of_Figures}\\\\[.2cm]
+\\noindent\\underline{{\\textsc{{Number of Tables:}}}}  {Num_of_Tables}\\\\[.2cm]
+\\noindent\\underline{{\\textsc{{Number of Words:}}}} Abstract ({Num_Words_of_Abstract} words), Introduction ({Num_Words_of_Introduction} words), Discussion ({Num_Words_of_Discussion} words)\\\\[.2cm]
+\\noindent\\underline{{\\textsc{{Conflict of Interest:}}}} {conflict_of_interest}\\\\[.2cm]
+\\noindent\\underline{{\\textsc{{Acknowledgements:}}}} {Acknowledgements} {Funding}\\\\[.2cm]
 
 \\newpage 
 \\linenumbers

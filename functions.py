@@ -364,6 +364,7 @@ def process_section_titles(PAPER, args):
     PAPER['Results'] = PAPER['Results'].replace('Results\n', '\\normalsize \\normalfont \n \subsection*{Results}\n')
     PAPER['Introduction'] = PAPER['Introduction'].replace('Introduction\n', '\\normalsize \\normalfont \n \subsection*{Introduction}\n')
     PAPER['Discussion'] = PAPER['Discussion'].replace('Discussion\n', '\\normalsize \\normalfont \n \subsection*{Discussion}\n')
+    PAPER['Key Points'] = PAPER['Key Points'].replace('Key Points\n', '')
 
 def process_subsection_titles(PAPER, args):
     """
@@ -396,17 +397,22 @@ def process_references(PAPER, args):
 
     PAPER['References'] = '\n \small \\normalfont \n \subsection*{References} \n'
 
-    REFS = {'key':[], 'positions_in_text':[], 'numbers':[], 'abbrev_in_text':[], 'full_ref':[], 'correct_abbrev':[]}
+    REFS = {'key':[], 'positions_in_text':[], 'numbers':[], 'abbrev_in_text':[], 'full_ref':[], 'correct_abbrev':[],
+            'intext_abbrev_in_text':[], 'intext_abbrev_in_text_correct':[]}
+    
     # looping over references
     for ref in LIBRARY.keys():
-        if len(PAPER['text'].split(ref))>1:
-            
+        if (len(PAPER['text'].split(ref))>1) or (len(PAPER['text'].split(LIBRARY[ref].item()['intext_abbrev']))>1):
             REFS['key'].append(ref.replace('., ', '_').replace(', ', '_').replace(' ', '_'))
             REFS['abbrev_in_text'].append(ref)
+            REFS['intext_abbrev_in_text'].append(LIBRARY[ref].item()['intext_abbrev'])
+            REFS['intext_abbrev_in_text_correct'].append(LIBRARY[ref].item()['correct_intext_abbrev'])
             REFS['correct_abbrev'].append(LIBRARY[ref].item()['correct_abbrev'])
             REFS['positions_in_text'].append(len(PAPER['text'].split(ref)[0]))
             REFS['full_ref'].append(LIBRARY[ref].item()['APA'])
-
+            if args.cross_ref and (LIBRARY[ref].item()['doi']!=''):
+                REFS['full_ref'][-1] += ' \\href{'+LIBRARY[ref].item()['doi']+'}{[link]}'
+                
     if args.citation_style=='number':
         REFS['numbers'] = np.argsort(REFS['positions_in_text'])
         REFS['correct_abbrev'] = ['[[['+str(ii+1)+']]]' for ii in REFS['numbers']]
@@ -415,33 +421,42 @@ def process_references(PAPER, args):
 
     for i0, i in enumerate(REFS['numbers']):
         if args.cross_ref:
-            PAPER['text'] = PAPER['text'].replace(REFS['abbrev_in_text'][i],
-                                              '\\hyperlink{'+REFS['key'][i]+'}{'+REFS['correct_abbrev'][i]+'}')
-        if not args.cross_ref:
-            PAPER['text'] = PAPER['text'].replace(REFS['abbrev_in_text'][i], REFS['correct_abbrev'][i])
-            # PAPER['References'] += '$\\cdot$ '+REFS['full_ref'][i]+' \\newline \n '
-            PAPER['References'] += ' \\qquad '+REFS['full_ref'][i]+' \\newline \n \n \, \\qquad \, \\newline \, '
-            
-        elif args.citation_style=='number':
-            PAPER['References'] += '\hypertarget{'+REFS['key'][i]+'}{['+str(i0+1)+'] '+REFS['full_ref'][i]+'} \\newline \n'
+
+            if args.citation_style=='number':
+                # we test the three parenthesis cases
+                for s_before, s_after, s_bef_new, s_aff_new in zip(['(', '(', '; ', '; ', ''], [')', '', ')', '', ''],
+                                                                   ['[', '[', ',', ',', ''], [']', '', ']', '', '']):
+                    PAPER['text'] = PAPER['text'].replace(s_before+REFS['abbrev_in_text'][i]+s_after,
+                                                          s_bef_new+'\\hyperlink{'+REFS['key'][i]+'}{'+str(i0+1)+'}}'+s_aff_new)
+                PAPER['text'] = PAPER['text'].replace(REFS['intext_abbrev_in_text'][i],
+                                                      REFS['intext_abbrev_in_text_correct'][i].replace(' (', '\,(')+\
+                                       '[\\hyperlink{'+REFS['key'][i]+'}{'+str(i0+1)+'}]')
+                
+            elif args.citation_style=='number_exponents':
+                # we test the three parenthesis cases
+                for s_before, s_after, s_bef_new in zip([' (', ' (', '; ', '; ', ''], [')', '', ')', '', ''],
+                                                        ['', '', '\\textsuperscript{,}', '\\textsuperscript{,}', '']):
+                    PAPER['text'] = PAPER['text'].replace(s_before+REFS['abbrev_in_text'][i]+s_after,
+                                               s_bef_new+'\\textsuperscript{\\hyperlink{'+REFS['key'][i]+'}{'+str(i0+1)+'}}')
+                PAPER['text'] = PAPER['text'].replace(REFS['intext_abbrev_in_text'][i],
+                                                      REFS['intext_abbrev_in_text_correct'][i].replace(' (', '\,(')+\
+                                       '\\textsuperscript{\\hyperlink{'+REFS['key'][i]+'}{'+str(i0+1)+'}}')
+
+            else:
+                PAPER['text'] = PAPER['text'].replace(REFS['abbrev_in_text'][i],
+                                                  '\\hyperlink{'+REFS['key'][i]+'}{'+REFS['correct_abbrev'][i]+'}')
+                PAPER['text'] = PAPER['text'].replace(REFS['intext_abbrev_in_text'][i],
+                                                  '\\hyperlink{'+REFS['key'][i]+'}{'+REFS['intext_abbrev_in_text_correct'][i]+'}')
         else:
-            PAPER['References'] += '\\noindent \hypertarget{'+REFS['key'][i]+'}{'+REFS['full_ref'][i]+'} \\vspace{.5em} \n \n '
+            PAPER['text'] = PAPER['text'].replace(REFS['abbrev_in_text'][i], REFS['correct_abbrev'][i])
+            PAPER['References'] += '\\noindent '+REFS['full_ref'][i]+' \\\\[8pt] '
 
-    """
-    Here we handle the Nature & Plos reference style
-    """
-    if args.journal=='Nature':
-        PAPER['text'] = PAPER['text'].replace(' (\\hyperlink{', '$^{\\hyperlink{')
-        PAPER['text'] = PAPER['text'].replace(']]]})', '}$')
-        PAPER['text'] = PAPER['text'].replace(']]]}; ', '},')
-        PAPER['text'] = PAPER['text'].replace('[[[', '')
-    elif args.journal=='PloS':
-        PAPER['text'] = PAPER['text'].replace(' (\\hyperlink{', '[\\hyperlink{')
-        PAPER['text'] = PAPER['text'].replace(']]]})', '}]')
-        PAPER['text'] = PAPER['text'].replace(']]]}; ', '},')
-        PAPER['text'] = PAPER['text'].replace('[[[', '')
+        ### Now putting it at the end in the references section
+        if len(args.citation_style.split('number'))>1:
+            PAPER['References'] += '\\noindent \hypertarget{'+REFS['key'][i]+'}{['+str(i0+1)+'] '+REFS['full_ref'][i]+'}  \\\\[8pt] '
+        else:
+            PAPER['References'] += '\\noindent \hypertarget{'+REFS['key'][i]+'}{'+REFS['full_ref'][i]+'}  \\\\[8pt] '
 
-        
     PAPER['text'] += PAPER['References']
         
 

@@ -53,6 +53,12 @@ def remove_complex_characters_in_string(s):
     return s2
 
 
+def build_doi_url(entry):
+    if 'doi' in entry:
+        return "https://doi.org/"+entry['doi']
+    else:
+        return ''
+
 def build_apa_citation(entry, AD):
     # print(entry)
     authors = ''
@@ -95,6 +101,7 @@ def build_library(verbose=False, find_duplicates=False):
             LIBRARY[abbrev_of_entry] = {'correct_abbrev':true_abbrev_of_entry,
                                         'correct_intext_abbrev':true_intext_abbrev_of_entry,
                                         'intext_abbrev':intext_abbrev_of_entry,
+                                        'doi':build_doi_url(entry),
                                         'APA':build_apa_citation(entry, AD)}
         except KeyError:
             print('----------------------------------------------------')

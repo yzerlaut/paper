@@ -58,9 +58,7 @@ neque.
 
 * Introduction
 
-We can play with references (Telenczuk et al., 2017; Destexhe et al.,
-2003; Chance et al., 2002) and also include them in text, such as in
-Destexhe et al. (2003). We make a a reference to Figure {Fig1}a,c and
+We can play with references (Telenczuk et al., 2017; Destexhe et al., 2003; Chance et al., 2002) and also include them in text, such as in Destexhe et al. (2003) or Reig et al. (2015). We make a a reference to Figure {Fig1}a,c and
 Figure {Fig3}B and Figure {Fig2}(ii).
 
 Together with a reference to Equation {first} and Equation {eq1} and
@@ -72,9 +70,7 @@ sollicitudin. Praesent im- perdiet mi nec ante. Donec ullamcorper,
 felis non sodales commodo, lectus velit ultrices augue, a dig- nissim
 nibh lectus placerat pede.
 
-we can play with references (Destexhe et al., 2003; Chance et
-al., 2002) and also include them in text, such as in Destexhe et
-al. (2003). \NOTE{add another reference here !}
+we can play with references (Destexhe et al., 2003; Chance et al., 2002) and also include them in text, such as in Destexhe et al. (2003). \NOTE{add another reference here !}
 
 We make a a reference to Figure {Fig1}a,c and Figure {Fig3}B and
 Figure {Fig2}.
@@ -123,6 +119,8 @@ Lorem ipsum dolor sit amet, consectetuer adipisc- ing elit. Etiam lobortis facil
 
 [[Table {Tab1} around here]]
 
+[[Table {Tab2} around here]]
+
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Etiam
 lobortis facilisis sem. Nullam necmi et neque pharetra
 sollicitudin. Praesent im-perdiet mi nec ante. Donec ullamcorper,
@@ -142,8 +140,6 @@ amet ipsum. Nuncquis urna dictum turpis accumsan semper.
 \label{eq:second}
 \tau \, \frac{dx}{dt} = E_L-v + \xi (t)
 \end{equation}
-
-[[Table {Tab2} around here]]
 
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Etiam
 lobortis facilisis sem. Nullam necmi et neque pharetra
@@ -302,6 +298,11 @@ Patrick & 4321 & 25\\
 # | Anna    |     4321 |  25 |
 # | Patrick |     4321 |  25 |
 
+* Key Points
+
+\item writing scientific papers 
+\item using meta-anaysis file for paper results
+\item different styles of paper formatting
 * Notes /not exported/
 
 ** Constructing tables

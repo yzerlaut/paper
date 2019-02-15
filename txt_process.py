@@ -32,21 +32,26 @@ def choose_style_from_journal(args):
     elif (args.journal=='preprint'):
         PAPER['TEX'] = TEX
     elif (args.journal=='Nature'):
-        args.citation_style = 'number'
+        args.citation_style = 'number_exponents'
     elif (args.journal=='PLoS'):
         args.citation_style = 'number'
     elif (args.journal=='JNeurosci'):
         PAPER['order'] = ['Introduction', 'Methods', 'Results', 'Discussion']
         args.manuscript_submission = True
         PAPER['TEX'] = JNEUROSCI
+    elif (args.journal=='JPhysiol'):
+        PAPER['order'] = ['Introduction', 'Methods', 'Results', 'Discussion']
+        args.manuscript_submission = True
+        PAPER['TEX'] = JPHYSIOL
     if args.with_doc_export:
         args.cross_ref = False
         args.manuscript_submission = True
         args.figures_at_the_end = True
         PAPER['TEX'] = BASIC_TEX
     # # adding the draft option to debug
-    if args.debug_draft:
+    if args.debug_draft or args.draft:
         PAPER['TEX'] = PAPER['TEX'].replace('\\begin{{document}}', '\hypersetup{{draft}}\n\\begin{{document}}')
+        PAPER['TEX'] = PAPER['TEX'].replace(']{{article}}', ',draft]{{article}}')
 
 
 def process_manuscript(args):
@@ -159,6 +164,7 @@ if __name__=='__main__':
     parser.add_argument("-wdoc", "--with_doc_export", help="with Ms-Word export", action="store_true")
     parser.add_argument("--debug", help="", action="store_true")
     parser.add_argument("--debug_draft", help="", action="store_true")
+    parser.add_argument("--draft", help="", action="store_true")
     
     args = parser.parse_args()
 
