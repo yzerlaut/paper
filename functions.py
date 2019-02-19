@@ -141,7 +141,6 @@ def process_tables(PAPER, args):
                 params['table_latex_code'] += line +'\n'
         params['number'] = len(PAPER['TABLES'])
         PAPER['TABLES'].append(params)
-        print(params['table_latex_code'])
     for tab in PAPER['TABLES']:
         insert_table(PAPER, tab, args)
 
