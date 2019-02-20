@@ -99,7 +99,7 @@ def process_equations(PAPER, args):
 
 def insert_table(PAPER, TAB, args):
     """
-    Constructs the LateX figure string to insert in the 
+    Constructs the LateX table string to insert in the 
     """
     
     if ('extent' in TAB) and TAB['extent']=='doublecolumn':
@@ -125,9 +125,9 @@ def insert_table(PAPER, TAB, args):
 
 def process_tables(PAPER, args):
     """
-    Analyze the Figures section
+    Analyze the Tables section
 
-    constructs the latex code for the figure formatting
+    constructs the latex code for the table formatting
     """
     TABLES = PAPER['Tables'].split('\n*** ')[1:] # separator
     for text in TABLES:
@@ -205,9 +205,11 @@ def insert_figure(PAPER, FIG, args):
     Constructs the LateX figure string to insert in the 
     """
 
-    for key, default_value in zip(['extent', 'width', 'scale',\
-                                   'wrapfig', 'wrapfig_space_before', 'wrapfig_space_after'],
-                                  ['doublecolumn', 1., 1., False, 0., 0.]):
+    for key, default_value in zip(['extent', 'width', 'scale', 'height',\
+                                   'wrapfig', 'hrule_bottom', 'hrule_bottom',
+                                   'wrapfig_space_before', 'wrapfig_space_after',
+                                   'wrapfig_space_left', 'wrapfig_space_right'],
+                                  ['doublecolumn', 1., 1., 10., False, False, False, 0., 0., 0., 0.]):
         if key not in FIG:
             FIG[key] = default_value
 
@@ -218,7 +220,7 @@ def insert_figure(PAPER, FIG, args):
     else:
         figure = 'figure*'
 
-    figure_text = '\\begin{'+figure+'}[tb!]\n \\centering \n'
+    figure_text = '\\begin{'+figure+'}[tb!]\n'
     
     if not args.cross_ref: # most simple version
         figure_text += '\\centering \\begin{singlespace} \n'
@@ -254,15 +256,16 @@ def insert_figure(PAPER, FIG, args):
     elif ('wrapfig' in FIG) and (FIG['wrapfig']):
         figure_text += '\\captionsetup{labelformat=empty,font=small}'
         figure_text += '\\caption{\\label{fig:'+FIG['label']+'} \\vspace{-2em} }'
-        figure_text += '\\vspace{'+str(FIG['wrapfig_space_before'])+'em}\n'
-        figure_text += '\\begin{wrapfigure}{l}{'+str(FIG['width'])+'\linewidth}\n'
+        figure_text += '\\begin{wrapfigure}['+str(FIG['height'])+']{l}{'+str(FIG['width'])+'\linewidth}\n'
+        figure_text += '\\hspace*{'+str(FIG['wrapfig_space_left'])+'em}\n'
         figure_text += '\\includegraphics[scale='+str(FIG['scale'])+']{'+\
                                                  FIG['file']+'}\n'
-        figure_text += '\\vspace{'+str(FIG['wrapfig_space_after'])+'em}\n'
         figure_text += '\\end{wrapfigure}\n'
-        figure_text += '\\small \\bfseries Figure \\ref{fig:'+FIG['label']+'}. '+\
+        figure_text += '\\small \\bfseries Figure \\ref*{fig:'+FIG['label']+'}. '+\
                        FIG['caption_title']+\
                        ' \\normalfont '+FIG['detailed_caption']+' \\normalsize \n'
+        if FIG['hrule_bottom']:
+            figure_text += '\\vspace{.3cm}\n \\hrule \n'
     else:
         figure_text += '\\centering\n'
         figure_text += '\\vspace{'+str(FIG['wrapfig_space_before'])+'em}\n'

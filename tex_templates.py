@@ -4,7 +4,7 @@ TEX = \
 \\usepackage[utf8]{{inputenc}}
 \\usepackage[T1]{{fontenc}}
 \\usepackage{{longtable, float, wrapfig, rotating, graphicx, multirow, xcolor}}
-\\usepackage{{amsmath, textcomp, marvosym, wasysym, amssymb, hyperref, wrapfig}}
+\\usepackage{{amsmath, textcomp, marvosym, wasysym, amssymb, hyperref}}
 \\tolerance=1000
 \\setcounter{{tocdepth}}{{5}}
 \\usepackage[utf8]{{inputenc}}
