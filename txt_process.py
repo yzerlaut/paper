@@ -11,15 +11,18 @@ NEW = []
 PAPER = {'text':'',
          'Preamble':'',
          'Abstract':'',
-         'Significance':'','Key Points':'','Keywords':'', 'Acknowledgements':'', 'Funding':'',
+         'Significance':'','Key Points':'','Keywords':'',
+         'Acknowledgements':'', 'Funding':'',
          'Introduction':'','Methods':'','Results':'','Discussion':'',
-         'Figures':'', 'Tables':'', 'Supplementary':'',
+         'Figures':'', 'Tables':'',
+         'Supplementary':'',
          'References':'',
          'refs':{},\
          'authors':'', 'short_authors':'',
          'title':'', 'short_title':'',
          'affiliations':'', 'correspondence':'',
-         'FIGS':[], 'TABLES':[], 'EQS':[]}
+         'FIGS':[], 'TABLES':[],
+         'SUPP_FIGS':[], 'SUPP_TABLES':[], 'EQS':[]}
 
 
 def choose_style_from_journal(args):
@@ -69,10 +72,12 @@ def process_manuscript(args):
     SECTIONS = full_text.split('\n* ') # separator for the start of a given section in org-mode
     PAPER['Preamble'] = SECTIONS[0] # text above the section is the preamble
     for key in ['Abstract', 'Introduction', 'Methods', 'Results',\
-                'Supplementary','References', 'Figures', 'Tables',\
+                'Supplementary Figures',
+                'Supplementary Text',
+                'References', 'Figures', 'Tables',\
                 'Significance', 'Discussion', 'Key Points']:
         for i in range(len(SECTIONS)):
-            if len(SECTIONS[i][:15].split(key))>1:
+            if len(SECTIONS[i][:40].split(key))>1:
                 PAPER[key] = SECTIONS[i]
 
     # process figures
@@ -80,8 +85,9 @@ def process_manuscript(args):
     
     # process figures
     process_figures(PAPER, args)
+    process_figures(PAPER, args, supplementary=True)
     process_tables(PAPER, args)
-    
+
     # manuscript organization: assemble the text from the sections
     process_section_titles(PAPER, args)
 
@@ -94,6 +100,9 @@ def process_manuscript(args):
     else:
         add_figures_and_tables_at_the_end(PAPER, args)
         
+    # supplementary at the end
+    insert_supplementary(PAPER, args)
+    
     # then cross-referencing
     include_figure_cross_referencing(PAPER, args)
     include_table_cross_referencing(PAPER, args)

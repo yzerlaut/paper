@@ -200,9 +200,10 @@ def process_detailed_caption(caption):
     return new_caption
 
     
-def insert_figure(PAPER, FIG, args):
+def insert_figure(PAPER, FIG, args,
+                  supplementary=False):
     """
-    Constructs the LateX figure string to insert in the 
+    Constructs the LateX figure string to insert in the manuscript
     """
 
     for key, default_value in zip(['extent', 'width', 'scale', 'height',\
@@ -221,12 +222,17 @@ def insert_figure(PAPER, FIG, args):
         figure = 'figure*'
 
     figure_text = '\\begin{'+figure+'}[tb!]\n'
-    
+
+    if supplementary:
+        figure_key = args.figure_key+'\,S'
+    else:
+        figure_key = args.figure_key+'\,'
+
     if not args.cross_ref: # most simple version
         figure_text += '\\centering \\begin{singlespace} \n'
         # figure_text += '\\vspace{-1cm}\n' # to stretch a bit the vertical spacing
         figure_text += '\\includegraphics[scale=1.]{'+FIG['file']+'}\n'                       
-        figure_text += '\\caption{ \small \\bfseries '+args.figure_key+'\,'+str(FIG['number']+1)+'. '+FIG['caption_title']+\
+        figure_text += '\\caption{ \small \\bfseries '+figure_key+str(FIG['number']+1)+'. '+FIG['caption_title']+\
                        ' \\normalfont '+FIG['detailed_caption']+' \\normalsize } \\end{singlespace} \n'
         # figure_text += '\\vspace{-0.5cm}\n' # to stretch a bit the vertical spacing
         
@@ -280,13 +286,21 @@ def insert_figure(PAPER, FIG, args):
 
     FIG['latex_code'] = figure_text
 
-def process_figures(PAPER, args):
+def process_figures(PAPER, args,
+                    supplementary=False):
     """
     Analyze the Figures section
 
     constructs the latex code for the figure formatting
     """
-    FIGURES = PAPER['Figures'].split('\n*** ')[1:] # separator
+    if supplementary:
+        s_Figures = 'Supplementary Figures'
+        s_FIGS = 'SUPP_FIGS'
+    else:
+        s_Figures = 'Figures'
+        s_FIGS = 'FIGS'
+        
+    FIGURES = PAPER[s_Figures].split('\n*** ')[1:] # separator
     for text in FIGURES:
         lines = text.split('\n')
         exec("global params; params = "+lines[1].split('#+options : ')[1])
@@ -294,11 +308,11 @@ def process_figures(PAPER, args):
         params['detailed_caption'] = ''
         for line in lines[2:]:
             params['detailed_caption'] += line+' '
-        params['number'] = len(PAPER['FIGS'])
-        PAPER['FIGS'].append(params)
+        params['number'] = len(PAPER[s_FIGS])
+        PAPER[s_FIGS].append(params)
 
-    for fig in PAPER['FIGS']:
-        insert_figure(PAPER, fig, args)
+    for fig in PAPER[s_FIGS]:
+        insert_figure(PAPER, fig, args, supplementary=supplementary)
 
 
 def replace_text_indication_with_latex_fig(PAPER, args):
@@ -310,11 +324,19 @@ def replace_text_indication_with_latex_fig(PAPER, args):
     for fig in PAPER['FIGS']:
         PAPER['text'] = PAPER['text'].replace('[[Figure {'+fig['label']+'} around here]]', '\n'+fig['latex_code']+'\n')
 
-def include_figure_cross_referencing(PAPER, args):
+def include_figure_cross_referencing(PAPER, args,
+                                     supplementary=False):
     """
     """
 
-    for fig in PAPER['FIGS']:
+    if supplementary:
+        s_FIGS = 'SUPP_FIGS'
+        figure_key = args.figure_key+'\,S'
+    else:
+        s_FIGS = 'FIGS'
+        figure_key = args.figure_key+'\,'
+        
+    for fig in PAPER[s_FIGS]:
         figure_string = 'Figure {'+fig['label']+'}'
         ii, ref_loc = 0, PAPER['text'].find(figure_string)
         while ref_loc>0:
@@ -333,9 +355,9 @@ def include_figure_cross_referencing(PAPER, args):
                 
             if args.cross_ref:
                 PAPER['text'] = PAPER['text'].replace(figure_string+next_string, '\\hyperref[{fig:'+\
-                                                  fig['label']+'}]{'+args.figure_key+'\,\\ref*{fig:'+fig['label']+'}'+to_be_added+'}'+to_be_kept)
+                                                  fig['label']+'}]{'+figure_key+'\\ref*{fig:'+fig['label']+'}'+to_be_added+'}'+to_be_kept)
             else:
-                PAPER['text'] = PAPER['text'].replace(figure_string+next_string, args.figure_key+'\,'+str(fig['number']+1)+next_string)
+                PAPER['text'] = PAPER['text'].replace(figure_string+next_string, figure_key+str(fig['number']+1)+next_string)
             # and find the next occurence
             ref_loc = PAPER['text'][ii:].find(figure_string)
     
@@ -482,6 +504,19 @@ def insert_abstract(PAPER, args):
         PAPER['text'] += '\n \\end{figure}  \n'
 
 
+def insert_supplementary(PAPER, args):
+
+    if PAPER['Supplementary']!='':
+        PAPER['text'] += '\n \\newpage \n '
+        PAPER['text'] += PAPER['Supplementary']
+    elif ('Supplementary Figures' in PAPER):
+        PAPER['text'] += '\n \\newpage \n '
+        PAPER['text'] += '\\section*{Supplementary Material} \n '
+        for fig in PAPER['SUPP_FIGS']:
+            PAPER['text'] += '\n '
+            PAPER['text'] += fig['latex_code']
+
+            
 def assemble_text(PAPER, args):
 
     PAPER['text'] = ''
@@ -492,6 +527,7 @@ def assemble_text(PAPER, args):
         
         for key in PAPER['order']:
             PAPER['text'] += PAPER[key]
+        # 
         process_subsection_titles(PAPER, args)
         
     else:
@@ -509,5 +545,6 @@ def final_manuscript_analysis(PAPER, args):
     
 if __name__=='__main__':
 
-    analysis = {'stat_test_example': 'c=0.5, p=0.003, Pearson correlation', 'data_output':'34$\pm$17.3mV'}
+    analysis = {'stat_test_example': 'c=0.5, p=0.003, Pearson correlation',
+                'data_output':'34$\pm$17.3mV'}
     np.savez('analysis.npz', **analysis)
