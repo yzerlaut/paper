@@ -1,3 +1,46 @@
+TEX_LETTER = \
+"""
+\\documentclass[11pt]{{letter}}
+\\usepackage[T1]{{fontenc}} \\usepackage[utf8]{{inputenc}}
+\\usepackage{{graphicx}}
+
+\\name{{Yann Zerlaut}}
+\\address{{Piazza Principe N.4 \\\\ 16126 Genova, Italie}}
+\\signature{{Dr. Yann Zerlaut \\\\ \\includegraphics[width=.6\\textwidth]{{/Users/yzerlaut/Documents/signature.png}} }}
+\\date{{date d'expdition}} 
+
+\\begin{{document}}
+\\begin{{letter}}{{ Destinataire }}
+\\opening{{ \\`{{A}} qui de droit, }}
+
+lobortis facilisis sem. Nullam nec mi et neque pharetra
+sollicitudin. Praesent imperdiet mi nec ante. Donec ullamcorper, felis
+non sodales commodo, lectus velit ultrices augue, a dignissim nibh
+lectus placerat pede. Vivamus nunc nunc, molestie ut, ultricies vel,
+semper in, velit.  Ut porttitor. Praesent in sapien. Lorem ipsum dolor
+sit amet, consectetuer adipiscing elit. Duis fringilla tristique
+neque. Praesent lectus tellus, aliquet aliquam,
+luctus a, egestas a, turpis. Mauris lacinia lorem sit amet ipsum. Nunc
+quis urna dictum turpis accumsan semper. Sed interdum libero ut
+metus. Pellentesque placerat. Nam rutrum augue a leo. Morbi sed elit
+sit amet ante lobortis sollicitudin. Praesent blandit blandit
+mauris. Praesent lectus tellus, aliquet aliquam, luctus a, egestas a,
+turpis. Mauris lacinia lorem sit amet ipsum. Nunc quis urna dictum
+turpis accumsan semper.
+
+\\closing{{formule de politesse (veuillez agrer, etc)}}
+
+\\ps{{P.S. post-scriptum}}
+
+\\cc{{nom des autres destinataires}}
+
+\\encl{{pieces jointes}}
+
+
+\\end{{letter}}
+\\end{{document}}
+"""
+
 TEX = \
 """
 \\documentclass[8pt, a4paper, twocolumn, twoside, colorlinks]{{article}}
