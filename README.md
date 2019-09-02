@@ -1,6 +1,6 @@
 # A template for scientific papers
 
-_A "plain text (.txt)"-based framework to efficiently report scientific analysis._
+_A plain text (.txt)-based framework to efficiently report scientific analysis._
 
 What this software enables is to:
 - Provide a datafile (e.g. a python dictionary file "data.npz") and have your numerical values exported automatically within the text (no need to manually copy-paste the analysis output)
