@@ -8,4 +8,4 @@ What this software enables is to:
    - either short reports with two columns
    - either long and detailed reports in the single column 
    - either to pre-defined templates of scientific journals: PloS journals, Springer journals, Physical Review journals, Cell journals, J. Neurosci., etc ...
-- Benefit from the the Emacs editing capabilities because the syntax uses the Org-Mode syntax.
+- Benefit from the the Emacs editing capabilities because the txt template uses the Org-Mode syntax.
