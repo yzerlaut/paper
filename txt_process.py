@@ -85,7 +85,7 @@ def process_manuscript(args):
     
     # process figures
     process_figures(PAPER, args)
-    process_figures(PAPER, args, supplementary=True)
+    # process_figures(PAPER, args, supplementary=True)
     process_tables(PAPER, args)
 
     # manuscript organization: assemble the text from the sections
