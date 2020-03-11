@@ -36,4 +36,9 @@ setuptools.setup(
 
      ],
 
+    install_requires=[
+        "numpy",
+        "bibtexparser",
+        "argparse"
+    ]
  )
