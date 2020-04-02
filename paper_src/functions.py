@@ -413,8 +413,9 @@ def process_references(PAPER, args):
     finds the references within the text and replaces them with the accurate ones 
     """
     try:
-        print('USING :', os.environ["DIR"]+os.path.sep+'biblio.npz')
-        LIBRARY = np.load(os.environ["DIR"]+os.path.sep+'biblio.npz')
+        # print('USING :', os.environ["DIR"]+os.path.sep+'biblio.npz')
+        # LIBRARY = np.load(os.environ["DIR"]+os.path.sep+'biblio.npz')
+        LIBRARY = np.load('biblio.npz', allow_pickle=True)
     except (KeyError, FileNotFoundError):
         print('biblio.npz', ' NOT FOUND !')
         LIBRARY = {}
