@@ -1,6 +1,10 @@
-# A template for scientific papers
+<div><img src="https://github.com/yzerlaut/datavyz/raw/master/docs/logo.png" alt="datavyz logo" width="45%" align="right" style="margin-left: 10px"></div>
 
-_A plain text (.txt)-based framework to efficiently report scientific analysis._
+# finalyz
+
+*A plain text (.txt)-based framework to efficiently describe methods and results in scientific communication.*
+
+# Content
 
 What this software enables is to:
 - Provide a datafile (e.g. a python dictionary file "data.npz") and have your numerical values exported automatically within the text (no need to manually copy-paste the analysis output)
