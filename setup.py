@@ -6,11 +6,11 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
 
-     name='paper',  
+     name='finalyz',  
 
      version='0.1',
 
-     scripts=['paper'] ,
+     scripts=['finalyz'] ,
 
      author="Zerlaut Yann",
 
@@ -22,7 +22,7 @@ setuptools.setup(
 
    long_description_content_type="text/markdown",
 
-     url="https://github.com/yzerlaut/paper",
+     url="https://github.com/yzerlaut/finalyz",
 
      packages=setuptools.find_packages(),
 
