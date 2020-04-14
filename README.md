@@ -4,6 +4,8 @@
 
 *A plain text (.txt)-based framework to efficiently describe methods and results in scientific communication.*
 
+Part of the software suite for data science: [analyz](https://github.com/yzerlaut/analyz), [datavyz](https://github.com/yzerlaut/datavyz), [finalyz](https://github.com/yzerlaut/finalyz)
+
 # Content
 
 What this software enables is to:
