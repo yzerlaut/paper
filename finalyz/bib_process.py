@@ -2,9 +2,6 @@ import sys
 import bibtexparser as bp
 import numpy as np
 
-with open('biblio.bib') as bibtex_file:
-    bib_database = bp.load(bibtex_file)
-
 def transform_author_to_list_of_dict(author_field):
     """
     """
@@ -82,7 +79,11 @@ def build_apa_citation(entry, AD):
         volume = " "+entry['volume']+volume
     return authors+"("+entry['year']+") "+entry['title']+ ". \\textit{"+entry['journal']+volume+number_pages
 
-def build_library(verbose=False, find_duplicates=False):
+def build_library(filename,
+                  verbose=False, find_duplicates=False):
+
+    with open(filename) as bibtex_file:
+        bib_database = bp.load(bibtex_file)
 
     LIBRARY = {}
     abbrevs = []
