@@ -55,7 +55,7 @@ turpis accumsan semper.
 
 * Introduction
 
-[[Figure {Fig1} around here]]
+Lorem ipsum dolor sit amet, consectetuer adipisc- ing elit. Etiam lobortis facilisis sem. Nullam nec mi et neque pharetra sollicitudin. Praesent im- perdiet mi nec ante. Donec ullamcorper, felis non sodales commodo, lectus velit ultrices augue, a dig- nissim nibh lectus placerat pede. Vivamus nunc nunc, molestie ut, ultricies vel, semper in, velit.  Ut porttitor. Praesent in sapien. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Duis fringilla tristique neque. Sed interdum libero ut metus. Pellentesque placerat.
 
 We can play with references (Telenczuk et al., 2017; Destexhe et al., 2003; Chance et al., 2002) and also include them in text, such as in Destexhe et al. (2003) or Reig et al. (2015). We make a a reference to Figure {Fig1}a,c and
 Figure {Fig3}B and Figure {Fig2}(ii).
@@ -74,12 +74,17 @@ we can play with references (Destexhe et al., 2003; Chance et al., 2002) and als
 We make a a reference to Figure {Fig1}a,c and Figure {Fig3}B and
 Figure {Fig2}.
 
+Lorem ipsum dolor sit amet, consectetuer adipisc- ing elit. Etiam lobortis facilisis sem. Nullam nec mi et neque pharetra sollicitudin. Praesent im- perdiet mi nec ante. Donec ullamcorper, felis non sodales commodo, lectus velit ultrices augue, a dig- nissim nibh lectus placerat pede. Vivamus nunc nunc, molestie ut, ultricies vel, semper in, velit.  Ut porttitor. Praesent in sapien. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Duis fringilla tristique neque. Sed interdum libero ut metus. Pellentesque placerat.
+Lorem ipsum dolor sit amet, consectetuer adipisc- ing elit. Etiam lobortis facilisis sem. Nullam nec mi et neque pharetra sollicitudin. Praesent im- perdiet mi nec ante. Donec ullamcorper, felis non sodales commodo, lectus velit ultrices augue, a dig- nissim nibh lectus placerat pede. Vivamus nunc nunc, molestie ut, ultricies vel, semper in, velit.  Ut porttitor. Praesent in sapien. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Duis fringilla tristique neque. Sed interdum libero ut metus. Pellentesque placerat.
+
 * Results
 
 
-[[Figure {Fig3} around here]]
+[[Figure {Fig1} around here]]
 
 *** Section talking abour first result
+
+[[Figure {Fig2} around here]]
 
 We replace values coming from the "analysis.npz" file:
 
@@ -100,6 +105,8 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Etiam lobortis facilis
 
 
 *** Section talking abour second result
+
+[[Figure {Fig3} around here]]
 
 Lorem ipsum dolor sit amet, consectetuer adipisc- ing elit. Etiam lobortis facilisis sem. Nullam nec mi et neque pharetra sollicitudin. Praesent im- perdiet mi nec ante. Donec ullamcorper, felis non sodales commodo, lectus velit ultrices augue, a dig- nissim nibh lectus placerat pede. Vivamus nunc nunc, molestie ut, ultricies vel, semper in, velit.  Ut porttitor. Praesent in sapien. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Duis fringilla tristique neque. Sed interdum libero ut metus. Pellentesque placerat. Nam rutrum augue a leo. Morbi sed elit sit amet ante lobortis sollicitudin. Praesent blandit blandit mauris. Praesent lectus tellus, aliquet aliquam, luctus a, egestas a, turpis. Mauris lacinia lorem sit amet ipsum. Nunc quis urna dictum turpis accumsan semper.Lorem ipsum dolor sit amet, consectetuer adipisc- ing elit. Etiam lobortis facilisis sem. Nullam nec mi et neque pharetra sollicitudin. Praesent im- perdiet mi nec ante. Donec ullamcorper, felis non sodales commodo, lectus velit ultrices augue, a dig- nissim nibh lectus placerat pede. Vivamus nunc nunc, molestie ut, ultricies vel, semper in, velit. Ut porttitor. Praesent in sapien. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Duis fringilla tristique neque. Sed interdum libero ut metus. Pellentesque placerat. Nam rutrum augue a leo. Morbi sed elit sit amet ante lobortis sollici- tudin. Praesent blandit blandit mauris. Praesent lectus tellus, aliquet aliquam, luctus a, egestas a, turpis. Mauris lacinia lorem sit amet ipsum. Nunc quis urna dictum turpis accumsan semper.
 
@@ -166,12 +173,18 @@ playing with some reference here (Destexhe et al., 2003)
 
 * Figures
 
-*** A one column figure where the legend wraps around the figure.
-#+options : {'label':'Fig1', 'extent':'singlecolumn', 'wrapfig':True, 'width':.57, 'height':10, 'wrapfig_space_left':-1.5, 'file':os.path.expanduser("~")+'/work/graphs/output/2d.png'}
+*** A one column figure.
+#+options : {'label':'Fig1', 'extent':'singlecolumn', 'file':'docs/fig1.png', 'wrapfig_space_left':-1.5}
 Generate the figure with the file \texttt{surface\_plot.py} from the \texttt{graphs} module available at the following \href{https://bitbucket.org/yzerlaut/graphs/src/master/}{[link]}. Lorem ipsum dolor sit amet, consectetuer adipisc- ing elit. Etiam lobortis facilisis sem. Nullam nec mi et neque pharetra sollicitudin. We added an optional horizontal rule at the bottom.
 
+*** A two column figure.
+#+options : {'label':'Fig2', 'extent':'doublecolumn','hrule_bottom':True, 'file':'docs/fig2.png'}
+(a) Lorem ipsumdolor sit amet in *B* and *C*, consectetuer adipiscing elit. Duisfringilla tristique neque. Sed interdum libero utmetus. Pellentesque placerat. Nam rutrum auguea leo. Morbi sed elit sit amet ante lobortis sollici-tudin. Praesent blandit blandit mauris.
+(b) Praesentlectus tellus, aliquet aliquam, luctus a, egestas a,turpis. Mauris lacinia lorem sit amet ipsum. 
+(c) Nuncquis urna dictum turpis accumsan semper. Lorem ipsum dolor sit amet, consectetuer adipisc ing elit. Etiam lobortis facilisis sem. Nullam nec mi et neque pharetra sollicitudin. Praesent imperdiet mi nec ante. Donec ullamcorper,felis non sodales commodo, lectus velit ultrices augue, a dignissim nibh lectus placerat pede. Vivamus nunc nunc, molestie ut, ultricies vel, semper in, velit.
+
 *** A two column figure where the legend wraps around the figure.
-#+options : {'label':'Fig3', 'extent':'doublecolumn', 'wrapfig':True, 'width':.52, 'height':9, 'hrule_bottom':True, 'file':os.path.expanduser("~")+'/work/graphs/output/fig.png'}
+#+options : {'label':'Fig3', 'extent':'doublecolumn', 'wrapfig':True, 'width':.52, 'height':9, 'hrule_bottom':True, 'file':'docs/fig3.png'}
 (a) Lorem ipsumdolor sit amet in *B* and *C*, consectetuer adipiscing elit. Duisfringilla tristique neque. Sed interdum libero utmetus. Pellentesque placerat. Nam rutrum auguea leo. Morbi sed elit sit amet ante lobortis sollici-tudin. Praesent blandit blandit mauris.
 (b) Praesentlectus tellus, aliquet aliquam, luctus a, egestas a,turpis. Mauris lacinia lorem sit amet ipsum. 
 (c) Nuncquis urna dictum turpis accumsan semper. Lorem ipsum dolor sit amet, consectetuer adipisc ing elit. Etiam lobortis facilisis sem. Nullam nec mi et neque pharetra sollicitudin. Praesent imperdiet mi nec ante. Donec ullamcorper,felis non sodales commodo, lectus velit ultrices augue, a dignissim nibh lectus placerat pede. Vivamus nunc nunc, molestie ut, ultricies vel, semper in, velit.
