@@ -7,6 +7,8 @@ import numpy as np
 from tex_templates import *
 from functions import *
 
+
+
 NEW = []
 PAPER = {'text':'',
          'Preamble':'',
