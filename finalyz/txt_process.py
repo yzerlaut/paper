@@ -111,7 +111,6 @@ def process_manuscript(args):
 
     if len(PAPER['Main Text'])>10:
         process_main_text(PAPER, args)
-    print(len(PAPER['Main Text']))
 
     # manuscript organization: assemble the text from the sections
     process_section_titles(PAPER, args)
@@ -131,7 +130,6 @@ def process_manuscript(args):
 
         if args.report:
             PAPER['text'] += PAPER['Main Text']
-            print(PAPER['Main Text'])
         else:
             for key in PAPER['order']:
                 PAPER['text'] += PAPER[key]
@@ -158,7 +156,7 @@ def process_manuscript(args):
         process_equations(PAPER, args)
 
     if os.path.isfile(args.study_file):
-        print('using "%s" for analysis data' % args.study_file)
+        print('\n using "%s" as the "study-file" !' % args.study_file)
         for key, val in dict(np.load(args.study_file)).items():
             PAPER['text'] = PAPER['text'].replace('{'+key+'}', str(val))
     else:

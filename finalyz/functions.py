@@ -397,8 +397,6 @@ def process_main_text(PAPER, args):
     for line in PAPER['Main Text'].split('\n'):
         if len(line.split('***'))==1:
             txt += '\n'+line
-        else:
-            print(line.split('***'))
     txt += '\n'
 
     PAPER['Main Text'] = txt.replace('Main Text\n', '')
