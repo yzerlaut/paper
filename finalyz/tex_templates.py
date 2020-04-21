@@ -87,10 +87,10 @@ TEX = \
 }}
 
 
-\\author{{ {authors} }}
-\\title{{ {title} }}
-\\def\\shorttitle{{ {short_title} }}
-\\def\\shortauthor{{ {short_authors} }}
+\\author{{ {Authors} }}
+\\title{{ {Title} }}
+\\def\\shorttitle{{ {Short_Title} }}
+\\def\\shortauthor{{ {Short_Authors} }}
 \\date{{ \\today }}
 
 
@@ -98,8 +98,8 @@ TEX = \
 
 \\maketitle
 
-\\blfootnote{{  {affiliations} \, }}
-\\blfootnote{{  *Correspondence: {correspondence} }}
+\\blfootnote{{  {Affiliations} \, }}
+\\blfootnote{{  *Correspondence: {Correspondence} }}
 
 {text}
 
@@ -176,7 +176,7 @@ JNEUROSCI = \
 \\noindent\\underline{{\\textsc{{Number of Figures:}}}} {Num_of_Figures}\\\\[.2cm]
 \\noindent\\underline{{\\textsc{{Number of Tables:}}}}  {Num_of_Tables}\\\\[.2cm]
 \\noindent\\underline{{\\textsc{{Number of Words:}}}} Abstract ({Num_Words_of_Abstract} words), Introduction ({Num_Words_of_Introduction} words), Discussion ({Num_Words_of_Discussion} words)\\\\[.2cm]
-\\noindent\\underline{{\\textsc{{Conflict of Interest:}}}} {conflict_of_interest}\\\\[.2cm]
+\\noindent\\underline{{\\textsc{{Conflict of Interest:}}}} {Conflict_of_interest}\\\\[.2cm]
 \\noindent\\underline{{\\textsc{{Acknowledgements:}}}} {Acknowledgements} {Funding}\\\\[.2cm]
 
 \\newpage 

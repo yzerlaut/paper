@@ -5,62 +5,61 @@ import string, os
 ########## PREAMBLE INFORMATIONS ########################################
 #########################################################################
 
-def transform_preamble_into_title_props(PAPER, args):
+def transform_preamble_and_informations_into_title_props(PAPER, args):
     LINES = PAPER['Preamble'].split('\n')
-    for line in LINES:
-        new_line = ''
-        # if COMMENT
-        if (line=='') or (line[0]=='#'):
-            pass # this is a comment
-        # IF TITLE
-        elif line.split('Title: ')[0]=='':
-            PAPER['title'] = line.replace('Title: ', '')
-        # IF SHORT_TITLE
-        elif line.split('Short Title: ')[0]=='':
-            PAPER['short_title'] = line.replace('Short Title: ', '')
-        # IF AUTHORS
-        elif line.split('Authors: ')[0]=='':
-            PAPER['authors'] = line.split('Authors: ')[1].replace('}', '}$').replace('{', '$^{')
-        elif line.split('Short Authors: ')[0]=='':
-            PAPER['short_authors'] = line.split('Short Authors: ')[1]
-        # IF AFFILIATIONS
-        elif line.split('Affiliations: ')[0]=='':
-            aaff = line.split('Affiliations: ')[1]
-            for i in range(30):
-                aaff = aaff.replace('{'+str(i)+'} ', '\\textbf{\\textsuperscript{'+str(i)+'}}')
-            PAPER['affiliations'] = aaff
-        # If Correspondence
-        elif line.split('Correspondence: ')[0]=='':
-            corresp = line.split('Correspondence: ')[1]
-            corresp = corresp.replace('[[', '\\mailto{')
-            corresp = corresp.replace(']]', '}')
-            PAPER['correspondence'] = corresp
-        # If Conflict of Interset
-        elif line.split('Conflict of interest: ')[0]=='':
-            conflict = line.split('Conflict of interest: ')[1]
-            PAPER['conflict_of_interest'] = conflict
-        # If Acknowledgments
-        elif line.split('Acknowledgements: ')[0]=='':
-            conflict = line.split('Acknowledgements: ')[1]
-            PAPER['Acknowledgements'] = conflict
-        # If Keywords
-        elif line.split('Keywords: ')[0]=='':
-            PAPER['Keywords'] = line.split('Keywords: ')[1]
-        # If Funding
-        elif line.split('Funding: ')[0]=='':
-            PAPER['Funding'] = line.split('Funding: ')[1]
-        else:
-            print('-------------------------------')
-            print('the following line in the Premable was not recognized: ')
-            print(line)
 
-    if 'conflict_of_interest' not in PAPER:
-        PAPER['conflict_of_interest'] = 'The authors declare no conflict of interest.'
-        
-    for key in ['Funding', 'Correspondence']:
-        if key not in PAPER:
-            PAPER[key] = ' [...] '
+
+#########################################################################
+########## HANDLING MANUSCRIPT INFORMATIONS #############################
+#########################################################################
+
+def process_preamble_and_informations(PAPER,
+                                      args,
+                                      INFORMATION_KEYS):
+    """
+    we use the preamble of the Informations section to extract the manusrpit information:
+
+    #+Title: This is the study title
+
+    ** Informations
+    *** Title
+    This is the study title
+    """
     
+    SUBSECTIONS = PAPER['Informations'].split('\n*** ')[1:]
+
+    for subsec in SUBSECTIONS:
+
+        for key in INFORMATION_KEYS:
+            if len(subsec.split('%s\n' % key))>1:
+                PAPER[key] = subsec.split('%s\n' % key)[1].replace('\n', '')
+                
+    LINES = PAPER['Preamble'].split('\n')
+    
+    for line in LINES:
+
+        success = False
+        
+        for key in INFORMATION_KEYS:
+            if len(line.split('#+%s: ' % key))>1:
+                PAPER[key] = line.split('#+%s: ' % key)[1]
+
+                
+    # HANDLING AUTHORS
+    PAPER['Authors'] = PAPER['Authors'].replace('}', '}$').replace('{', '$^{')
+    # HANDLING AFFILIATIONS
+    aaff = PAPER['Affiliations']
+    for i in range(30):
+        aaff = aaff.replace('{'+str(i)+'} ', '\\textbf{\\textsuperscript{'+str(i)+'}}')
+    PAPER['Affiliations'] = aaff
+    # HANDLING Correspondence
+    PAPER['Correspondence'] = PAPER['Correspondence'].replace('[[', '\\mailto{').replace(']]', '}')
+
+    for key in INFORMATION_KEYS:
+        if key not in PAPER:
+            PAPER[key] = '[...]'
+    
+
             
 #########################################################################
 ########## HANDLING EQUATIONS ###########################################
@@ -144,6 +143,7 @@ def process_tables(PAPER, args):
     for tab in PAPER['TABLES']:
         insert_table(PAPER, tab, args)
 
+        
 def replace_text_indication_with_latex_table(PAPER, args):
     """
     we replace the annotations in the text as:
@@ -157,14 +157,14 @@ def replace_text_indication_with_latex_table(PAPER, args):
 def add_figures_and_tables_at_the_end(PAPER, args):
 
     if len(PAPER['TABLES'])>0:
-        PAPER['text'] += '\\newpage \n  \subsection*{Tables} \n'
+        PAPER['text'] += '\n  \subsection*{Tables} \n'
         for Table in PAPER['TABLES']:
             PAPER['text'] += '\\qquad \n \centering '
             PAPER['text'] += Table['latex_code']
             PAPER['text'] += '\\newpage \n '
             
     if len(PAPER['FIGS'])>0:
-        PAPER['text'] += '\\newpage \n \subsection*{Figures} \n'
+        PAPER['text'] += ' \n \subsection*{Figures} \n'
         for FIG in PAPER['FIGS']:
             PAPER['text'] += '\\qquad \n \centering '
             PAPER['text'] += FIG['latex_code']
@@ -390,6 +390,20 @@ def process_section_titles(PAPER, args):
     PAPER['Discussion'] = PAPER['Discussion'].replace('Discussion\n', '\\normalsize \\normalfont \n \subsection*{Discussion}\n')
     PAPER['Key Points'] = PAPER['Key Points'].replace('Key Points\n', '')
 
+    
+def process_main_text(PAPER, args):
+
+    txt = '\\vspace{.3cm} \n'
+    for line in PAPER['Main Text'].split('\n'):
+        if len(line.split('***'))==1:
+            txt += '\n'+line
+        else:
+            print(line.split('***'))
+    txt += '\n'
+
+    PAPER['Main Text'] = txt.replace('Main Text\n', '')
+    
+    
 def process_subsection_titles(PAPER, args):
     """
     
@@ -404,140 +418,81 @@ def process_subsection_titles(PAPER, args):
     
 
 #########################################################################
-########## HANDLING REFERENCES ##########################################
-#########################################################################
-
-            
-def process_references(PAPER, args):
-    """
-    finds the references within the text and replaces them with the accurate ones 
-    """
-    try:
-        # print('USING :', os.environ["DIR"]+os.path.sep+'biblio.npz')
-        # LIBRARY = np.load(os.environ["DIR"]+os.path.sep+'biblio.npz')
-        LIBRARY = np.load('biblio.npz', allow_pickle=True)
-    except (KeyError, FileNotFoundError):
-        print('biblio.npz', ' NOT FOUND !')
-        LIBRARY = {}
-
-    PAPER['References'] = '\n \small \\normalfont \n \subsection*{References} \n'
-
-    REFS = {'key':[], 'positions_in_text':[], 'numbers':[], 'abbrev_in_text':[], 'full_ref':[], 'correct_abbrev':[],
-            'intext_abbrev_in_text':[], 'intext_abbrev_in_text_correct':[]}
-    
-    # looping over references
-    for ref in LIBRARY.keys():
-        if (len(PAPER['text'].split(ref))>1) or (len(PAPER['text'].split(LIBRARY[ref].item()['intext_abbrev']))>1):
-            REFS['key'].append(ref.replace('., ', '_').replace(', ', '_').replace(' ', '_'))
-            REFS['abbrev_in_text'].append(ref)
-            REFS['intext_abbrev_in_text'].append(LIBRARY[ref].item()['intext_abbrev'])
-            REFS['intext_abbrev_in_text_correct'].append(LIBRARY[ref].item()['correct_intext_abbrev'])
-            REFS['correct_abbrev'].append(LIBRARY[ref].item()['correct_abbrev'])
-            REFS['positions_in_text'].append(len(PAPER['text'].split(ref)[0]))
-            REFS['full_ref'].append(LIBRARY[ref].item()['APA'])
-            if args.cross_ref and (LIBRARY[ref].item()['doi']!=''):
-                REFS['full_ref'][-1] += ' \\href{'+LIBRARY[ref].item()['doi']+'}{[link]}'
-                
-    if args.citation_style=='number':
-        REFS['numbers'] = np.argsort(REFS['positions_in_text'])
-        REFS['correct_abbrev'] = ['[[['+str(ii+1)+']]]' for ii in REFS['numbers']]
-    else:
-        REFS['numbers'] = np.argsort(REFS['abbrev_in_text'])
-
-    for i0, i in enumerate(REFS['numbers']):
-        if args.cross_ref:
-
-            if args.citation_style=='number':
-                # we test the three parenthesis cases
-                for s_before, s_after, s_bef_new, s_aff_new in zip(['(', '(', '; ', '; ', ''], [')', '', ')', '', ''],
-                                                                   ['[', '[', ',', ',', ''], [']', '', ']', '', '']):
-                    PAPER['text'] = PAPER['text'].replace(s_before+REFS['abbrev_in_text'][i]+s_after,
-                                                          s_bef_new+'\\hyperlink{'+REFS['key'][i]+'}{'+str(i0+1)+'}}'+s_aff_new)
-                PAPER['text'] = PAPER['text'].replace(REFS['intext_abbrev_in_text'][i],
-                                                      REFS['intext_abbrev_in_text_correct'][i].replace(' (', '\,(')+\
-                                       '[\\hyperlink{'+REFS['key'][i]+'}{'+str(i0+1)+'}]')
-                
-            elif args.citation_style=='number_exponents':
-                # we test the three parenthesis cases
-                for s_before, s_after, s_bef_new in zip([' (', ' (', '; ', '; ', ''], [')', '', ')', '', ''],
-                                                        ['', '', '\\textsuperscript{,}', '\\textsuperscript{,}', '']):
-                    PAPER['text'] = PAPER['text'].replace(s_before+REFS['abbrev_in_text'][i]+s_after,
-                                               s_bef_new+'\\textsuperscript{\\hyperlink{'+REFS['key'][i]+'}{'+str(i0+1)+'}}')
-                PAPER['text'] = PAPER['text'].replace(REFS['intext_abbrev_in_text'][i],
-                                                      REFS['intext_abbrev_in_text_correct'][i].replace(' (', '\,(')+\
-                                       '\\textsuperscript{\\hyperlink{'+REFS['key'][i]+'}{'+str(i0+1)+'}}')
-
-            else:
-                PAPER['text'] = PAPER['text'].replace(REFS['abbrev_in_text'][i],
-                                                  '\\hyperlink{'+REFS['key'][i]+'}{'+REFS['correct_abbrev'][i]+'}')
-                PAPER['text'] = PAPER['text'].replace(REFS['intext_abbrev_in_text'][i],
-                                                  '\\hyperlink{'+REFS['key'][i]+'}{'+REFS['intext_abbrev_in_text_correct'][i]+'}')
-        else:
-            PAPER['text'] = PAPER['text'].replace(REFS['abbrev_in_text'][i], REFS['correct_abbrev'][i])
-            PAPER['References'] += '\\noindent '+REFS['full_ref'][i]+' \\\\[8pt] '
-
-        ### Now putting it at the end in the references section
-        if len(args.citation_style.split('number'))>1:
-            PAPER['References'] += '\\noindent \hypertarget{'+REFS['key'][i]+'}{['+str(i0+1)+'] '+REFS['full_ref'][i]+'}  \\\\[8pt] '
-        else:
-            PAPER['References'] += '\\noindent \hypertarget{'+REFS['key'][i]+'}{'+REFS['full_ref'][i]+'}  \\\\[8pt] '
-
-    PAPER['text'] += PAPER['References']
-        
-
-#########################################################################
 ########## MANUSCRIPT ORGANIZATION ######################################
 #########################################################################
 
 def insert_abstract(PAPER, args):
 
-    if args.journal=='preprint':
-        # Summary
-        PAPER['text'] += '\n\\bfseries \subsection*{Summary} \n'
-        PAPER['text'] += PAPER['Abstract']+'\n'
-        PAPER['text'] += '\n \\normalfont \n'
-        # Significance
-        if PAPER['Significance']!='':
-            PAPER['text'] += '\n\\begin{figure}[b!] \n'
-            PAPER['text'] += '\n\\fcolorbox{black}{lightgray}{\\begin{minipage}{.48\\textwidth} \n'
-            PAPER['text'] += ' \\textbf{Significance Statement} \\ \\vspace{.2em} \n'
-            PAPER['text'] += PAPER['Significance']
-            PAPER['text'] += '\n \\end{minipage} \\normalfont }\n'
-            PAPER['text'] += '\n \\end{figure}  \n'
+    if args.abstract_key!='':
+        PAPER['text'] += '\n\\bfseries \subsection*{%s} \n' % args.abstract_key
+    else:
+        PAPER['text'] += '\n\\bfseries \n'
+    PAPER['text'] += PAPER['Abstract']+'\n'
+    PAPER['text'] += '\n \\normalfont \n'
 
+def insert_significance(PAPER, args):
+    
+    PAPER['text'] += '\n\\begin{figure}[b!] \n'
+    PAPER['text'] += '\n\\fcolorbox{black}{lightgray}{\\begin{minipage}{.48\\textwidth} \n'
+    PAPER['text'] += ' \\textbf{%s} \\ \\vspace{.2em} \n'  % args.significance_key
+    PAPER['text'] += PAPER['Significance']
+    PAPER['text'] += '\n \\end{minipage} \\normalfont }\n'
+    PAPER['text'] += '\n \\end{figure}  \n'
 
+def insert_key_points(PAPER, args):
+    
+    if args.keypoints_key!='':
+        PAPER['text'] += '\n\\bfseries \subsection*{%s} \n' % args.keypoints_key
+    else:
+        PAPER['text'] += '\n\\bfseries \n'
+    PAPER['text'] += '\n\\begin{itemize}\n'
+    PAPER['text'] += PAPER['Key Points']
+    PAPER['text'] += '\n\\end{itemize}\n'
+    PAPER['text'] += '\n \\normalfont \n'
+
+    
 def insert_supplementary(PAPER, args):
 
-    if PAPER['Supplementary']!='':
-        PAPER['text'] += '\n \\newpage \n '
-        PAPER['text'] += PAPER['Supplementary']
-    elif ('Supplementary Figures' in PAPER):
-        PAPER['text'] += '\n \\newpage \n '
-        PAPER['text'] += '\\section*{Supplementary Material} \n '
-        for fig in PAPER['SUPP_FIGS']:
-            PAPER['text'] += '\n '
-            PAPER['text'] += fig['latex_code']
+    PAPER['text'] += '\n \\newpage \n '
+    PAPER['text'] += '\\section*{%s} \n ' % args.supp_key
+    
+    # if PAPER['Supplementary']!='':
+    #     PAPER['text'] += '\n \\newpage \n '
+    #     PAPER['text'] += PAPER['Supplementary']
+    # elif ('Supplementary Figures' in PAPER):
+    #     PAPER['text'] += '\n \\newpage \n '
+    #     PAPER['text'] += '\\section*{Supplementary Material} \n '
+    #     for fig in PAPER['SUPP_FIGS']:
+    #         PAPER['text'] += '\n '
+    #         PAPER['text'] += fig['latex_code']
 
-            
-def assemble_text(PAPER, args):
 
-    PAPER['text'] = ''
+#####################################################################
+########## EXPORT OPTIONS ###########################################
+#####################################################################
 
-    if not args.figures_only:
-
-        insert_abstract(PAPER, args)
         
-        for key in PAPER['order']:
-            PAPER['text'] += PAPER[key]
-        # 
-        process_subsection_titles(PAPER, args)
-        
+def export_to_pdf(args):
+    os.system('if [ -d "tex/" ]; then echo ""; else mkdir tex/; fi;')
+    if args.debug or args.debug_draft:
+        os.system('pdflatex -output-directory=tex/ %s' % args.tex_file)
     else:
-        for FIG in PAPER['FIGS']:
-            PAPER['text'] += '\\qquad \n '
-            PAPER['text'] += FIG['latex_code']
-            PAPER['text'] += '\\newpage \n '
-        
+        os.system('pdflatex -shell-escape -interaction=nonstopmode -output-directory=tex/ %s > tex/compil_output' % args.tex_file)
+    os.system('mv %s %s' % (args.pdf_file, os.path.basename(args.pdf_file)))
+
+def export_to_docx(args):
+    """
+    needs pandoc
+    """
+    os.system('if [ -d "tex/" ]; then echo ""; else mkdir tex/; fi;')
+    tex_file = args.filename.replace('.txt', '.tex')
+    docx_file = args.filename.replace('.txt', '.docx')
+    os.system('pandoc '+tex_file+' -o '+docx_file)
+
+    
+#####################################################################
+########## MANUSCRIPT ANALYSIS ######################################
+#####################################################################
 
 def final_manuscript_analysis(PAPER, args):
 
@@ -549,4 +504,5 @@ if __name__=='__main__':
 
     analysis = {'stat_test_example': 'c=0.5, p=0.003, Pearson correlation',
                 'data_output':'34$\pm$17.3mV'}
+    
     np.savez('analysis.npz', **analysis)

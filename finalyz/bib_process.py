@@ -1,50 +1,7 @@
 import sys
-import bibtexparser as bp
 import numpy as np
 
-def transform_author_to_list_of_dict(author_field):
-    """
-    """
-    AL = author_field.split(' and ')
-    AD = [{'firstname':[], 'lastname':''} for a in AL] # list of dictionary per author
-    for d, a in zip(AD, AL):
-        names = a.split(',')
-        d['lastname'] = names[0].replace(' ', '')
-        if len(names)>1:
-            for s in names[1].split(' '):
-                if (s!=''):
-                    d['firstname'].append(s)
-    return AD
 
-def get_abbrev_of_entry(list_of_author_dict, entry, find_duplicates=False):
-    """
-    """
-    if ('year2' in entry) and not find_duplicates:
-        year = entry['year2'].replace(' ', '')
-    else:
-        year = entry['year'].replace(' ', '')
-    if len(list_of_author_dict)==1:
-        return list_of_author_dict[0]['lastname']+', '+year
-    elif len(list_of_author_dict)==2:
-        return list_of_author_dict[0]['lastname']+' and '+list_of_author_dict[1]['lastname']+', '+year
-    else:
-        return list_of_author_dict[0]['lastname']+' et al., '+year
-
-def get_intext_abbrev_of_entry(list_of_author_dict, entry):
-    """
-    """
-    if ('year2' in entry) and not find_duplicates:
-        year = entry['year2'].replace(' ', '')
-    else:
-        year = entry['year'].replace(' ', '')
-    if len(list_of_author_dict)==1:
-        return list_of_author_dict[0]['lastname']+' ('+year+')'
-    elif len(list_of_author_dict)==2:
-        return list_of_author_dict[0]['lastname']+' and '+list_of_author_dict[1]['lastname']+' ('+year+')'
-    else:
-        return list_of_author_dict[0]['lastname']+' et al. ('+year+')'
-
-    
 def remove_complex_characters_in_string(s):
     s2 = s.translate({ord(x): '' for x in ['\v', '^', '~', '{', '}', '\\', '"', "'", '`']})
     return s2
@@ -56,17 +13,22 @@ def build_doi_url(entry):
     else:
         return ''
 
-def build_apa_citation(entry, AD):
-    # print(entry)
+    
+def build_apa_citation(entry):
+
     authors = ''
-    for i, ad in enumerate(AD):
-        authors += ad['lastname']+' '
-        for fn in ad['firstname']:
-            authors += fn[0]
-        if i<(len(AD)-1):
-            authors += ', '
-        else:
-            authors += ' '
+    for i, auth in enumerate(entry['author'].split(' and ')):
+        lastname = auth.split(',')[0]
+        firstnames = auth.split(',')[1].split(' ')
+        authors += lastname+' '
+        for fn in firstnames:
+            if fn:
+                authors += fn[0]+'.'
+        # we add the comma separation
+        authors += ', '
+    authors = authors[:-2]+' ' # we remove the last 2 characters
+    if i==1: # means only two authors
+        authors = authors.replace(', ', ' and ')
         
     if 'number' in entry:
         number_pages = '('+entry['number']+')'
@@ -79,105 +41,136 @@ def build_apa_citation(entry, AD):
         volume = " "+entry['volume']+volume
     return authors+"("+entry['year']+") "+entry['title']+ ". \\textit{"+entry['journal']+volume+number_pages
 
-def build_library(filename,
+
+def build_library(Reference_text, args,
                   verbose=False, find_duplicates=False):
 
-    with open(filename) as bibtex_file:
-        bib_database = bp.load(bibtex_file)
+    Ref_bases = Reference_text.split('@')[1:]
 
     LIBRARY = {}
-    abbrevs = []
-    for entry in bib_database.entries:
 
-        try:
-            AD = transform_author_to_list_of_dict(entry['author'])
-        
-            true_abbrev_of_entry = get_abbrev_of_entry(AD, entry, find_duplicates=find_duplicates)
-            abbrev_of_entry = remove_complex_characters_in_string(true_abbrev_of_entry)
-            true_intext_abbrev_of_entry = get_intext_abbrev_of_entry(AD, entry)
-            intext_abbrev_of_entry = remove_complex_characters_in_string(true_intext_abbrev_of_entry)
+    for ref in Ref_bases:
 
-            abbrevs.append(abbrev_of_entry)
+        ref_type = ref.split('{')[0]
+        key = ref.split('{')[1].split(',')[0]
+        if '_et_al_' in key:
+            ref_key = key.replace('_et_al_', ' et al., ')
+            intext_key = key.replace('_et_al_', ' et al. (')+')'
+        elif '_and_' in key:
+            ref_key = key.replace('_and_', ' %s ' % args.and_key).replace('_', ', ')
+            intext_key = key.replace('_and_', ' %s ' % args.and_key).replace('_', ' (')+')'
+        elif '_' in key:
+            ref_key = key.replace('_', ', ')
+            intext_key = key.replace('_', ' (')+')'
+
+        LIBRARY[key] = {'parenthesis_key':ref_key,
+                        'intext_key':intext_key,
+                        'ref_type':ref_type}
+
+        for line in ref.split('\n')[1:]:
+            try:
+                field0, value0 = line.split('=')
+                field = field0.replace(' ', '')
+                value = value0.split('{')[1].replace('},', '')
+                LIBRARY[key][field] = value
+            except ValueError:
+                pass
+
+        LIBRARY[key]['apa'] = build_apa_citation(LIBRARY[key])
+        LIBRARY[key]['doi'] = build_doi_url(LIBRARY[key])
         
-            LIBRARY[abbrev_of_entry] = {'correct_abbrev':true_abbrev_of_entry,
-                                        'correct_intext_abbrev':true_intext_abbrev_of_entry,
-                                        'intext_abbrev':intext_abbrev_of_entry,
-                                        'doi':build_doi_url(entry),
-                                        'APA':build_apa_citation(entry, AD)}
-        except KeyError:
-            print('----------------------------------------------------')
-            print('problems with entry:')
-            print(entry)
+    return LIBRARY
+
+
+#########################################################################
+########## HANDLING REFERENCES ##########################################
+#########################################################################
+
             
-        if verbose:
-            print(abbrevs[-1])
-            
-    if find_duplicates:
-        return bib_database.entries, np.array(abbrevs)
-    else:
-        print('----------------------------------------------------')
-        print('saving the LIBRARY as "biblio.npz" ')
-        np.savez('biblio.npz', **LIBRARY)
-    
-def find_duplicates(verbose=False):
+def process_references(PAPER, args):
+    """
+    finds the references within the text and replaces them with the accurate ones 
     """
 
-    """
-    entries, abbrevs = build_library(verbose=verbose, find_duplicates=True)
-    DUPLICATES = [[] for a in abbrevs] # an emty list of duplicates
+    LIBRARY = build_library(PAPER['References'], args)
     
-    uabbrevs, indices, counts = np.unique(abbrevs,
-                                    return_counts=True,
-                                    return_inverse=True)
+    PAPER['References'] = '\n \small \\normalfont \n \subsection*{References} \n'
+
+    REFS = {'key':[],
+            'positions_in_text':[],
+            'numbers':[],
+            'ParenthesisRef':[],
+            'full_ref':[],
+            'ParenthesisRef_corrected':[],
+            'InTextRef':[],
+            'InTextRef_corrected':[]}
     
-    dup_abbrevs_cond = (counts > 1)
-    if len(uabbrevs[dup_abbrevs_cond])>1:
-        for ua in uabbrevs[dup_abbrevs_cond]:
-            dup_indices = np.argwhere(ua==abbrevs).flatten()
-            # if verbose:
-            #     print('conflicting fields for :', ua)
-            for ud in dup_indices:
-                try:
-                    if verbose:
-                        print('-->', entries[ud]['ID'],\
-                              'becomes ', ua.replace(entries[ud]['year'], entries[ud]['year2']))
-                except KeyError:
-                    if verbose:
-                        print('NEED TO ADD A "year2" ENTRY FOR ',
-                              entries[ud]['ID'])
-                    
-                DUPLICATES[ud] = list(dup_indices)
-                DUPLICATES[ud].remove(ud)
-
-    return DUPLICATES
-
-              
-# in case not used as a modulus
-if __name__=='__main__':
-
-
-    # s = 'Lind{\'e}n et al., 2011'
-    # print(s.replace('{\'e}', 'e'))
-    # import argparse
-    # parser=argparse.ArgumentParser()
-    # args = parser.parse_args()
-
-    if sys.argv[-1]=='build':
-        print('[...] creating the library file')
-        DUPLICATES = build_library()
-    elif sys.argv[-1]=='clean':
-        print('[...] clean the biblio.bib file')
-        DUPLICATES = find_duplicates(verbose=True)
-    elif (len(sys.argv)>1) and (sys.argv[1]=='check'):
-        LIBRARY = dict(np.load('biblio.npz'))
-        print(LIBRARY[sys.argv[2]].item()['APA'])
+    # looping over references
+    for ref in LIBRARY.keys():
+        if (len(PAPER['text'].split(LIBRARY[ref]['parenthesis_key']))>1) or\
+           (len(PAPER['text'].split(LIBRARY[ref]['intext_key']))>1):
+            REFS['key'].append(ref) # bibtex key of the ref (in * References)
+            REFS['ParenthesisRef'].append(LIBRARY[ref]['parenthesis_key'])
+            REFS['ParenthesisRef_corrected'].append(LIBRARY[ref]['parenthesis_key'])#here you can modify 
+            REFS['InTextRef'].append(LIBRARY[ref]['intext_key'])
+            REFS['InTextRef_corrected'].append(LIBRARY[ref]['intext_key'])
+            REFS['positions_in_text'].append(len(PAPER['text'].split(ref)[0]))
+            REFS['full_ref'].append(LIBRARY[ref]['apa'])
+            if args.cross_ref and (LIBRARY[ref]['doi']!=''):
+                REFS['full_ref'][-1] += ' \\href{'+LIBRARY[ref]['doi']+'}{[link]}'
+            elif args.cross_ref and ('url' in LIBRARY[ref]):
+                REFS['full_ref'][-1] += ' \\href{'+LIBRARY[ref]['url']+'}{[link]}'
+                
+    if args.citation_style=='number':
+        REFS['numbers'] = np.argsort(REFS['positions_in_text'])
+        REFS['ParenthesisRef_corrected'] = ['[[['+str(ii+1)+']]]' for ii in REFS['numbers']]
     else:
-        print('[...] creating the library file')
-        DUPLICATES = build_library()
-        # print('--------------------------')
-        # print(' need ot provide an argument, either:')
-        # print(' build')
-        # print(' clean')
+        REFS['numbers'] = np.argsort(REFS['ParenthesisRef'])
+
+    for i0, i in enumerate(REFS['numbers']):
+        
+        if args.cross_ref:
+
+            if args.citation_style=='number':
+                # we test the three parenthesis cases
+                for s_before, s_after, s_bef_new, s_aff_new in zip(['(', '(', '; ', '; ', ''],
+                                                                   [')', '', ')', '', ''],
+                                                                   ['[', '[', ',', ',', ''],
+                                                                   [']', '', ']', '', '']):
+                    PAPER['text'] = PAPER['text'].replace(s_before+REFS['ParenthesisRef'][i]+s_after,
+                                                          s_bef_new+'\\hyperlink{'+REFS['key'][i]+'}{'+str(i0+1)+'}}'+s_aff_new)
+                PAPER['text'] = PAPER['text'].replace(REFS['InTextRef'][i],
+                                                      REFS['InTextRef_corrected'][i].replace(' (', '\,(')+\
+                                       '[\\hyperlink{'+REFS['key'][i]+'}{'+str(i0+1)+'}]')
+                
+            elif args.citation_style=='number_exponents':
+                # we test the three parenthesis cases
+                for s_before, s_after, s_bef_new in zip([' (', ' (', '; ', '; ', ''], [')', '', ')', '', ''],
+                                                        ['', '', '\\textsuperscript{,}', '\\textsuperscript{,}', '']):
+                    PAPER['text'] = PAPER['text'].replace(s_before+REFS['ParenthesisRef'][i]+s_after,
+                                               s_bef_new+'\\textsuperscript{\\hyperlink{'+REFS['key'][i]+'}{'+str(i0+1)+'}}')
+                PAPER['text'] = PAPER['text'].replace(REFS['InTextRef'][i],
+                                                      REFS['InTextRef_corrected'][i].replace(' (', '\,(')+\
+                                       '\\textsuperscript{\\hyperlink{'+REFS['key'][i]+'}{'+str(i0+1)+'}}')
+
+            else:
+                PAPER['text'] = PAPER['text'].replace(REFS['ParenthesisRef'][i],
+                                                  '\\hyperlink{'+REFS['key'][i]+'}{'+REFS['ParenthesisRef_corrected'][i]+'}')
+                PAPER['text'] = PAPER['text'].replace(REFS['InTextRef'][i],
+                                                  '\\hyperlink{'+REFS['key'][i]+'}{'+REFS['InTextRef_corrected'][i]+'}')
+        else:
+            PAPER['text'] = PAPER['text'].replace(REFS['ParenthesisRef'][i], REFS['ParenthesisRef_corrected'][i])
+            PAPER['References'] += '\\noindent '+REFS['full_ref'][i]+' \\\\[8pt] '
+
+        ### Now putting it at the end in the references section
+        if len(args.citation_style.split('number'))>1:
+            PAPER['References'] += '\\noindent \hypertarget{'+REFS['key'][i]+'}{['+str(i0+1)+'] '+REFS['full_ref'][i]+'}  \\\\[8pt] \n'
+        else:
+            PAPER['References'] += '\\noindent \hypertarget{'+REFS['key'][i]+'}{'+REFS['full_ref'][i]+'}  \\\\[8pt] \n'
+
+    PAPER['text'] += PAPER['References']
+        
+
         
 
 

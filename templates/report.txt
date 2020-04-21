@@ -12,45 +12,17 @@ We present here a workflow and its associated template for the
 efficient production of scientific documents containing methodological
 descriptions and detailed quantitative results. The parameters of the
 study and the analysis results should have been stored locally as a
-python dictionary (see the \href{documentation
-notebook}{https://github.com/yzerlaut/finalyz/blob/master/docs/notebook.ipynb}
+python dictionary (see the \href{https://github.com/yzerlaut/finalyz/blob/master/docs/notebook.ipynb}{documentation notebook}
 for an example of such a procedure). One writes references to analysis
 results and parameters within a the text file. It is then compiled to
 include the data values in the manuscript based on the local
 dictionary file. We also 
 
-* Key Points
+* Main Text
 
-\item write your scientific papers in a persistent and lightweight format: \textit{.txt-files}.
-\item export your analysis results and use references in your manuscript to avoid copy-pasting of results.
-\item enforce the reproductibility of your scientific results by automating your workflow up to final manuscript production.
-\item use the citation-styles and cross-referencing templates of the scientific literature
-\item export automatically to different styles of papers (short/long reports, with/without supplementary, etc...)
-\item produces the submission files for a set of neuroscience/biology journals.
-\item integration with \href{https://github.com/yzerlaut/datavyz}{datavyz} for the scaling of figures and text.
-\item efficient writing thanks to \href{https://www.gnu.org/software/emacs/}{Emacs} (although not mandatory for the pipeline) and \href{http://orgmode.org/}{Org-Mode}: author documents with a fast and effective plain-text system .
-
-* Significance
-
-Lorem ipsum dolor sit amet, consectetuer adipisc ing elit. Etiam
-lobortis facilisis sem. Nullam nec mi et neque pharetra
-sollicitudin. Praesent imperdiet mi nec ante. Donec ullamcorper, felis
-non sodales commodo, lectus velit ultrices augue, a dignissim nibh
-lectus placerat pede. Vivamus nunc nunc, molestie ut, ultricies vel,
-semper in, velit.  Ut porttitor. Praesent in sapien. Lorem ipsum dolor
-sit amet, consectetuer adipiscing elit. Duis fringilla tristique
-neque. Praesent lectus tellus, aliquet aliquam, luctus a, egestas a,
-turpis. Mauris lacinia lorem sit amet ipsum. Nuncquis urna dictum
-turpis accumsan semper. Sed interdum libero utmetus. Pellentesque
-placerat. Nam rutrum augue a leo. Morbi sed elitsit amet ante lobortis
-sollicitudin. Praesent blandit blandit mauris. Praesent lectus tellus,
-aliquet aliquam, luctus a, egestas aturpis. Mauris lacinia lorem sit
-amet ipsum. Nunc quis urna dictum turpis accumsan semper.
-
-* Introduction
-
-The txt-file template that generates the manuscript is publicly available at
-the url: \url{https://github.com/yzerlaut/finalyz/blob/master/templates/paper.txt}.
+The txt-file template that generates the manuscript is available at
+the url:
+\url{https://github.com/yzerlaut/finalyz/blob/master/templates/paper.txt}.
 We can insert references classically with parenthesis (Einstein,
 1905a; Einstein, 1905b; Einstein et al., 1935) and also include them
 in text, such as in Einstein et al. (1935) or Hubel and Wiesel (1962)
@@ -99,7 +71,6 @@ vel, semper in, velit.  Ut porttitor. Praesent in sapien. Lorem ipsum
 dolor sit amet, consectetuer adipiscing elit. Duis fringilla tristique
 neque. Sed interdum libero ut metus. Pellentesque placerat.
 
-* Results
 
 [[Figure {Fig1} around here]]
 
@@ -131,8 +102,6 @@ We can insert \LATEX equations:
 \end{equation}
 
 
-*** Section talking abour first result
-
 We replace values coming from the "analysis.npz" file:
 
 This statistical test was: {Nobs}
@@ -152,81 +121,11 @@ We can insert \LATEX equations:
 \right.
 \end{equation}
 
-*** Section talking abour second result
-Now referring to Figure {Fig3}.. 
+Now referring to Figure {Fig3}.
 
 Lorem ipsum dolor sit amet, consectetuer adipisc- ing elit. Etiam lobortis facilisis sem. Nullam nec mi et neque pharetra sollicitudin. Praesent im- perdiet mi nec ante. Donec ullamcorper, felis non sodales commodo, lectus velit ultrices augue, a dig- nissim nibh lectus placerat pede. Vivamus nunc nunc, molestie ut, ultricies vel, semper in, velit.  Ut porttitor. Praesent in sapien. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Duis fringilla tristique neque. Sed interdum libero ut metus. Pellentesque placerat. Nam rutrum augue a leo. Morbi sed elit sit amet ante lobortis sollicitudin. Praesent blandit blandit mauris. Praesent lectus tellus, aliquet aliquam, luctus a, egestas a, turpis. Mauris lacinia lorem sit amet ipsum. Nunc quis urna dictum turpis accumsan semper.Lorem ipsum dolor sit amet, consectetuer adipisc- ing elit. Etiam lobortis facilisis sem. Nullam nec mi et neque pharetra sollicitudin. Praesent im- perdiet mi nec ante. Donec ullamcorper, felis non sodales commodo, lectus velit ultrices augue, a dig- nissim nibh lectus placerat pede. Vivamus nunc nunc, molestie ut, ultricies vel, semper in, velit. Ut porttitor. Praesent in sapien. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Duis fringilla tristique neque. Sed interdum libero ut metus. Pellentesque placerat. Nam rutrum augue a leo. Morbi sed elit sit amet ante lobortis sollicitudin. Praesent blandit blandit mauris. Praesent lectus tellus, aliquet aliquam, luctus a, egestas a, turpis. Mauris lacinia lorem sit amet ipsum. Nunc quis urna dictum turpis accumsan semper.
 
-*** Section talking abour third result
-
 Lorem ipsum dolor sit amet, consectetuer adipisc- ing elit. Etiam lobortis facilisis sem. Nullam nec mi et neque pharetra sollicitudin. Praesent im- perdiet mi nec ante. Donec ullamcorper, felis non sodales commodo, lectus velit ultrices augue, a dig- nissim nibh lectus placerat pede. Vivamus nunc nunc, molestie ut, ultricies vel, semper in, velit.  Ut porttitor. Praesent in sapien. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Duis fringilla tristique neque. Sed interdum libero ut metus. Pellentesque placerat. Nam rutrum augue a leo. Morbi sed elit sit amet ante lobortis sollicitudin. Praesent blandit blandit mauris. Praesent lectus tellus, aliquet aliquam, luctus a, egestas a, turpis. Mauris lacinia lorem sit amet ipsum. Nunc quis urna dictum turpis accumsan semper.Lorem ipsum dolor sit amet, consectetuer adipisc- ing elit. Etiam lobortis facilisis sem. Nullam nec mi et neque pharetra sollicitudin. Praesent im- perdiet mi nec ante. Donec ullamcorper, felis non sodales commodo, lectus velit ultrices augue, a dig- nissim nibh lectus placerat pede. Vivamus nunc nunc, molestie ut, ultricies vel, semper in, velit. Ut porttitor. Praesent in sapien. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Duis fringilla tristique neque. Sed interdum libero ut metus. Pellentesque placerat. Nam rutrum augue a leo. Morbi sed elit sit amet ante lobortis sollicitudin. Praesent blandit blandit mauris. Praesent lectus tellus, aliquet aliquam, luctus a, egestas a, turpis. Mauris lacinia lorem sit amet ipsum. Nunc quis urna dictum turpis accumsan semper.
-
-*** Section talking abour third result
-
-Lorem ipsum dolor sit amet, consectetuer adipisc- ing elit. Etiam lobortis facilisis sem. Nullam nec mi et neque pharetra sollicitudin. Praesent im- perdiet mi nec ante. Donec ullamcorper, felis non sodales commodo, lectus velit ultrices augue, a dig- nissim nibh lectus placerat pede. Vivamus nunc nunc, molestie ut, ultricies vel, semper in, velit.  Ut porttitor. Praesent in sapien. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Duis fringilla tristique neque. Sed interdum libero ut metus. Pellentesque placerat. Nam rutrum augue a leo. Morbi sed elit sit amet ante lobortis sollicitudin. Praesent blandit blandit mauris. Praesent lectus tellus, aliquet aliquam, luctus a, egestas a, turpis. Mauris lacinia lorem sit amet ipsum. Nunc quis urna dictum turpis accumsan semper.Lorem ipsum dolor sit amet, consectetuer adipisc- ing elit. Etiam lobortis facilisis sem. Nullam nec mi et neque pharetra sollicitudin. Praesent im- perdiet mi nec ante. Donec ullamcorper, felis non sodales commodo, lectus velit ultrices augue, a dig- nissim nibh lectus placerat pede. Vivamus nunc nunc, molestie ut, ultricies vel, semper in, velit. Ut porttitor. Praesent in sapien. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Duis fringilla tristique neque. Sed interdum libero ut metus. Pellentesque placerat. Nam rutrum augue a leo. Morbi sed elit sit amet ante lobortis sollicitudin. Praesent blandit blandit mauris. Praesent lectus tellus, aliquet aliquam, luctus a, egestas a, turpis. Mauris lacinia lorem sit amet ipsum. Nunc quis urna dictum turpis accumsan semper.
-
-* Methods
-
-We describe here how the template works.
-
-*** Header section
-
-\begin{verbatim}
-#+Title: Your title
-#+Authors: First Author{1}, Second Author{1,2}*
-#+Short_Title: Paper Template
-#+Short_Authors: Author et al.
-#+Affiliations: {1} Affiliation1, {2} Affiliation2
-#+Correspondence: firstname.lastname@domain.country
-#+Keywords: scientific papers; txt files
-\end{verbatim}
-
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Etiam
-lobortis facilisis sem. Nullam necmi et neque pharetra
-sollicitudin. Praesent im-perdiet mi nec ante. Donec ullamcorper,
-felis nonsodales commodo, lectus velit ultrices augue, a dig-nissim
-nibh lectus placerat pede. Vivamus nuncnunc, molestie ut, ultricies
-vel, semper in, velit.Ut porttitor. Praesent in sapien. Lorem
-ipsumdolor sit amet, consectetuer adipiscing elit. Duisfringilla
-tristique neque. Sed interdum libero utmetus. Pellentesque
-placerat. Nam rutrum auguea leo. Morbi sed elit sit amet ante lobortis
-sollici-tudin. Praesent blandit blandit mauris. Praesentlectus tellus,
-aliquet aliquam, luctus a, egestas a,turpis. Mauris lacinia lorem sit
-amet ipsum. Nuncquis urna dictum turpis accumsan semper.
-
-*** Second methodological section
-
-\begin{equation}
-\label{eq:second}
-\tau \, \frac{dx}{dt} = E_L-v + \xi (t)
-\end{equation}
-
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Etiam
-lobortis facilisis sem. Nullam necmi et neque pharetra
-sollicitudin. Praesent im-perdiet mi nec ante. Donec ullamcorper,
-felis nonsodales commodo, lectus velit ultrices augue, a dig-nissim
-nibh lectus placerat pede. Vivamus nuncnunc, molestie ut, ultricies
-vel, semper in, velit.Ut porttitor. Praesent in sapien. Lorem
-ipsumdolor sit amet, consectetuer adipiscing elit. Duisfringilla
-tristique neque. Sed interdum libero utmetus. Pellentesque
-placerat. Nam rutrum auguea leo. Morbi sed elit sit amet ante lobortis
-sollici-tudin. Praesent blandit blandit mauris. Praesentlectus tellus,
-aliquet aliquam, luctus a, egestas a,turpis. Mauris lacinia lorem sit
-amet ipsum. Nuncquis urna dictum turpis accumsan semper.  Lorem ipsum
-dolor sit amet, consectetuer adipiscing elit. Etiam lobortis facilisis
-sem. Nullam necmi et neque pharetra sollicitudin. Praesent im-perdiet
-mi nec ante. Donec ullamcorper, felis nonsodales commodo, lectus velit
-ultrices augue, a dig-nissim nibh lectus placerat pede. Vivamus
-nuncnunc, molestie ut, ultricies vel, semper in, velit.Ut
-porttitor. Praesent in sapien. Lorem ipsumdolor sit amet, consectetuer
-adipiscing elit. Duisfringilla tristique neque. Sed interdum libero
-utmetus. Pellentesque placerat. Nam rutrum auguea leo. Morbi sed elit
-sit amet ante lobortis sollici-tudin. Praesent blandit blandit
-mauris. Praesentlectus tellus, aliquet aliquam, luctus a, egestas
-a,turpis. Mauris lacinia lorem sit amet ipsum. Nuncquis urna dictum
-turpis accumsan semper.
-
-\NOTE{add another reference here !}
 
 * Figures
 
@@ -367,10 +266,6 @@ none & 0 & 0 & 0 & 0\\
 \hline
 \end{tabular}
 \end{center}
-
-* Discussion
-
-Lorem ipsum dolor sit amet, consectetuer adipisc- ing elit. Etiam lobortis facilisis sem. Nullam nec mi et neque pharetra sollicitudin. Praesent im- perdiet mi nec ante. Donec ullamcorper, felis non sodales commodo, lectus velit ultrices augue, a dig- nissim nibh lectus placerat pede. Vivamus nunc nunc, molestie ut, ultricies vel, semper in, velit.  Ut porttitor. Praesent in sapien. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Duis fringilla tristique neque. Sed interdum libero ut metus. Pellentesque placerat. Nam rutrum augue a leo. Morbi sed elit sit amet ante lobortis sollici- tudin. Praesent blandit blandit mauris. Praesent lectus tellus, aliquet aliquam, luctus a, egestas a, turpis. Mauris lacinia lorem sit amet ipsum. Nunc quis urna dictum turpis accumsan semper.Lorem ipsum dolor sit amet, consectetuer adipisc- ing elit. Etiam lobortis facilisis sem. Nullam nec mi et neque pharetra sollicitudin. (Telenczuk et al., 2017; Destexhe et al., 2003; Chance et al., 2002). Reference to to Table {Tab2} and Equation {eq1} and Figure {Fig1}.
 
 * Supplementary
 ** Supplementary Text
