@@ -4,7 +4,9 @@
 
 *A plain text (.txt)-based framework to efficiently describe methods and results in scientific communications.*
 
-Part of the software suite for data science: [analyz](https://github.com/yzerlaut/analyz), [datavyz](https://github.com/yzerlaut/datavyz), [finalyz](https://github.com/yzerlaut/finalyz)
+Part of the software suite for data science:
+
+[analyz](https://github.com/yzerlaut/analyz), [datavyz](https://github.com/yzerlaut/datavyz), [finalyz](https://github.com/yzerlaut/finalyz)
 
 ## Idea / Principle
 
@@ -36,7 +38,7 @@ finalyz you_paper.txt --study_file your_study_file.npz
 
 ## Include quantitative results 
 
-We show here how to use cross-referencing extracted from an analysis file to report the results of the study. In this demo case (generated in the [documentation notebook](https://github.com/yzerlaut/finalyz/blob/master/docs/notebook.ipynb), the [https://github.com/yzerlaut/finalyz/raw/master/docs/study.npz](docs/study.npz) file contains both study parameters and analysis results:
+We show here how to use cross-referencing extracted from an analysis file to report the results of the study. In this demo case (generated in the [documentation notebook](https://github.com/yzerlaut/finalyz/blob/master/docs/notebook.ipynb), the [study.npz](https://github.com/yzerlaut/finalyz/raw/master/docs/study.npz) file contains both study parameters and analysis results:
 
 ```
 {'Nobs': 5,
@@ -213,7 +215,7 @@ The authors declare no conflict of interest
 
 The different manuscript templates covered are:
 
-- **article*:
+- **article**:
   This is the default `finalyz` command:
   <p align="center">
 	  <img src="docs/paper.png"/>
@@ -257,6 +259,6 @@ Generating submission files given specific journal guidelines:
 	  <img src="docs/JPhysiol.png"/>
   </p>
 
-- other pre-defined templates: PloS journals, Springer journals, Physical Review journals, Cell journals, [...]
+- other pre-defined templates: PloS journals, Springer journals, Physical Review journals, Cell journals, soon [...]
 
 	
