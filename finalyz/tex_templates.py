@@ -120,16 +120,16 @@ JPHYSIOL = \
 \\usepackage{{geometry}}
 \\geometry{{a4paper,total={{210mm,297mm}}, left=15mm, right=15mm, top=20mm, bottom=20mm, bindingoffset=0mm}}
 \\usepackage{{lineno}}
-\\title{{ {title} }}
-\\author{{ {authors}  }}
+\\title{{ {Title} }}
+\\author{{ {Authors}  }}
 \\date{{ \\vspace{{ 2cm }} }}
 
 \\begin{{document}}
 \\maketitle
 
-\\noindent \\underline{{\\textsc{{Running Title:}}}} {short_title} \\\\[.2cm]
+\\noindent \\underline{{\\textsc{{Running Title:}}}} {Short_Title} \\\\[.2cm]
 \\noindent \\underline{{\\textsc{{Keywords:}}}} {Keywords} \\\\[.2cm]
-\\noindent \\underline{{\\textsc{{Affiliations:}}}} {affiliations} \\\\[.2cm]
+\\noindent \\underline{{\\textsc{{Affiliations:}}}} {Affiliations} \\\\[.2cm]
 \\noindent \\underline{{\\textsc{{Correspondence:}}}} {Correspondence} \\\\[.2cm]
 \\noindent \\underline{{\\textsc{{Table of content:}}}} Neuroscience \\\\[.2cm]
 
@@ -162,15 +162,15 @@ JNEUROSCI = \
 \\usepackage{{geometry}}
 \\geometry{{a4paper,total={{210mm,297mm}}, left=15mm, right=15mm, top=20mm, bottom=20mm, bindingoffset=0mm}}
 \\usepackage{{lineno}}
-\\title{{ {title} }}
-\\author{{ {authors}  }}
+\\title{{ {Title} }}
+\\author{{ {Authors}  }}
 \\date{{ \\vspace{{ 2cm }} }}
 
 \\begin{{document}}
 \\maketitle
 
-\\noindent \\underline{{\\textsc{{Affiliations:}}}} {affiliations}\\\\[.2cm]
-\\noindent \\underline{{\\textsc{{Abbreviated Title:}}}} {short_title}\\\\[.2cm]
+\\noindent \\underline{{\\textsc{{Affiliations:}}}} {Affiliations}\\\\[.2cm]
+\\noindent \\underline{{\\textsc{{Abbreviated Title:}}}} {Short_Title}\\\\[.2cm]
 \\noindent\\underline{{\\textsc{{Correspondence:}}}} {Correspondence}\\\\[.2cm]
 \\noindent\\underline{{\\textsc{{Keywords:}}}} {Keywords}\\\\[.2cm]
 \\noindent\\underline{{\\textsc{{Number of Figures:}}}} {Num_of_Figures}\\\\[.2cm]
@@ -205,8 +205,8 @@ BASIC_TEX = \
 \\usepackage[T1]{{fontenc}}
 \\usepackage{{geometry}}
 \\geometry{{a4paper,total={{210mm,297mm}}, left=15mm, right=15mm, top=20mm, bottom=20mm, bindingoffset=0mm, columnsep=.5cm}}\\geometry{{a4paper,total={{210mm,297mm}}, left=15mm, right=15mm, top=20mm, bottom=20mm, bindingoffset=0mm, columnsep=.5cm}}
-\\author{{ {authors} }}
-\\title{{ {title} }}
+\\author{{ {Authors} }}
+\\title{{ {Title} }}
 \\date{{ \\today }}
 \\newcommand{{\\beginsupplement}}{{
      \\setcounter{{table}}{{0}}
