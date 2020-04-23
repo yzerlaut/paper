@@ -36,7 +36,7 @@ finalyz you_paper.txt --study_file your_study_file.npz
 
 ## Include quantitative results 
 
-We show here how to use cross-referencing extracted from an analysis file to report the results of the study. In this demo case (generated in the [documentation notebook](https://github.com/yzerlaut/finalyz/blob/master/docs/notebook.ipynb), the [docs/study.npz](docs/study.npz) file contains both study parameters and analysis results:
+We show here how to use cross-referencing extracted from an analysis file to report the results of the study. In this demo case (generated in the [documentation notebook](https://github.com/yzerlaut/finalyz/blob/master/docs/notebook.ipynb), the [https://github.com/yzerlaut/finalyz/raw/master/docs/study.npz](docs/study.npz) file contains both study parameters and analysis results:
 
 ```
 {'Nobs': 5,

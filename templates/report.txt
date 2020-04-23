@@ -234,7 +234,7 @@ This figure has been produced in the \href{https://github.com/yzerlaut/finalyz/b
 
 *** Properties of the study.
 #+options : {'label':'Tab1', 'extent':'singlecolumn'}
-The values of this table have been directly imported from the analysis file \href{https://github.com/yzerlaut/finalyz/docs/raw/master/study.npz}{study.npz}.
+The values of this table have been directly imported from the analysis file \href{https://github.com/yzerlaut/finalyz/raw/master/docs/study.npz}{study.npz}.
 | Property                | Symbol       | Value            |
 |-------------------------+--------------+------------------|
 | Study duration number   | $T_{study}$  | {study_duration} |
