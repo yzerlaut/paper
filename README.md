@@ -12,7 +12,7 @@ What this software enables is to:
 - Perform automated export of quantitative results into manuscripts (no copy-paste of analysis results!)
 - Benefit from the LaTeX support of figure, equations and corss-referencing in a simple markdown-like language: [Org-Mode](https://orgmode.org).
 - provide bibliographic management and use different citation styles
-- export to diverse formats from the same manuscript file
+- export to diverse formats/templates from the same manuscript file (see all [Manuscript Templates](https://github.com/yzerlaut/finalyz#manuscript-templates))
 - benefit from the [Emacs](https://www.gnu.org/software/emacs/) editing capabilities when drafting your manuscript.
 
 ## Installation
@@ -32,11 +32,11 @@ source finalyz/run.sh
 ```
 finalyz you_paper.txt --study_file your_study_file.npz
 ```
-(see the below section *Manuscript types* for a few shortcuts to specific journal formats, preprint types, ...)
+(see the below section  [Manuscript Templates](https://github.com/yzerlaut/finalyz#manuscript-templates) for a few shortcuts to specific journal formats, preprint templates, ...)
 
 ## Include quantitative results 
 
-We show here how to use cross-referencing extracted from an analysis file to report the results of the study. In this demo case (generated in the [documentation notebook](https://github.com/yzerlaut/finalyz/blob/master/docs/notebook.ipynb), the [study.npz](https://github.com/yzerlaut/finalyz/raw/master/study.npz) file contains both study parameters and analysis results:
+We show here how to use cross-referencing extracted from an analysis file to report the results of the study. In this demo case (generated in the [documentation notebook](https://github.com/yzerlaut/finalyz/blob/master/docs/notebook.ipynb), the [docs/study.npz](docs/study.npz) file contains both study parameters and analysis results:
 
 ```
 {'Nobs': 5,
@@ -209,9 +209,9 @@ Author et al.
 The authors declare no conflict of interest
 ```
 
-## Manuscript types
+## Manuscript templates
 
-The different mauscript types covered are:
+The different manuscript templates covered are:
 
 - reports:
   Use the `report` command directly. This is a shortcut for:
