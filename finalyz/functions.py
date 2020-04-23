@@ -26,13 +26,13 @@ def process_preamble_and_informations(PAPER,
     This is the study title
     """
     
-    SUBSECTIONS = PAPER['Informations'].split('\n*** ')[1:]
+    SUBSECTIONS = PAPER['Informations'].split('\n*')[1:]
 
     for subsec in SUBSECTIONS:
 
         for key in INFORMATION_KEYS:
-            if len(subsec.split('%s\n' % key))>1:
-                PAPER[key] = subsec.split('%s\n' % key)[1].replace('\n', '')
+            if len(subsec.split('** %s\n' % key))>1:
+                PAPER[key] = subsec.split('** %s\n' % key)[1].replace('\n', '')
                 
     LINES = PAPER['Preamble'].split('\n')
     
@@ -47,6 +47,7 @@ def process_preamble_and_informations(PAPER,
                 
     # HANDLING AUTHORS
     PAPER['Authors'] = PAPER['Authors'].replace('}', '}$').replace('{', '$^{')
+
     # HANDLING AFFILIATIONS
     aaff = PAPER['Affiliations']
     for i in range(30):
@@ -389,6 +390,7 @@ def process_section_titles(PAPER, args):
     PAPER['Introduction'] = PAPER['Introduction'].replace('Introduction\n', '\\normalsize \\normalfont \n \subsection*{Introduction}\n')
     PAPER['Discussion'] = PAPER['Discussion'].replace('Discussion\n', '\\normalsize \\normalfont \n \subsection*{Discussion}\n')
     PAPER['Key Points'] = PAPER['Key Points'].replace('Key Points\n', '')
+    PAPER['Other'] = ''
 
     
 def process_main_text(PAPER, args):
@@ -427,7 +429,7 @@ def insert_abstract(PAPER, args):
         PAPER['text'] += '\n\\bfseries \n'
     PAPER['text'] += PAPER['Abstract']+'\n'
     PAPER['text'] += '\n \\normalfont \n'
-
+    
 def insert_significance(PAPER, args):
     
     PAPER['text'] += '\n\\begin{figure}[b!] \n'
@@ -465,6 +467,17 @@ def insert_supplementary(PAPER, args):
     #         PAPER['text'] += fig['latex_code']
 
 
+def insert_informations_at_the_end(PAPER, args):
+    
+    PAPER['text'] += '\n \small \\normalfont \n'
+    for key in ['Conflict_of_interest',
+                'Acknowledgements',
+                'Data_availability',
+                'Funding']:
+        PAPER['text'] += PAPER[key]+'\\\\ \n \\vspace{.1cm} \n '
+        
+        
+    
 #####################################################################
 ########## EXPORT OPTIONS ###########################################
 #####################################################################

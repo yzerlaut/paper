@@ -13,6 +13,7 @@ INFORMATION_KEYS = ['Title', 'Short_Title',
                     'Authors', 'Short_Authors',
                     'Affiliations', 'Correspondence',
                     'Keywords', 'Conflict_of_interest',
+                    'Data_availability',
                     'Acknowledgements', 'Funding']
 
 
@@ -26,6 +27,7 @@ PAPER = {'text':'', # full text
          'Figures':'', 'Tables':'',
          'Supplementary':'', 'Supplementary Figures':'', 'Supplementary Tables':'',
          'References':'',
+         'Other':'', # this shouldn't be exported
          'refs':{},\
          # figures/tables/eqs elements
          'FIGS':[], 'TABLES':[],
@@ -90,6 +92,7 @@ def process_manuscript(args):
                 'References',
                 'Figures', 'Tables',
                 'Supplementary',
+                'Other',
                 # 'Supplementary Text', 'Supplementary Figures', 'Supplementary Tables',
                 'Informations']:
         for i in range(len(SECTIONS)):
@@ -142,7 +145,7 @@ def process_manuscript(args):
         
     else:
         add_figures_and_tables_at_the_end(PAPER, args)
-        
+
     # # supplementary at the end
     if args.with_supplementary:
         insert_supplementary(PAPER, args)
@@ -155,6 +158,9 @@ def process_manuscript(args):
         process_references(PAPER, args)
         process_equations(PAPER, args)
 
+    if args.insert_informations_at_the_end:
+        insert_informations_at_the_end(PAPER, args)
+        
     if os.path.isfile(args.study_file):
         print('\n using "%s" as the "study-file" !' % args.study_file)
         for key, val in dict(np.load(args.study_file)).items():
@@ -171,43 +177,3 @@ def process_manuscript(args):
         f.write(final_text)
 
     return PAPER
-
-    
-    
-# if __name__=='__main__':
-
-#     import argparse
-#     parser=argparse.ArgumentParser(description=
-#      """ 
-#      A script to export simple txt files manuscripts
-#      """
-#     ,formatter_class=argparse.RawTextHelpFormatter)
-    
-#     parser.add_argument("--filename", '-f', help="filename",type=str, default='paper.txt')
-#     parser.add_argument('-j', "--journal", help="journal type", type=str, default='preprint')
-#     parser.add_argument('-sf', "--study_file", help="analysis filename", type=str, default='analysis.npz')
-#     parser.add_argument("-r", "--report", help="", action="store_true")
-#     parser.add_argument("-fo", "--figures_only", help="", action="store_true")
-#     parser.add_argument("-fk", "--figure_key", help="Type of references to figures: either 'Figure' of 'Fig.' ", default='Fig.')
-#     parser.add_argument("-ek", "--equation_key", help="Type of references to equations: either 'Equation' of 'Eq.' ", default='Eq.')
-#     parser.add_argument("-tk", "--table_key", help="Type of references to tables: either 'Table' of 'Tab.' ", default='Table')
-#     parser.add_argument("-p", "--print", help="print the tex file", action="store_true")
-#     parser.add_argument("-js", "--journal_submission", help="format for submitting to journals", action="store_true")
-#     parser.add_argument("--citation_style", help="number / text ", type=str, default='text')
-#     parser.add_argument("--reference_style", help="APA / [...] ", type=str, default='APA')
-#     parser.add_argument("-wdoc", "--with_doc_export", help="with Ms-Word export", action="store_true")
-#     parser.add_argument("--debug", help="", action="store_true")
-#     parser.add_argument("--debug_draft", help="", action="store_true")
-#     parser.add_argument("--draft", help="", action="store_true")
-    
-#     args = parser.parse_args()
-
-#     args.tex_file = os.path.join('tex', os.path.basename(args.filename).replace('.txt', '.tex'))
-#     args.pdf_file = os.path.join('tex', os.path.basename(args.filename).replace('.txt', '.pdf'))
-    
-#     process_manuscript(args)
-    
-#     if args.with_doc_export:
-#         export_to_docx(args)
-#     else:
-#         export_to_pdf(args)

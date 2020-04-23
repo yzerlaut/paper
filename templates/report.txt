@@ -1,4 +1,4 @@
-#+Title: A \textit{finalyz} template for scientific papers
+#+Title: A \textit{finalyz} template for scientific papers -- Short Report
 #+Authors: First Author{1}, Second Author{1,2}*
 #+Short_Title: Paper Template
 #+Short_Authors: Author et al.
@@ -16,23 +16,59 @@ python dictionary (see the \href{https://github.com/yzerlaut/finalyz/blob/master
 for an example of such a procedure). One writes references to analysis
 results and parameters within a the text file. It is then compiled to
 include the data values in the manuscript based on the local
-dictionary file. We also 
+dictionary file. 
 
 * Main Text
 
 The txt-file template that generates the manuscript is available at
 the url:
-\url{https://github.com/yzerlaut/finalyz/blob/master/templates/paper.txt}.
-We can insert references classically with parenthesis (Einstein,
-1905a; Einstein, 1905b; Einstein et al., 1935) and also include them
-in text, such as in Einstein et al. (1935) or Hubel and Wiesel (1962)
-or Einstein (1935a) and it will keep the cross-referencing.
+\url{https://github.com/yzerlaut/finalyz/blob/master/templates/report.txt}.
+The present document is compiled by running the command:
+\begin{verbatim}
+$ report report.txt --study_file study.npz
+\end{verbatim}
 
-We can make references to Figure {Fig1}a,c and Figure {Fig3}B and
-Figure {Fig2}(ii) with the subpanels reference that it refers to (even
-if the hyperlink directs only to the figure, not the subpanel). We can
-also make references to Equation {first} and Equation {eq1} and to
-Table {Tab1} and to Table {Tab2}.
+N.B. the \texttt{ report } command was loaded by running the \texttt{ run.sh } (see \emph{Installation} in the \href{https://github.com/yzerlaut/finalyz}{documentation}).
+
+\vspace{.3cm}
+\hline
+\vspace{.3cm}
+
+We can insert references classically (Einstein, 1905a; Einstein, 1905b; Einstein et al., 1935) and also include them in text, such as in Einstein et al. (1935) or Hubel and Wiesel (1962)
+or Einstein (1905a) and it will keep the cross-referencing. We can make references to Figure {Fig1}a,c and Figure {Fig2}(ii) with the subpanels reference that it refers to (even
+if the hyperlink directs only to the figure, not the subpanel). We can also make references to Equation {first} and Equation {eq1} and to Table {Tab1}.
+
+Some random text to illustrate the template 
+
+Lorem ipsum dolor sit amet, consectetuer adipisc- ing elit. Etiam
+lobortis facilisis sem. Nullam nec mi et neque pharetra
+sollicitudin. Praesent im- perdiet mi nec ante. Donec ullamcorper,
+felis non sodales commodo, lectus velit ultrices augue, a dig- nissim
+nibh lectus placerat pede. Vivamus nunc nunc, molestie ut, ultricies
+vel, semper in, velit.  Ut porttitor. Praesent in sapien. Lorem ipsum
+dolor sit amet, consectetuer adipiscing elit. Duis fringilla tristique
+neque. Sed interdum libero ut metus. Pellentesque placerat.
+
+[[Table {Tab1} around here]]
+
+[[Figure {Fig1} around here]]
+
+\vspace{.3cm}
+\hline
+\vspace{.3cm}
+
+Lorem ipsum dolor sit amet, consectetuer adipisc- ing elit. Etiam
+lobortis facilisis sem. Nullam nec mi et neque pharetra
+sollicitudin. Praesent im- perdiet mi nec ante. Donec ullamcorper,
+felis non sodales commodo, lectus velit ultrices augue, a dig- nissim
+nibh lectus placerat pede. Vivamus nunc nunc, molestie ut, ultricies
+vel, semper in, velit.  Ut porttitor. Praesent in sapien. Lorem ipsum
+dolor sit amet, consectetuer adipiscing elit. Duis fringilla tristique
+neque. Sed interdum libero ut metus. Pellentesque placerat.
+
+[[Figure {Fig2} around here]]
+
+
 
 Lorem ipsum dolor sit amet, consectetuer adipisc- ing elit. Etiam
 lobortis facilisis sem. Nullam nec mi et neque pharetra
@@ -53,44 +89,55 @@ nec miet neque pharetra sollicitudin. Praesent im- perdiet mi nec
 ante. Donec ullamcorper,felis non sodales commodo, lectus velit
 ultrices augue, a dig- nissim nibh lectus placerat pede.
 
-Lorem ipsum dolor sit amet, consectetuer adipisc- ing elit. Etiam
-lobortis facilisis sem. Nullam nec mi et neque pharetra
-sollicitudin. Praesent im- perdiet mi nec ante. Donec ullamcorper,
-felis non sodales commodo, lectus velit ultrices augue, a dig- nissim
-nibh lectus placerat pede. Vivamus nunc nunc, molestie ut, ultricies
-vel, semper in, velit.  Ut porttitor. Praesent in sapien. Lorem ipsum
-dolor sit amet, consectetuer adipiscing elit. Duis fringilla tristique
-neque. Sed interdum libero ut metus. Pellentesque placerat.
+We will now use cross-referencing to an analysis file to generate report the results of the study. In this demo case (generated in the \href{https://github.com/yzerlaut/finalyz/blob/master/docs/notebook.ipynb}{documentation notebook}), the \href{https://github.com/yzerlaut/finalyz/raw/master/study.npz}{study.npz} file contains both study parameters and analysis results:
+\begin{verbatim}
+{'N_obs': 5,
+ 'N_sample': 100,
+ 'CC_coef_over_obs_max': 0.223,
+ 'CC_coef_over_obs_mean': 0.055,
+ 'CC_coef_over_obs_min': -0.122,
+ 'CC_coef_over_obs_std': 0.103,
+ 'CC_pval_over_obs_max': 0.856,
+ 'CC_pval_over_obs_min': 0.026,
+ 'Mean_value': 1.605,
+ 'Sem_value': 0.13,
+ 'Study_duration': '2 months'}
+\end{verbatim}
 
-Lorem ipsum dolor sit amet, consectetuer adipisc- ing elit. Etiam
-lobortis facilisis sem. Nullam nec mi et neque pharetra
-sollicitudin. Praesent im- perdiet mi nec ante. Donec ullamcorper,
-felis non sodales commodo, lectus velit ultrices augue, a dig- nissim
-nibh lectus placerat pede. Vivamus nunc nunc, molestie ut, ultricies
-vel, semper in, velit.  Ut porttitor. Praesent in sapien. Lorem ipsum
-dolor sit amet, consectetuer adipiscing elit. Duis fringilla tristique
-neque. Sed interdum libero ut metus. Pellentesque placerat.
+Now if we write in the text file:
+\begin{verbatim}
+The study was conducted over {Study_duration}.
+It contained {N_sample} of {N_obs} observations.
+Signal was: {Mean_value}$\pm${Sem_value}.
+Cross-correlation over observations was
+{CC_coef_over_obs_mean}$\pm${CC_coef_over_obs_mean}
+with minimum {CC_coef_over_obs_min} and
+maximum {CC_coef_over_obs_max}.
+P values of linear correlation spanned a range 
+between pval={CC_pval_over_obs_min}
+and pval={CC_pval_over_obs_max}
+\end{verbatim}
 
+It gets exported to:
 
-[[Figure {Fig1} around here]]
+\emph{ The study was conducted over {study_duration}. It contained {Nsample} of {Nobs} observations. Signal was: {mean_value} $\pm$ {sem_value}. Cross-correlation over observations was {cc_coef_over_obs_mean} $\pm$ {cc_coef_over_obs_mean} with minimum {cc_coef_over_obs_min} and maximum {cc_pval_over_obs_max}.
+P-values of linear correlation spanned a range between pval={cc_pval_over_obs_min} and pval={cc_pval_over_obs_max}.}
 
-[[Figure {Fig2} around here]]
+One can naturally use \LaTeX  code fragments within the text to  get the $\pm$ sign. Support for equations is also achieved by \LaTeX equations:
 
-[[Figure {Fig3} around here]]
+\begin{verbatim}
+\begin{equation}
+\label{eq:eq1}
+\left\{
+\begin{split}
+& \frac{\partial^2 d}{\partial t ^2} = -x^3 \\
+& \sum_{x} 1/x^2 \rightarrow y
+\end{split}
+\right.
+\end{equation}
+\end{verbatim}
 
-[[Table {Tab1} around here]]
-
-[[Table {Tab2} around here]]
-
-We replace values coming from the "analysis.npz" file:
-
-This statistical test was: {Nobs}
-The output here was {Nsample}
-
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Etiam lobortis facilisis sem. Nullam necmi et neque pharetra sollicitudin. Praesent imperdiet mi nec ante. Donec ullamcorper, felis non sodales commodo, lectus velit ultrices augue, a dignissim nibh lectus placerat pede. Vivamus nuncnunc, molestie ut, ultricies vel, semper in, velit. Ut porttitor. Praesent in sapien. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Duis fringilla tristique neque. Sed interdum libero ut metus. Pellentesque placerat. Nam rutrum augue a leo. Morbi sed elit sit amet ante lobortis sollicitudin. Praesent blandit blandit mauris. Praesent lectus tellus, aliquet aliquam, luctus a, egestas a, turpis. Mauris lacinia lorem sit amet ipsum. Nunc quis urna dictum turpis accumsan semper. \TODO{this additional analysis}
-
-We can insert \LATEX equations:
-
+produces:
 \begin{equation}
 \label{eq:eq1}
 \left\{
@@ -101,49 +148,16 @@ We can insert \LATEX equations:
 \right.
 \end{equation}
 
-
-We replace values coming from the "analysis.npz" file:
-
-This statistical test was: {Nobs}
-The output here was {Nsample}
-
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Etiam lobortis facilisis sem. Nullam necmi et neque pharetra sollicitudin. Praesent imperdiet mi nec ante. Donec ullamcorper, felis non sodales commodo, lectus velit ultrices augue, a dignissim nibh lectus placerat pede. Vivamus nuncnunc, molestie ut, ultricies vel, semper in, velit. Ut porttitor. Praesent in sapien. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Duis fringilla tristique neque. Sed interdum libero ut metus. Pellentesque placerat. Nam rutrum augue a leo. Morbi sed elit sit amet ante lobortis sollicitudin. Praesent blandit blandit mauris. Praesent lectus tellus, aliquet aliquam, luctus a, egestas a, turpis. Mauris lacinia lorem sit amet ipsum. Nunc quis urna dictum turpis accumsan semper. \TODO{this additional analysis}
-
-We can insert \LATEX equations:
-
-\begin{equation}
-\label{eq:eq1}
-\left\{
-\begin{split}
-& \frac{\partial^2 d}{\partial t ^2} = -x^3 \\
-& \sum_{x} 1/x^2 \rightarrow y
-\end{split}
-\right.
-\end{equation}
-
-Now referring to Figure {Fig3}.
-
-Lorem ipsum dolor sit amet, consectetuer adipisc- ing elit. Etiam lobortis facilisis sem. Nullam nec mi et neque pharetra sollicitudin. Praesent im- perdiet mi nec ante. Donec ullamcorper, felis non sodales commodo, lectus velit ultrices augue, a dig- nissim nibh lectus placerat pede. Vivamus nunc nunc, molestie ut, ultricies vel, semper in, velit.  Ut porttitor. Praesent in sapien. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Duis fringilla tristique neque. Sed interdum libero ut metus. Pellentesque placerat. Nam rutrum augue a leo. Morbi sed elit sit amet ante lobortis sollicitudin. Praesent blandit blandit mauris. Praesent lectus tellus, aliquet aliquam, luctus a, egestas a, turpis. Mauris lacinia lorem sit amet ipsum. Nunc quis urna dictum turpis accumsan semper.Lorem ipsum dolor sit amet, consectetuer adipisc- ing elit. Etiam lobortis facilisis sem. Nullam nec mi et neque pharetra sollicitudin. Praesent im- perdiet mi nec ante. Donec ullamcorper, felis non sodales commodo, lectus velit ultrices augue, a dig- nissim nibh lectus placerat pede. Vivamus nunc nunc, molestie ut, ultricies vel, semper in, velit. Ut porttitor. Praesent in sapien. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Duis fringilla tristique neque. Sed interdum libero ut metus. Pellentesque placerat. Nam rutrum augue a leo. Morbi sed elit sit amet ante lobortis sollicitudin. Praesent blandit blandit mauris. Praesent lectus tellus, aliquet aliquam, luctus a, egestas a, turpis. Mauris lacinia lorem sit amet ipsum. Nunc quis urna dictum turpis accumsan semper.
-
-Lorem ipsum dolor sit amet, consectetuer adipisc- ing elit. Etiam lobortis facilisis sem. Nullam nec mi et neque pharetra sollicitudin. Praesent im- perdiet mi nec ante. Donec ullamcorper, felis non sodales commodo, lectus velit ultrices augue, a dig- nissim nibh lectus placerat pede. Vivamus nunc nunc, molestie ut, ultricies vel, semper in, velit.  Ut porttitor. Praesent in sapien. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Duis fringilla tristique neque. Sed interdum libero ut metus. Pellentesque placerat. Nam rutrum augue a leo. Morbi sed elit sit amet ante lobortis sollicitudin. Praesent blandit blandit mauris. Praesent lectus tellus, aliquet aliquam, luctus a, egestas a, turpis. Mauris lacinia lorem sit amet ipsum. Nunc quis urna dictum turpis accumsan semper.Lorem ipsum dolor sit amet, consectetuer adipisc- ing elit. Etiam lobortis facilisis sem. Nullam nec mi et neque pharetra sollicitudin. Praesent im- perdiet mi nec ante. Donec ullamcorper, felis non sodales commodo, lectus velit ultrices augue, a dig- nissim nibh lectus placerat pede. Vivamus nunc nunc, molestie ut, ultricies vel, semper in, velit. Ut porttitor. Praesent in sapien. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Duis fringilla tristique neque. Sed interdum libero ut metus. Pellentesque placerat. Nam rutrum augue a leo. Morbi sed elit sit amet ante lobortis sollicitudin. Praesent blandit blandit mauris. Praesent lectus tellus, aliquet aliquam, luctus a, egestas a, turpis. Mauris lacinia lorem sit amet ipsum. Nunc quis urna dictum turpis accumsan semper.
 
 * Figures
 
 *** A one column figure.
-#+options : {'label':'Fig1', 'extent':'singlecolumn', 'file':'docs/fig1.png'}
+#+options : {'label':'Fig1', 'extent':'singlecolumn', 'file':'docs/fig1.png', 'page_position':'b!'}
 Generate the figure with the file \texttt{surface\_plot.py} from the \texttt{graphs} module available at the following \href{https://bitbucket.org/yzerlaut/graphs/src/master/}{[link]}. Lorem ipsum dolor sit amet, consectetuer adipisc- ing elit. Etiam lobortis facilisis sem. Nullam nec mi et neque pharetra sollicitudin. We added an optional horizontal rule at the bottom.
 
 *** A two column figure.
-#+options : {'label':'Fig2', 'extent':'doublecolumn', 'hrule_bottom':True, 'file':'docs/fig2.png'}
-(a) Lorem ipsumdolor sit amet in *B* and *C*, consectetuer adipiscing elit. Duisfringilla tristique neque. Sed interdum libero utmetus. Pellentesque placerat. Nam rutrum auguea leo. Morbi sed elit sit amet ante lobortis sollici-tudin. Praesent blandit blandit mauris.
-(b) Praesentlectus tellus, aliquet aliquam, luctus a, egestas a,turpis. Mauris lacinia lorem sit amet ipsum. 
-(c) Nuncquis urna dictum turpis accumsan semper. Lorem ipsum dolor sit amet, consectetuer adipisc ing elit. Etiam lobortis facilisis sem. Nullam nec mi et neque pharetra sollicitudin. Praesent imperdiet mi nec ante. Donec ullamcorper,felis non sodales commodo, lectus velit ultrices augue, a dignissim nibh lectus placerat pede. Vivamus nunc nunc, molestie ut, ultricies vel, semper in, velit.
-
-*** A two column figure where the legend wraps around the figure.
-#+options : {'label':'Fig3', 'extent':'doublecolumn', 'wrapfig':True, 'width':.65, 'height':15, 'hrule_bottom':True, 'file':'docs/fig3.png'}
-(a) Lorem ipsumdolor sit amet in *B* and *C*, consectetuer adipiscing elit. Duisfringilla tristique neque. Sed interdum libero utmetus. Pellentesque placerat. Nam rutrum auguea leo. Morbi sed elit sit amet ante lobortis sollici-tudin. Praesent blandit blandit mauris.
-(b) Praesentlectus tellus, aliquet aliquam, luctus a, egestas a,turpis. Mauris lacinia lorem sit amet ipsum. 
-(c) Nuncquis urna dictum turpis accumsan semper. Lorem ipsum dolor sit amet, consectetuer adipisc ing elit. Etiam lobortis facilisis sem. Nullam nec mi et neque pharetra sollicitudin. Praesent imperdiet mi nec ante. Donec ullamcorper,felis non sodales commodo, lectus velit ultrices augue, a dignissim nibh lectus placerat pede. Vivamus nunc nunc, molestie ut, ultricies vel, semper in, velit.
+#+options : {'label':'Fig2', 'extent':'doublecolumn', 'hrule_bottom':True, 'file':'docs/fig2.png', 'page_position':'t!'}
+(a) Lorem ipsumdolor sit amet in *b* and *c*. (b) Lorem ipsumdolor sit amet. (c) Lorem ipsumdolor sit amet. (d) Lorem ipsumdolor sit amet. (e) Lorem ipsumdolor sit amet. (f) Lorem ipsumdolor sit amet.
 
 * References
 
@@ -168,7 +182,6 @@ Generate the figure with the file \texttt{surface\_plot.py} from the \texttt{gra
   volume  = {322},
   doi     = {10.1002/andp.19053220806},
   eprint  = {https://onlinelibrary.wiley.com/doi/pdf/10.1002/andp.19053220806},
-  file    = {:doi_10.1002_andp.19053220806 - Über Die Von Der Molekularkinetischen Theorie Der Wärme Geforderte Bewegung Von in Ruhenden Flüssigkeiten Suspendierten Teilchen.PDF:PDF},
   url     = {https://onlinelibrary.wiley.com/doi/abs/10.1002/andp.19053220806},
 }
 
@@ -225,47 +238,23 @@ Generate the figure with the file \texttt{surface\_plot.py} from the \texttt{gra
 
 * Tables
 
-*** Caption for the first table
+*** Properties of the study.
 #+options : {'label':'Tab1', 'extent':'singlecolumn'}
-Subcaption for the first table
-| Name    |    Phone | Age |
-|---------+----------+-----|
-| Peter   | {blabla} |  17 |
-| Anna    |     4321 |  25 |
-| Patrick |     4321 |  25 |
-\begin{tabular}{l|r|r}
-Name & Phone & Age\\
+The values of this table have been directly imported from the analysis file \href{https://github.com/yzerlaut/finalyz/raw/master/study.npz}{study.npz}.
+| Property                | Symbol       | Value            |
+|-------------------------+--------------+------------------|
+| Study duration number   | $T_{study}$  | {study_duration} |
+| Sample number           | $N_{obs}$    | {Nobs}           |
+| Observations per sample | $N_{sample}$ | {Nsample}        |
+| Patrick                 | 4321         | 25               |
+\begin{tabular}{l|l|l}
+\textbf{Property} & \textbf{Symbol} & \textbf{Value}\\
 \hline
-Peter & {blabla} & 17\\
-\hline
-Anna & 4321 & 25\\
-Patrick & 4321 & 25\\
-\hline
+Study duration number & \(T_{study}\) & {study_duration}\)\\
+Sample number & \(N_{obs}\) & {Nobs}\\
+Observations per sample & \(N_{sample}\) & {Nsample}\\
+observation  correl. coef.  & $CC$ & {cc_coef_over_obs_mean} $\pm$ {cc_coef_over_obs_std}
 \end{tabular}
-
-*** Caption for the second table
-#+options : {'label':'Tab2', 'extent':'doublecolumn'}
-Subcaption for the second table
-| model   | \(P_0\)(mV) | \(P_\mu\)(mV)             | \(P_\sigma\)(mV) | \(P_\tau\)(mV) |
-|---------+-------------+---------------------------+------------------+----------------|
-| simple  | 8           | 9                         |                4 |            387 |
-|---------+-------------+---------------------------+------------------+----------------|
-| complex | \(\pi/d^4\) | \(\frac{\pi}{\sqrt{28}}\) |               23 |              3 |
-|---------+-------------+---------------------------+------------------+----------------|
-| none    | 0           | 0                         |                0 |              0 |
-|---------+-------------+---------------------------+------------------+----------------|
-\begin{center}
-\begin{tabular}{lrrrr}
-model & \(P_0\)(mV) & \(P_\mu\)(mV) & \(P_\sigma\)(mV) & \(P_\tau\)(mV)\\
-\hline
-simple & 8 & 9 & 4 & 387\\
-\hline
-complex & \(\pi/d^4\) & \(\frac{\pi}{\sqrt{28}}\) & 23 & 3\\
-\hline
-none & 0 & 0 & 0 & 0\\
-\hline
-\end{tabular}
-\end{center}
 
 * Supplementary
 ** Supplementary Text
@@ -309,27 +298,23 @@ Patrick & 4321 & 25\\
 * Informations
 *** Title
 A template for scientific papers
-
 *** Authors
 First Author{1}, Second Author{1,2}*
-
 *** Short_Title
-Paper Template
-
+Short Report Template
 *** Short_Authors
 Author et al.
-
 *** Affiliations
 {1} My first affiliation, {2} Second author affiliation
-
 *** Conflict_of_interest
-All manuscripts must contain a statement regarding Competing interests. If there are no competing interests, a statement to this effect must be included. All authors should disclose any conflict of interest in accordance with journal policy.
-
-*** Acknowledgements 
-Acknowledgements should be the minimum consistent with courtesy. The wording of acknowledgements of scientific assistance or advice must have been seen and approved by the persons concerned. This section should not include details of funding.
-
+The authors declare no conflict of interest.
+*** Data_availability
+All manuscript data are publicly available at the url: \url{https://github.com/yzerlaut/finalyz}.
+*** Acknowledgements
+The authors would like to thank the contributors and maintainers of the \LaTeX, Emacs, Org-Mode and scientific python softwares.
 *** Funding
-Authors must indicate all sources of funding, including grant numbers. If authors have not received funding, this must be stated.
+
+This research was funded by [...] under grant agreement [...].
 
 * Notes /not exported/
 

@@ -73,8 +73,9 @@ def build_library(Reference_text, args,
                 field = field0.replace(' ', '')
                 value = value0.split('{')[1].replace('},', '')
                 LIBRARY[key][field] = value
-            except ValueError:
+            except (ValueError, IndexError):
                 pass
+                # print(field0, value0)
 
         LIBRARY[key]['apa'] = build_apa_citation(LIBRARY[key])
         LIBRARY[key]['doi'] = build_doi_url(LIBRARY[key])
@@ -93,8 +94,13 @@ def process_references(PAPER, args):
     """
 
     LIBRARY = build_library(PAPER['References'], args)
-    
-    PAPER['References'] = '\n \small \\normalfont \n \subsection*{References} \n'
+
+    PAPER['References'] = '\n \small \\normalfont \n'
+    if args.references_key:
+        PAPER['References'] += '\n \subsection*{References} \n'
+    else:
+        PAPER['References'] += '\n \\vspace{.3cm} \n'
+        
 
     REFS = {'key':[],
             'positions_in_text':[],
