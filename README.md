@@ -14,7 +14,7 @@ What this software enables is to:
    - either short reports with two columns
    - either long and detailed reports in the single column 
    - either to pre-defined templates of scientific journals: PloS journals, Springer journals, Physical Review journals, Cell journals, J. Neurosci., etc ...
-- Bibliographic export 
+- Bibliographic managment and export to different citation styles
 - Benefit from the the Emacs editing capabilities (the txt template uses the Org-Mode syntax).
 
 ## Installation
@@ -25,21 +25,18 @@ git clone https://github.com/yzerlaut/finalyz
 source finalyz/run.sh
 ```
 
-## User guide
+## Use
 
-Work on your "txt" file (see the templates in the [template folder](https://github.com/yzerlaut/finalyz/tree/master/templates) and compile it with:
+Perform your quantitative analysis as store your results as `your_study_file.npz` (see the [documentation notebook](https://github.com/yzerlaut/finalyz/blob/master/docs/notebook.ipynb) for an example), draft your paper on a "txt" file (see the templates in the [template folder](https://github.com/yzerlaut/finalyz/tree/master/templates) and compile it with:
 
 ```
-finalyz you_paper.txt
+finalyz you_paper.txt --study_file your_study_file.npz
 ```
-or alternatively
-```
-report you_paper.txt # shortcut for a report
-```
+(see the below section *Manuscript types* for a few shortcuts to specific journal formats, preprint types, ...)
 
-## Including quantitative results
+## Include quantitative results from stored
 
-We show here how to use cross-referencing with respect to an analysis file to generate report the results of the study. In this demo case (generated in the (https://github.com/yzerlaut/finalyz/blob/master/docs/notebook.ipynb)[documentation notebook], the (https://github.com/yzerlaut/finalyz/raw/master/study.npz)[study.npz] file contains both study parameters and analysis results:
+We show here how to use cross-referencing with respect to an analysis file to generate report the results of the study. In this demo case (generated in the [documentation notebook](https://github.com/yzerlaut/finalyz/blob/master/docs/notebook.ipynb), the [study.npz](https://github.com/yzerlaut/finalyz/raw/master/study.npz) file contains both study parameters and analysis results:
 
 ```
 {'Nobs': 5,
@@ -58,7 +55,10 @@ We show here how to use cross-referencing with respect to an analysis file to ge
 we use the syntax (using python's dictionary replacement syntax):
 
 ```
-The study was conducted over {study_duration}. It contained {Nsample} of {Nobs} observations. Signal was: {mean_value} $\pm$ {sem_value}. Cross-correlation over observations was {cc_coef_over_obs_mean} $\pm$ {cc_coef_over_obs_mean} with minimum {cc_coef_over_obs_min} and maximum {cc_pval_over_obs_max}.
+The study was conducted over {study_duration}.
+It contained {Nsample} of {Nobs} observations.
+Signal was: {mean_value} $\pm$ {sem_value}.
+Cross-correlation over observations was {cc_coef_over_obs_mean} $\pm$ {cc_coef_over_obs_mean} with minimum {cc_coef_over_obs_min} and maximum {cc_pval_over_obs_max}.
 P-values of linear correlation spanned a range between pval={cc_pval_over_obs_min} and pval={cc_pval_over_obs_max}
 ```
 
@@ -66,7 +66,7 @@ are exported to:
 
 > The study was conducted over 2 months. It contained 100 of 5 observations. Signal was: 1.605 ± 0.13. Cross- correlation over observations was 0.055 ± 0.055 with minimum -0.122 and maximum 0.856. P-values of linear correlation spanned a range between pval=0.026 and pval=0.856.
 
-## References
+## Include references and choose citation style
 
 Reference are included in the text by a plain text citation style:
 
