@@ -213,7 +213,13 @@ The authors declare no conflict of interest
 
 The different manuscript templates covered are:
 
-- reports:
+- **article*:
+  This is the default `finalyz` command:
+  <p align="center">
+	  <img src="docs/paper.png"/>
+  </p>
+  
+- **report**:
   Use the `report` command directly. This is a shortcut for:
   ```
   finalyz your_paper.txt --report --abstract_key '' --citation_style 'number_exponents' --references_key '' --insert_informations_at_the_end
@@ -221,9 +227,36 @@ The different manuscript templates covered are:
   <p align="center">
 	  <img src="docs/report.png"/>
   </p>
-- preprints
-- articles
-- short reports with two columns
-- pre-defined templates of scientific journals: PloS journals, Springer journals, Physical Review journals, Cell journals, J. Neurosci., etc ...
+  
+- **figures only**:
+  Use:
+  ```
+  finalyz your_paper.txt --figures_only # or just '-fo' as a shortcut
+  ```
+  <p align="center">
+	  <img src="docs/figures_only.png"/>
+  </p>
+
+Generating submission files given specific journal guidelines:
+
+- **[Journal of Neuroscience](https://jneurosci.org)**:
+  Use:
+  ```
+  finalyz your_paper.txt --journal JNeurosci
+  ```
+  <p align="center">
+	  <img src="docs/JNeurosci.png"/>
+  </p>
+  
+- **[Journal of Physiology](https://physoc.onlinelibrary.wiley.com/journal/14697793)**:
+  Use:
+  ```
+  finalyz your_paper.txt --journal JPhysiol
+  ```
+  <p align="center">
+	  <img src="docs/JPhysiol.png"/>
+  </p>
+
+- other pre-defined templates: PloS journals, Springer journals, Physical Review journals, Cell journals, [...]
 
 	
