@@ -1,4 +1,4 @@
-<div><img src="https://github.com/yzerlaut/finalyz/raw/master/docs/report.png" alt="finalyz logo" width="65%" align="right" style="margin-left: 10px"></div>
+<div><img src="https://github.com/yzerlaut/finalyz/raw/master/docs/report.png" alt="finalyz logo" width="50%" align="right" style="margin-left: 10px"></div>
 
 # finalyz
 
@@ -9,13 +9,11 @@ Part of the software suite for data science: [analyz](https://github.com/yzerlau
 ## Idea / Principle
 
 What this software enables is to:
-- Provide a datafile (e.g. a python dictionary file "data.npz") and have your numerical values exported automatically within the text (no need to manually copy-paste the analysis output).
-- Export your analysis to the document format that best fits your audience !
-   - either short reports with two columns
-   - either long and detailed reports in the single column 
-   - either to pre-defined templates of scientific journals: PloS journals, Springer journals, Physical Review journals, Cell journals, J. Neurosci., etc ...
-- Bibliographic managment and export to different citation styles
-- Benefit from the the Emacs editing capabilities (the txt template uses the Org-Mode syntax).
+- Perform automated export of quantitative results into manuscripts (no copy-paste of analysis results!)
+- Benefit from the LaTeX support of figure, equations and corss-referencing in a simple markdown-like language: [Org-Mode](https://orgmode.org).
+- provide bibliographic management and use different citation styles
+- export to diverse formats from the same manuscript file
+- benefit from the [Emacs](https://www.gnu.org/software/emacs/) editing capabilities when drafting your manuscript.
 
 ## Installation
 
@@ -25,11 +23,11 @@ git clone https://github.com/yzerlaut/finalyz
 source finalyz/run.sh
 ```
 
-## Use
+## Use 
 
-- perform your quantitative analysis as store your results as `your_study_file.npz` (see the [documentation notebook](https://github.com/yzerlaut/finalyz/blob/master/docs/notebook.ipynb))
-- draft your paper on a "txt" file (see the templates in the [template folder](https://github.com/yzerlaut/finalyz/tree/master/templates)
-- compile it with:
+1. perform your quantitative analysis as store your results as `your_study_file.npz` (see the [documentation notebook](https://github.com/yzerlaut/finalyz/blob/master/docs/notebook.ipynb))
+2. draft your paper on a "txt" file (see the templates in the [template folder](https://github.com/yzerlaut/finalyz/tree/master/templates)
+3. compile it with:
 
 ```
 finalyz you_paper.txt --study_file your_study_file.npz
@@ -70,7 +68,7 @@ are exported to:
 
 ## Include references and choose citation style
 
-Reference are included in the text by a plain text citation style:
+References are included in the manuscript text with a plain text citation style:
 
 ```
 A landwark study on visual cortex (Hubel and Wiesel, 1962), ...
@@ -104,21 +102,63 @@ All cited references should point to a bibtex entry in the `References` section,
 ```
 
 ## Include equations
+	
+Equations can be created using the LaTeX syntax:
+```
+\begin{equation}
+\label{eq:eq1}
+\left\{
+\begin{split}
+& \frac{\partial^2 d}{\partial t ^2} = -x^3 \\
+& \sum_{x} 1/x^2 \rightarrow y
+\end{split}
+\right.
+\end{equation}
+```
+
+references to equations are passed using the label of the equation as:
+```
+The model corresponding to Equation {eq:eq1} captures ...
+```
+By default it will export to:
+> The model corresponding to Eq. 1 captures ...
+
+but you can set the `equation_key` explicitely, for example compiling:
+```
+finalyz your_paper.txt --equation_key 'Equation'
+```
+will produce:
+> The model corresponding to Equation 1 captures ...
+
 ## Include figures
 
-Make a dedicated `Figures` section and fill it with your caption (main caption in bold) and subcaption in normal text, e.g.:
+Make a dedicated `Figures` section in the manuscript and fill it with your caption (main caption in bold) and subcaption in normal text, e.g.:
 ```
 * Figures
 
 *** Main caption for the single-column figure: description of the protocol.
 #+options : {'label':'Fig1', 'extent':'singlecolumn', 'file':'docs/fig1.png', 'page_position':'b!'}
-Generate the figure with the file \texttt{surface\_plot.py} from the \texttt{graphs} module available at the following \href{https://bitbucket.org/yzerlaut/graphs/src/master/}{[link]}. Lorem ipsum dolor sit amet, consectetuer adipisc- ing elit. Etiam lobortis facilisis sem. Nullam nec mi et neque pharetra sollicitudin. We added an optional horizontal rule at the bottom.
+This figure has been produced in the documentation notebook using the datavyz software (a layer on top of matplotlib).
 ```
 
+Figures can then be placed in the text with:
 ```
 [[Figure {protocol-description} around here]]
 ```
+and referenced by the plain text:
 
+```
+The protocol is described in Figure {protocol-description}, ...
+```
+By default it will export to:
+> The protocol is described in Fig. 1, ...
+
+but you can set the `figure_key` explicitely, for example compiling:
+```
+finalyz your_paper.txt --figure_key Figure'
+```
+will produce:
+> Figure 1 describes the protocol, ...
 
 ## Manuscript informations
 
@@ -171,6 +211,19 @@ The authors declare no conflict of interest
 
 ## Manuscript types
 
-- preprints
-- reports
+The different mauscript types covered are:
 
+- reports:
+  Use the `report` command directly. This is a shortcut for:
+  ```
+  finalyz your_paper.txt --report --abstract_key '' --citation_style 'number_exponents' --references_key '' --insert_informations_at_the_end
+  ```
+  <p align="center">
+	  <img src="docs/report.png"/>
+  </p>
+- preprints
+- articles
+- short reports with two columns
+- pre-defined templates of scientific journals: PloS journals, Springer journals, Physical Review journals, Cell journals, J. Neurosci., etc ...
+
+	
