@@ -35,6 +35,70 @@ finalyz you_paper.txt --study_file your_study_file.npz
 ```
 (see the below section  [Manuscript Templates](https://github.com/yzerlaut/finalyz#manuscript-templates) for a few shortcuts to specific journal formats, preprint templates, ...)
 
+## Manuscript templates
+
+The different manuscript templates covered are:
+
+### article
+
+This is the default `finalyz` command:
+<p align="center">
+<img src="docs/paper.png"/>
+</p>
+  
+### report
+
+This is a format for short communications.
+
+Use the `report` command directly. This is a shortcut for:
+```
+finalyz your_paper.txt --report --abstract_key '' --citation_style 'number_exponents' --references_key '' --insert_informations_at_the_end
+```
+<p align="center">
+<img src="docs/report.png"/>
+</p>
+  
+### figures only
+
+Export a pdf-file with only your figures
+
+Use:
+```
+finalyz your_paper.txt --figures_only # or just '-fo' as a shortcut
+```
+<p align="center">
+<img src="docs/figures_only.png"/>
+</p>
+
+Generating submission files given specific journal guidelines:
+
+### [Journal of Neuroscience](https://jneurosci.org)
+
+Use:
+```
+finalyz your_paper.txt --journal JNeurosci
+```
+  
+Note the automated manuscript analysis ! (word count per section, ...)
+<p align="center">
+<img src="docs/JNeurosci.png"/>
+</p>
+  
+### [Journal of Physiology](https://physoc.onlinelibrary.wiley.com/journal/14697793)
+
+Use:
+```
+finalyz your_paper.txt --journal JPhysiol
+```
+<p align="center">
+<img src="docs/JPhysiol.png"/>
+</p>
+
+### soon to come [...] 
+
+other pre-defined templates: PloS journals, Springer journals, Physical Review journals, Cell journals,  [...]
+
+	
 ## Include quantitative results 
 
 We show here how to use cross-referencing extracted from an analysis file to report the results of the study. In this demo case (generated in the [documentation notebook](https://github.com/yzerlaut/finalyz/blob/master/docs/notebook.ipynb), the [study.npz](https://github.com/yzerlaut/finalyz/raw/master/docs/study.npz) file contains both study parameters and analysis results:
@@ -210,67 +274,3 @@ Author et al.
 The authors declare no conflict of interest
 ```
 
-## Manuscript templates
-
-The different manuscript templates covered are:
-
-### article
-
-This is the default `finalyz` command:
-<p align="center">
-<img src="docs/paper.png"/>
-</p>
-  
-### report
-
-This is a format for short communications.
-
-Use the `report` command directly. This is a shortcut for:
-```
-finalyz your_paper.txt --report --abstract_key '' --citation_style 'number_exponents' --references_key '' --insert_informations_at_the_end
-```
-<p align="center">
-<img src="docs/report.png"/>
-</p>
-  
-### figures only
-
-Export a pdf-file with only your figures
-
-Use:
-```
-finalyz your_paper.txt --figures_only # or just '-fo' as a shortcut
-```
-<p align="center">
-<img src="docs/figures_only.png"/>
-</p>
-
-Generating submission files given specific journal guidelines:
-
-### [Journal of Neuroscience](https://jneurosci.org)
-
-Use:
-```
-finalyz your_paper.txt --journal JNeurosci
-```
-  
-Note the automated manuscript analysis ! (word count per section, ...)
-<p align="center">
-<img src="docs/JNeurosci.png"/>
-</p>
-  
-### [Journal of Physiology](https://physoc.onlinelibrary.wiley.com/journal/14697793)
-
-Use:
-```
-finalyz your_paper.txt --journal JPhysiol
-```
-<p align="center">
-<img src="docs/JPhysiol.png"/>
-</p>
-
-### soon [...] 
-
-other pre-defined templates: PloS journals, Springer journals, Physical Review journals, Cell journals, soon [...]
-
-	
