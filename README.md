@@ -71,10 +71,21 @@ are exported to:
 Reference are included in the text by a plain text citation style:
 
 ```
-A landwark study on visual cortex (Hubel and Wiesel, 1962)
+A landwark study on visual cortex (Hubel and Wiesel, 1962), ...
 ```
 
-that should point to a bibtex entry in the `References` section:
+The compiled citation will depend on the citation style used.
+- For `finalyz your_paper.txt --citation_style text # default settings`, one gets:
+> A landwark study on visual cortex (Hubel and Wiesel, 1962)
+
+- For `finalyz your_paper.txt --citation_style number`, one gets:
+> A landwark study on visual cortex [1]
+
+- For `finalyz your_paper.txt --citation_style exponent_number`
+> A landwark study on visual cortex<sup>1</sup>
+
+
+All cited references should point to a bibtex entry in the `References` section, e.g.:
 ```
 * References
 
@@ -89,25 +100,6 @@ that should point to a bibtex entry in the `References` section:
   publisher={Wiley Online Library}
 }
 ```
-The compiled citation will depend on the citation style used.
-- For:
-```
-finalyz your_paper.txt --citation_style text # default settings
-```
-> A landwark study on visual cortex (Hubel and Wiesel, 1962)
-
-- For:
-```
-finalyz your_paper.txt --citation_style number
-```
-> A landwark study on visual cortex [1]
-
-- For:
-```
-finalyz your_paper.txt --citation_style exponent_number
-```
-> A landwark study on visual cortex^1
-
 
 ## Equations
 
