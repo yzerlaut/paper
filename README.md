@@ -5,7 +5,6 @@
 *A plain text (.txt)-based framework to efficiently describe methods and results in scientific communications.*
 
 Part of the software suite for data science:
-
 [analyz](https://github.com/yzerlaut/analyz), [datavyz](https://github.com/yzerlaut/datavyz), [finalyz](https://github.com/yzerlaut/finalyz)
 
 ## Idea / Principle
@@ -215,50 +214,63 @@ The authors declare no conflict of interest
 
 The different manuscript templates covered are:
 
-- **article**:
-  This is the default `finalyz` command:
-  <p align="center">
-	  <img src="docs/paper.png"/>
-  </p>
+### article
+
+This is the default `finalyz` command:
+<p align="center">
+<img src="docs/paper.png"/>
+</p>
   
-- **report**:
-  Use the `report` command directly. This is a shortcut for:
-  ```
-  finalyz your_paper.txt --report --abstract_key '' --citation_style 'number_exponents' --references_key '' --insert_informations_at_the_end
-  ```
-  <p align="center">
-	  <img src="docs/report.png"/>
-  </p>
+### report
+
+This is a format for short communications.
+
+Use the `report` command directly. This is a shortcut for:
+```
+finalyz your_paper.txt --report --abstract_key '' --citation_style 'number_exponents' --references_key '' --insert_informations_at_the_end
+```
+<p align="center">
+<img src="docs/report.png"/>
+</p>
   
-- **figures only**:
-  Use:
-  ```
-  finalyz your_paper.txt --figures_only # or just '-fo' as a shortcut
-  ```
-  <p align="center">
-	  <img src="docs/figures_only.png"/>
-  </p>
+### figures only
+
+Export a pdf-file with only your figures
+
+Use:
+```
+finalyz your_paper.txt --figures_only # or just '-fo' as a shortcut
+```
+<p align="center">
+<img src="docs/figures_only.png"/>
+</p>
 
 Generating submission files given specific journal guidelines:
 
-- **[Journal of Neuroscience](https://jneurosci.org)**:
-  Use:
-  ```
-  finalyz your_paper.txt --journal JNeurosci
-  ```
-  <p align="center">
-	  <img src="docs/JNeurosci.png"/>
-  </p>
-  
-- **[Journal of Physiology](https://physoc.onlinelibrary.wiley.com/journal/14697793)**:
-  Use:
-  ```
-  finalyz your_paper.txt --journal JPhysiol
-  ```
-  <p align="center">
-	  <img src="docs/JPhysiol.png"/>
-  </p>
+### [Journal of Neuroscience](https://jneurosci.org)
 
-- other pre-defined templates: PloS journals, Springer journals, Physical Review journals, Cell journals, soon [...]
+Use:
+```
+finalyz your_paper.txt --journal JNeurosci
+```
+  
+Note the automated manuscript analysis ! (word count per section, ...)
+<p align="center">
+<img src="docs/JNeurosci.png"/>
+</p>
+  
+### [Journal of Physiology](https://physoc.onlinelibrary.wiley.com/journal/14697793)
+
+Use:
+```
+finalyz your_paper.txt --journal JPhysiol
+```
+<p align="center">
+<img src="docs/JPhysiol.png"/>
+</p>
+
+### soon [...] 
+
+other pre-defined templates: PloS journals, Springer journals, Physical Review journals, Cell journals, soon [...]
 
 	
