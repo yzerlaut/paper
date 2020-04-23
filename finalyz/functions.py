@@ -469,12 +469,12 @@ def insert_supplementary(PAPER, args):
 
 def insert_informations_at_the_end(PAPER, args):
     
-    PAPER['text'] += '\n \small \\normalfont \n'
-    for key in ['Conflict_of_interest',
-                'Acknowledgements',
-                'Data_availability',
-                'Funding']:
-        PAPER['text'] += PAPER[key]+'\\\\ \n \\vspace{.1cm} \n '
+    PAPER['text'] += '\n \small \\normalfont \\vspace{.1cm}  \n'
+    for key in ['Acknowledgements',
+                'Funding',
+                'Conflict_of_interest',
+                'Data_availability']:
+        PAPER['text'] += PAPER[key]+'\n \n '
         
         
     

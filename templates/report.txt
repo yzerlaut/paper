@@ -21,24 +21,31 @@ dictionary file.
 * Main Text
 
 The txt-file template that generates the manuscript is available at
-the url:
-\url{https://github.com/yzerlaut/finalyz/blob/master/templates/report.txt}.
+the url: \url{https://github.com/yzerlaut/finalyz/blob/master/templates/report.txt}.
 The present document is compiled by running the command:
 \begin{verbatim}
 $ report report.txt --study_file study.npz
 \end{verbatim}
 
-N.B. the \texttt{ report } command was loaded by running the \texttt{ run.sh } (see \emph{Installation} in the \href{https://github.com/yzerlaut/finalyz}{documentation}).
-
-\vspace{.3cm}
-\hline
-\vspace{.3cm}
+The \texttt{report} command is part of the implemented shortcuts for specific manuscritpt export (see \emph{Manuscript types} in the \href{https://github.com/yzerlaut/finalyz}{documentation}). It was loaded by running the \texttt{ run.sh } (see \emph{Installation} in the \href{https://github.com/yzerlaut/finalyz}{documentation}).
 
 We can insert references classically (Einstein, 1905a; Einstein, 1905b; Einstein et al., 1935) and also include them in text, such as in Einstein et al. (1935) or Hubel and Wiesel (1962)
 or Einstein (1905a) and it will keep the cross-referencing. We can make references to Figure {Fig1}a,c and Figure {Fig2}(ii) with the subpanels reference that it refers to (even
 if the hyperlink directs only to the figure, not the subpanel). We can also make references to Equation {first} and Equation {eq1} and to Table {Tab1}.
 
-Some random text to illustrate the template 
+Equations can be inserted by including \LaTeX fragments with the cross-referencing capabilities:
+
+\begin{equation}
+\label{eq:eq1}
+\left\{
+\begin{split}
+& \frac{\partial^2 d}{\partial t ^2} = -x^3 \\
+& \sum_{x} 1/x^2 \rightarrow y
+\end{split}
+\right.
+\end{equation}
+
+From now on, just random text to illustrate the template.
 
 Lorem ipsum dolor sit amet, consectetuer adipisc- ing elit. Etiam
 lobortis facilisis sem. Nullam nec mi et neque pharetra
@@ -53,10 +60,6 @@ neque. Sed interdum libero ut metus. Pellentesque placerat.
 
 [[Figure {Fig1} around here]]
 
-\vspace{.3cm}
-\hline
-\vspace{.3cm}
-
 Lorem ipsum dolor sit amet, consectetuer adipisc- ing elit. Etiam
 lobortis facilisis sem. Nullam nec mi et neque pharetra
 sollicitudin. Praesent im- perdiet mi nec ante. Donec ullamcorper,
@@ -69,6 +72,31 @@ neque. Sed interdum libero ut metus. Pellentesque placerat.
 [[Figure {Fig2} around here]]
 
 
+Lorem ipsum dolor sit amet, consectetuer adipisc- ing elit. Etiam
+lobortis facilisis sem. Nullam nec mi et neque pharetra
+sollicitudin. Praesent im- perdiet mi nec ante. Donec ullamcorper,
+felis non sodales commodo, lectus velit ultrices augue, a dig- nissim
+nibh lectus placerat pede. Vivamus nunc nunc, molestie ut, ultricies
+vel, semper in, velit.  Ut porttitor. Praesent in sapien. Lorem ipsum
+dolor sit amet, consectetuer adipiscing elit. Duis fringilla tristique
+neque. Sed interdum libero ut metus. Pellentesque placerat.
+
+Lorem ipsum dolor sit amet, consectetuer adipisc- ing elit. Etiam
+lobortis facilisis sem. Nullam nec mi et neque pharetra
+sollicitudin. Praesent im- perdiet mi nec ante. Donec ullamcorper,
+felis non sodales commodo, lectus velit ultrices augue, a dig- nissim
+nibh lectus placerat pede. Vivamus nunc nunc, molestie ut, ultricies
+vel, semper in, velit.  Ut porttitor. Praesent in sapien. Lorem ipsum
+dolor sit amet, consectetuer adipiscing elit. Duis fringilla tristique
+neque. Sed interdum libero ut metus. Pellentesque placerat. Lorem
+ipsum dolor sit amet, consectetuer adipisc- ing elit. Etiam lobortis
+facilisis sem. Nullam nec mi et neque pharetra sollicitudin. Praesent
+im- perdiet mi nec ante. Donec ullamcorper, felis non sodales commodo,
+lectus velit ultrices augue, a dig- nissim nibh lectus placerat
+pede. Vivamus nunc nunc, molestie ut, ultricies vel, semper in, velit.
+Ut porttitor. Praesent in sapien. Lorem ipsum dolor sit amet,
+consectetuer adipiscing elit. Duis fringilla tristique neque. Sed
+interdum libero ut metus. Pellentesque placerat.
 
 Lorem ipsum dolor sit amet, consectetuer adipisc- ing elit. Etiam
 lobortis facilisis sem. Nullam nec mi et neque pharetra
@@ -89,71 +117,38 @@ nec miet neque pharetra sollicitudin. Praesent im- perdiet mi nec
 ante. Donec ullamcorper,felis non sodales commodo, lectus velit
 ultrices augue, a dig- nissim nibh lectus placerat pede.
 
-We will now use cross-referencing to an analysis file to generate report the results of the study. In this demo case (generated in the \href{https://github.com/yzerlaut/finalyz/blob/master/docs/notebook.ipynb}{documentation notebook}), the \href{https://github.com/yzerlaut/finalyz/raw/master/study.npz}{study.npz} file contains both study parameters and analysis results:
-\begin{verbatim}
-{'N_obs': 5,
- 'N_sample': 100,
- 'CC_coef_over_obs_max': 0.223,
- 'CC_coef_over_obs_mean': 0.055,
- 'CC_coef_over_obs_min': -0.122,
- 'CC_coef_over_obs_std': 0.103,
- 'CC_pval_over_obs_max': 0.856,
- 'CC_pval_over_obs_min': 0.026,
- 'Mean_value': 1.605,
- 'Sem_value': 0.13,
- 'Study_duration': '2 months'}
-\end{verbatim}
 
-Now if we write in the text file:
-\begin{verbatim}
-The study was conducted over {Study_duration}.
-It contained {N_sample} of {N_obs} observations.
-Signal was: {Mean_value}$\pm${Sem_value}.
-Cross-correlation over observations was
-{CC_coef_over_obs_mean}$\pm${CC_coef_over_obs_mean}
-with minimum {CC_coef_over_obs_min} and
-maximum {CC_coef_over_obs_max}.
-P values of linear correlation spanned a range 
-between pval={CC_pval_over_obs_min}
-and pval={CC_pval_over_obs_max}
-\end{verbatim}
+Lorem ipsum dolor sit amet, consectetuer adipisc- ing elit. Etiam
+lobortis facilisis sem. Nullam nec mi et neque pharetra
+sollicitudin. Praesent im- perdiet mi nec ante. Donec ullamcorper,
+felis non sodales commodo, lectus velit ultrices augue, a dig- nissim
+nibh lectus placerat pede. Vivamus nunc nunc, molestie ut, ultricies
+vel, semper in, velit.  Ut porttitor. Praesent in sapien. Lorem ipsum
+dolor sit amet, consectetuer adipiscing elit. Duis fringilla tristique
+neque. Sed interdum libero ut metus. Pellentesque placerat.
 
-It gets exported to:
-
-\emph{ The study was conducted over {study_duration}. It contained {Nsample} of {Nobs} observations. Signal was: {mean_value} $\pm$ {sem_value}. Cross-correlation over observations was {cc_coef_over_obs_mean} $\pm$ {cc_coef_over_obs_mean} with minimum {cc_coef_over_obs_min} and maximum {cc_pval_over_obs_max}.
-P-values of linear correlation spanned a range between pval={cc_pval_over_obs_min} and pval={cc_pval_over_obs_max}.}
-
-One can naturally use \LaTeX  code fragments within the text to  get the $\pm$ sign. Support for equations is also achieved by \LaTeX equations:
-
-\begin{verbatim}
-\begin{equation}
-\label{eq:eq1}
-\left\{
-\begin{split}
-& \frac{\partial^2 d}{\partial t ^2} = -x^3 \\
-& \sum_{x} 1/x^2 \rightarrow y
-\end{split}
-\right.
-\end{equation}
-\end{verbatim}
-
-produces:
-\begin{equation}
-\label{eq:eq1}
-\left\{
-\begin{split}
-& \frac{\partial^2 d}{\partial t ^2} = -x^3 \\
-& \sum_{x} 1/x^2 \rightarrow y
-\end{split}
-\right.
-\end{equation}
-
+Lorem ipsum dolor sit amet, consectetuer adipisc- ing elit. Etiam
+lobortis facilisis sem. Nullam nec mi et neque pharetra
+sollicitudin. Praesent im- perdiet mi nec ante. Donec ullamcorper,
+felis non sodales commodo, lectus velit ultrices augue, a dig- nissim
+nibh lectus placerat pede. Vivamus nunc nunc, molestie ut, ultricies
+vel, semper in, velit.  Ut porttitor. Praesent in sapien. Lorem ipsum
+dolor sit amet, consectetuer adipiscing elit. Duis fringilla tristique
+neque. Sed interdum libero ut metus. Pellentesque placerat.Lorem ipsum
+dolor sit amet, consectetuer adipisc- ing elit. Etiam lobortis
+facilisis sem. Nullam nec mi et neque pharetra sollicitudin. Praesent
+im- perdiet mi nec ante. Donec ullamcorper, felis non sodales commodo,
+lectus velit ultrices augue, a dig- nissim nibh lectus placerat
+pede. Vivamus nunc nunc, molestie ut, ultricies vel, semper in, velit.
+Ut porttitor. Praesent in sapien. Lorem ipsum dolor sit amet,
+consectetuer adipiscing elit. Duis fringilla tristique neque. Sed
+interdum libero ut metus. Pellentesque placerat.
 
 * Figures
 
-*** A one column figure.
+*** Main caption for the single-column figure: description of the protocol.
 #+options : {'label':'Fig1', 'extent':'singlecolumn', 'file':'docs/fig1.png', 'page_position':'b!'}
-Generate the figure with the file \texttt{surface\_plot.py} from the \texttt{graphs} module available at the following \href{https://bitbucket.org/yzerlaut/graphs/src/master/}{[link]}. Lorem ipsum dolor sit amet, consectetuer adipisc- ing elit. Etiam lobortis facilisis sem. Nullam nec mi et neque pharetra sollicitudin. We added an optional horizontal rule at the bottom.
+This figure has been produced in the \href{https://github.com/yzerlaut/finalyz/blob/master/docs/notebook.ipynb}{documentation notebook} using the \href{https://github.com/yzerlaut/datavyz}{datavyz} software (a layer on top of matplotlib).
 
 *** A two column figure.
 #+options : {'label':'Fig2', 'extent':'doublecolumn', 'hrule_bottom':True, 'file':'docs/fig2.png', 'page_position':'t!'}
@@ -309,9 +304,9 @@ Author et al.
 *** Conflict_of_interest
 The authors declare no conflict of interest.
 *** Data_availability
-All manuscript data are publicly available at the url: \url{https://github.com/yzerlaut/finalyz}.
+Data location: \url{https://github.com/yzerlaut/finalyz}.
 *** Acknowledgements
-The authors would like to thank the contributors and maintainers of the \LaTeX, Emacs, Org-Mode and scientific python softwares.
+The authors would like to thank the contributors and maintainers of the \href{www.latex-project.org}{\LaTeX}, \href{https://www.gnu.org/software/emacs/}{Emacs}, \href{https://orgmode.org/}{Org-Mode} and \href{https://www.python.org/}{python} softwares.
 *** Funding
 
 This research was funded by [...] under grant agreement [...].

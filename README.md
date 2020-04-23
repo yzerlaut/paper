@@ -1,4 +1,4 @@
-<div><img src="https://github.com/yzerlaut/datavyz/raw/master/docs/logo.png" alt="datavyz logo" width="45%" align="right" style="margin-left: 10px"></div>
+<div><img src="https://github.com/yzerlaut/finalyz/raw/master/docs/report.png" alt="finalyz logo" width="65%" align="right" style="margin-left: 10px"></div>
 
 # finalyz
 
@@ -27,16 +27,18 @@ source finalyz/run.sh
 
 ## Use
 
-Perform your quantitative analysis as store your results as `your_study_file.npz` (see the [documentation notebook](https://github.com/yzerlaut/finalyz/blob/master/docs/notebook.ipynb) for an example), draft your paper on a "txt" file (see the templates in the [template folder](https://github.com/yzerlaut/finalyz/tree/master/templates) and compile it with:
+- perform your quantitative analysis as store your results as `your_study_file.npz` (see the [documentation notebook](https://github.com/yzerlaut/finalyz/blob/master/docs/notebook.ipynb))
+- draft your paper on a "txt" file (see the templates in the [template folder](https://github.com/yzerlaut/finalyz/tree/master/templates)
+- compile it with:
 
 ```
 finalyz you_paper.txt --study_file your_study_file.npz
 ```
 (see the below section *Manuscript types* for a few shortcuts to specific journal formats, preprint types, ...)
 
-## Include quantitative results from stored
+## Include quantitative results 
 
-We show here how to use cross-referencing with respect to an analysis file to generate report the results of the study. In this demo case (generated in the [documentation notebook](https://github.com/yzerlaut/finalyz/blob/master/docs/notebook.ipynb), the [study.npz](https://github.com/yzerlaut/finalyz/raw/master/study.npz) file contains both study parameters and analysis results:
+We show here how to use cross-referencing extracted from an analysis file to report the results of the study. In this demo case (generated in the [documentation notebook](https://github.com/yzerlaut/finalyz/blob/master/docs/notebook.ipynb), the [study.npz](https://github.com/yzerlaut/finalyz/raw/master/study.npz) file contains both study parameters and analysis results:
 
 ```
 {'Nobs': 5,
@@ -101,7 +103,22 @@ All cited references should point to a bibtex entry in the `References` section,
 }
 ```
 
-## Equations
+## Include equations
+## Include figures
+
+Make a dedicated `Figures` section and fill it with your caption (main caption in bold) and subcaption in normal text, e.g.:
+```
+* Figures
+
+*** Main caption for the single-column figure: description of the protocol.
+#+options : {'label':'Fig1', 'extent':'singlecolumn', 'file':'docs/fig1.png', 'page_position':'b!'}
+Generate the figure with the file \texttt{surface\_plot.py} from the \texttt{graphs} module available at the following \href{https://bitbucket.org/yzerlaut/graphs/src/master/}{[link]}. Lorem ipsum dolor sit amet, consectetuer adipisc- ing elit. Etiam lobortis facilisis sem. Nullam nec mi et neque pharetra sollicitudin. We added an optional horizontal rule at the bottom.
+```
+
+```
+[[Figure {protocol-description} around here]]
+```
+
 
 ## Manuscript informations
 
