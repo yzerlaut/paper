@@ -99,7 +99,7 @@ TEX = \
 \\maketitle
 
 \\blfootnote{{  {Affiliations} \, }}
-\\blfootnote{{  *Correspondence: {Correspondence} }}
+\\blfootnote{{  *correspondence: {Correspondence} }}
 
 {text}
 

@@ -25,7 +25,8 @@ def process_preamble_and_informations(PAPER,
     *** Title
     This is the study title
     """
-    
+
+    # starting with the 'Informations' section
     SUBSECTIONS = PAPER['Informations'].split('\n*')[1:]
 
     for subsec in SUBSECTIONS:
@@ -34,12 +35,11 @@ def process_preamble_and_informations(PAPER,
             if len(subsec.split('** %s\n' % key))>1:
                 PAPER[key] = subsec.split('** %s\n' % key)[1].replace('\n', '')
                 
+    # but over-ridden by what lies in the preamble of the file
     LINES = PAPER['Preamble'].split('\n')
     
     for line in LINES:
 
-        success = False
-        
         for key in INFORMATION_KEYS:
             if len(line.split('#+%s: ' % key))>1:
                 PAPER[key] = line.split('#+%s: ' % key)[1]

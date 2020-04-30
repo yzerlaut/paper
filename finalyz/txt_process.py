@@ -27,6 +27,7 @@ PAPER = {'text':'', # full text
          'Figures':'', 'Tables':'',
          'Supplementary':'', 'Supplementary Figures':'', 'Supplementary Tables':'',
          'References':'',
+         'Informations':'',
          'Other':'', # this shouldn't be exported
          'refs':{},\
          # figures/tables/eqs elements
