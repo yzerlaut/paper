@@ -146,7 +146,7 @@ interdum libero ut metus. Pellentesque placerat.
 * Figures
 
 *** Main caption for the single-column figure: description of the protocol.
-#+options : {'label':'Fig1', 'extent':'single-column', 'file':'docs/fig1.png', 'page_position':'b!'}
+#+options : {'label':'Fig1', 'extent':'single-column', 'file':'docs/fig1.png', 'hrule_top':True, 'page_position':'b!'}
 This figure has been produced in the \href{https://github.com/yzerlaut/finalyz/blob/master/docs/notebook.ipynb}{documentation notebook} using the \href{https://github.com/yzerlaut/datavyz}{datavyz} software (a layer on top of matplotlib).
 
 *** A two column figure.

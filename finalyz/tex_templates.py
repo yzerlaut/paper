@@ -55,7 +55,7 @@ TEX = \
 \\usepackage{{geometry}}
 \\geometry{{a4paper,total={{210mm,297mm}}, left=15mm, right=15mm, top=20mm, bottom=20mm, bindingoffset=0mm, columnsep=.5cm}}
 \\usepackage[labelfont=bf,labelsep=period,font=small]{{caption}}
-\\captionsetup[table]{{position=bottom}}
+\\captionsetup{{position=bottom,skip=4pt}}
 \\newcommand\\blfootnote[1]{{  \\begingroup  \\renewcommand\\thefootnote{{}}\\footnote{{#1}}  \\addtocounter{{footnote}}{{-1}}  \\endgroup}}
 \\newcommand\\up[1]{{\\textsuperscript{{#1}}}}
 \\newcommand\\mailto[1]{{\\href{{mailto:#1}}{{#1}}}}

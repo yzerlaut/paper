@@ -8,7 +8,7 @@ setuptools.setup(
 
      name='finalyz',  
 
-     version='0.1',
+     version='1.0',
 
      scripts=['finalyz'] ,
 
@@ -38,7 +38,7 @@ setuptools.setup(
 
     install_requires=[
         "numpy",
-        "bibtexparser",
+        "pdflatex",
         "argparse"
     ]
  )
