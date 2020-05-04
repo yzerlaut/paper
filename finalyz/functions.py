@@ -239,7 +239,7 @@ def analyze_fig(FIG):
 
     if ('extent' in FIG) and (FIG['extent']=='one-and-a-half-column'):
         if 'width' not in FIG:
-            FIG['width'] = 0.66
+            FIG['width'] = 0.63
         if 'wrapfig' not in FIG:
             FIG['wrapfig'] = True
             
@@ -305,11 +305,10 @@ def insert_figure(PAPER, FIG, args,
             figure_text += '\\hrule  \n \\vspace{-.15cm}\n '
         figure_text += '\\captionsetup{labelformat=empty,font=small}'
         figure_text += '\\caption{\\label{fig:'+FIG['label']+'} \\vspace{-2em} }'
-        figure_text += '\\begin{wrapfigure}['+str(FIG['height'])+']{l}{'+str(FIG['width'])+'\linewidth}\n'
-        if FIG['wrapfig_space_left']!=0:
-            figure_text += '\\hspace{'+str(FIG['wrapfig_space_left'])+'em}\n'
-        figure_text += '\\includegraphics[scale='+str(FIG['scale'])+']{'+\
-                                                 FIG['file']+'}\n'
+        figure_text += '\\begin{wrapfigure}[%.0f]{l}{%.2f\linewidth}\n' % (FIG['height'], FIG['width'])
+        if FIG['wrapfig_space_left']!=0.:
+            figure_text += '\\hspace{%.1fem}\n' % FIG['wrapfig_space_left']
+        figure_text += '\\includegraphics[scale=%.2f]{%s}\n' % (FIG['scale'], FIG['file'])
         figure_text += '\\end{wrapfigure}\n'
         figure_text += '\\small \\bfseries Figure \\ref*{fig:'+FIG['label']+'}. '+\
                        FIG['caption_title']+\
