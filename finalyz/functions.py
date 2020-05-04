@@ -306,7 +306,7 @@ def insert_figure(PAPER, FIG, args,
         figure_text += '\\captionsetup{labelformat=empty,font=small}'
         figure_text += '\\caption{\\label{fig:'+FIG['label']+'} \\vspace{-2em} }'
         figure_text += '\\begin{wrapfigure}['+str(FIG['height'])+']{l}{'+str(FIG['width'])+'\linewidth}\n'
-        figure_text += '\\hspace*{'+str(FIG['wrapfig_space_left'])+'em}\n'
+        figure_text += '\\hspace{'+str(FIG['wrapfig_space_left'])+'em}\n'
         figure_text += '\\includegraphics[scale='+str(FIG['scale'])+']{'+\
                                                  FIG['file']+'}\n'
         figure_text += '\\end{wrapfigure}\n'
