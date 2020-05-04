@@ -146,11 +146,11 @@ interdum libero ut metus. Pellentesque placerat.
 * Figures
 
 *** Main caption for the single-column figure: description of the protocol.
-#+options : {'label':'Fig1', 'extent':'singlecolumn', 'file':'docs/fig1.png', 'page_position':'b!'}
+#+options : {'label':'Fig1', 'extent':'single-column', 'file':'docs/fig1.png', 'page_position':'b!'}
 This figure has been produced in the \href{https://github.com/yzerlaut/finalyz/blob/master/docs/notebook.ipynb}{documentation notebook} using the \href{https://github.com/yzerlaut/datavyz}{datavyz} software (a layer on top of matplotlib).
 
 *** A two column figure.
-#+options : {'label':'Fig2', 'extent':'doublecolumn', 'hrule_bottom':True, 'file':'docs/fig2.png', 'page_position':'t!'}
+#+options : {'label':'Fig2', 'extent':'double-column', 'hrule_bottom':True, 'file':'docs/fig2.png', 'page_position':'t!'}
 (a) Lorem ipsumdolor sit amet in *b* and *c*. (b) Lorem ipsumdolor sit amet. (c) Lorem ipsumdolor sit amet. (d) Lorem ipsumdolor sit amet. (e) Lorem ipsumdolor sit amet. (f) Lorem ipsumdolor sit amet.
 
 * References
@@ -233,7 +233,7 @@ This figure has been produced in the \href{https://github.com/yzerlaut/finalyz/b
 * Tables
 
 *** Properties of the study.
-#+options : {'label':'Tab1', 'extent':'singlecolumn'}
+#+options : {'label':'Tab1', 'extent':'single-column'}
 The values of this table have been directly imported from the analysis file \href{https://github.com/yzerlaut/finalyz/raw/master/docs/study.npz}{study.npz}.
 | Property                | Symbol       | Value            |
 |-------------------------+--------------+------------------|

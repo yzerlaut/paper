@@ -102,11 +102,14 @@ def insert_table(PAPER, TAB, args):
     Constructs the LateX table string to insert in the 
     """
     
-    if ('extent' in TAB) and TAB['extent']=='doublecolumn':
+    if ('extent' in TAB) and TAB['extent']=='double-column':
         TAB['latex_code'] = '\\begin{table*}[tb!]\n'
     else:
         TAB['latex_code'] = '\\begin{table}[tb!]\n'
-        
+
+    if ('hrule_top' in TAB) and TAB['hrule_top']:
+        TAB['latex_code'] += '\\hrule \n \\vspace{.1cm} \n'
+
     TAB['latex_code'] += '\\centering \\small \n'+TAB['table_latex_code']+'\n'
     if args.cross_ref:
         TAB['latex_code'] += ' \\caption{ \\label{tab:'+TAB['label']+'} \n \small \\bfseries '+\
@@ -115,8 +118,11 @@ def insert_table(PAPER, TAB, args):
         TAB['latex_code'] += ' \\caption{ \small \\bfseries '+args.table_key+'\,'+str(TAB['number']+1)+'. '+\
                             TAB['caption_title']+ ' \\normalfont '+TAB['caption_text']+' \\normalsize }\n'
         
+    if ('hrule_bottom' in TAB) and TAB['hrule_bottom']:
+        TAB['latex_code'] += '\\vspace{.05cm}\n \\hrule \n'
+        
     TAB['latex_code'] += '\\normalsize \n'
-    if ('extent' in TAB) and TAB['extent']=='doublecolumn':
+    if ('extent' in TAB) and TAB['extent']=='double-column':
         TAB['latex_code'] += '\\end{table*}\n'
     else:
         TAB['latex_code'] += '\\end{table}\n'
@@ -200,6 +206,46 @@ def process_detailed_caption(caption):
         new_caption = new_caption.replace('*'+s+'*', '\\textbf{'+s+'}')
     return new_caption
 
+
+default_fig = {
+    'extent':'double-column',
+    'width': 1.,
+    'scale': 1.,
+    'height': 10.,
+    'wrapfig': False,
+    'hrule_bottom': False,
+    'hrule_top': False,
+    'page_position': 'tb!',
+    'wrapfig_space_before': 0.,
+    'wrapfig_space_after':0.,
+    'wrapfig_space_left':0.,
+    'wrapfig_space_right':0.,
+}
+
+oneandahalfcol_fig = {
+    'scale': 1.,
+    'height': 10.,
+    'wrapfig': True,
+    'hrule_bottom': False,
+    'hrule_top': False,
+    'page_position': 'tb!',
+    'wrapfig_space_before': 0.,
+    'wrapfig_space_after':0.,
+    'wrapfig_space_left':0.,
+    'wrapfig_space_right':0.,
+}
+
+def analyze_fig(FIG):
+
+    if ('extent' in FIG) and (FIG['extent']=='one-and-a-half-column'):
+        if 'width' not in FIG:
+            FIG['width'] = 0.66
+        if 'wrapfig' not in FIG:
+            FIG['wrapfig'] = True
+            
+    for key, default_value in default_fig.items():
+        if key not in FIG:
+            FIG[key] = default_value
     
 def insert_figure(PAPER, FIG, args,
                   supplementary=False):
@@ -207,17 +253,11 @@ def insert_figure(PAPER, FIG, args,
     Constructs the LateX figure string to insert in the manuscript
     """
 
-    for key, default_value in zip(['extent', 'width', 'scale', 'height',\
-                                   'wrapfig', 'hrule_bottom', 'page_position',
-                                   'wrapfig_space_before', 'wrapfig_space_after',
-                                   'wrapfig_space_left', 'wrapfig_space_right'],
-                                  ['doublecolumn', 1., 1., 10., False, False, 'tb!', 0., 0., 0., 0.]):
-        if key not in FIG:
-            FIG[key] = default_value
-
+    analyze_fig(FIG)
+    
     FIG['detailed_caption'] = process_detailed_caption(FIG['detailed_caption'])
     
-    if (FIG['extent']=='singlecolumn') or args.figures_only or args.manuscript_submission:
+    if (FIG['extent']=='single-column') or args.figures_only or args.manuscript_submission:
         figure = 'figure'
     else:
         figure = 'figure*'
@@ -261,6 +301,8 @@ def insert_figure(PAPER, FIG, args,
         figure_text += '\\end{minipage}\n'
                         
     elif ('wrapfig' in FIG) and (FIG['wrapfig']):
+        if FIG['hrule_top']:
+            figure_text += '\\hrule  \n \\vspace{-.15cm}\n '
         figure_text += '\\captionsetup{labelformat=empty,font=small}'
         figure_text += '\\caption{\\label{fig:'+FIG['label']+'} \\vspace{-2em} }'
         figure_text += '\\begin{wrapfigure}['+str(FIG['height'])+']{l}{'+str(FIG['width'])+'\linewidth}\n'
@@ -272,9 +314,11 @@ def insert_figure(PAPER, FIG, args,
                        FIG['caption_title']+\
                        ' \\normalfont '+FIG['detailed_caption']+' \\normalsize \n'
         if FIG['hrule_bottom']:
-            figure_text += '\\vspace{.3cm}\n \\hrule \n'
+            figure_text += '\\vspace{.2cm}\n \\hrule \n'
     else:
         figure_text += '\\centering\n'
+        if FIG['hrule_top']:
+            figure_text += '\\hrule \n '
         figure_text += '\\vspace{'+str(FIG['wrapfig_space_before'])+'em}\n'
         figure_text += '\\includegraphics[scale='+str(FIG['scale'])+']{'+\
                                                  FIG['file']+'}\n'
@@ -282,6 +326,8 @@ def insert_figure(PAPER, FIG, args,
         figure_text += '\\caption{ \\label{fig:'+FIG['label']+'} \n \small \\bfseries '+\
                        FIG['caption_title']+\
                        ' \\normalfont '+FIG['detailed_caption']+' \\normalsize }\n'
+        if FIG['hrule_bottom']:
+            figure_text += '\\vspace{.1cm}\n \\hrule \n'
         
     figure_text += '\\end{'+figure+'}\n'
 
