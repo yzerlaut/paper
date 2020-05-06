@@ -16,6 +16,8 @@ def build_doi_url(entry):
     
 def build_apa_citation(entry):
 
+    citation = ''
+    
     authors = ''
     for i, auth in enumerate(entry['author'].split(' and ')):
         lastname = auth.split(',')[0]
@@ -29,17 +31,34 @@ def build_apa_citation(entry):
     authors = authors[:-2]+' ' # we remove the last 2 characters
     if i==1: # means only two authors
         authors = authors.replace(', ', ' and ')
-        
-    if 'number' in entry:
-        number_pages = '('+entry['number']+')'
+
+    citation += authors
+    if 'year' in entry:
+        citation += "(%s)" % entry['year']
     else:
-        number_pages = ''
-    if 'pages' in entry:
-        number_pages += ' '+entry['pages']
-    volume = '}'
-    if 'volume' in entry:
-        volume = " "+entry['volume']+volume
-    return authors+"("+entry['year']+") "+entry['title']+ ". \\textit{"+entry['journal']+volume+number_pages
+        print('"year" field missing in ', entry)
+
+    if 'title' in entry:
+        citation += " %s." % entry['title']
+    else:
+        print('"title" field missing in ', entry)
+        
+    if entry['ref_type'] in ['book', 'Book', 'BOOK']:
+        if 'publisher' in entry:
+            citation += " \\textit{%s}" % entry['publisher']
+        else:
+            print('"publisher" field missing in ', entry)
+            
+    elif entry['ref_type'] in ['article' 'Article', 'ARTICLE']:
+        journal, volume, number, pages = '', '', '', ''
+        for key, val in zip([journal, volume, number, pages],
+                            ['journal', 'volume', 'number', 'pages']):
+            if key in entry:
+                val = entry[key]
+
+        citation += '\\textit{%s %s}(%s) %s' (journal, volume, number, pages)
+
+    return citation
 
 
 def build_library(Reference_text, args,
