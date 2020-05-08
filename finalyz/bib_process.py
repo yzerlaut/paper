@@ -42,6 +42,10 @@ def build_apa_citation(entry):
         citation += " %s." % entry['title']
     else:
         print('"title" field missing in ', entry)
+
+    for key in ['journal', 'volume', 'number', 'pages']:
+        if key not in entry:
+            entry[key] = ''
         
     if entry['ref_type'] in ['book', 'Book', 'BOOK']:
         if 'publisher' in entry:
@@ -49,15 +53,12 @@ def build_apa_citation(entry):
         else:
             print('"publisher" field missing in ', entry)
             
-    elif entry['ref_type'] in ['article' 'Article', 'ARTICLE']:
-        journal, volume, number, pages = '', '', '', ''
-        for key, val in zip([journal, volume, number, pages],
-                            ['journal', 'volume', 'number', 'pages']):
-            if key in entry:
-                val = entry[key]
-
-        citation += '\\textit{%s %s}(%s) %s' (journal, volume, number, pages)
-
+    elif entry['ref_type'] in ['article', 'Article', 'ARTICLE']:
+        if entry['number']:
+            citation += '\\textit{{{journal} {volume}}}({number}) {pages} '.format(**entry)
+        else:
+            citation += '\\textit{{{journal} {volume}}} {pages} '.format(**entry)
+            
     return citation
 
 
