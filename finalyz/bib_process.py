@@ -39,7 +39,12 @@ def build_apa_citation(entry):
         print('"year" field missing in ', entry)
 
     if 'title' in entry:
-        citation += " %s." % entry['title']
+        if (entry['title'].endswith('. ')):
+            citation += " %s " % entry['title']
+        elif (entry['title'].endswith('.')):
+            citation += " %s " % entry['title']
+        else:
+            citation += " %s. " % entry['title']
     else:
         print('"title" field missing in ', entry)
 
