@@ -172,7 +172,9 @@ def process_manuscript(args):
 
     final_manuscript_analysis(PAPER, args)
 
-    os.system('if [ -d "tex/" ]; then echo ""; else mkdir tex/; fi;')
+    if not os.path.isdir('tex'):
+        os.mkdir('tex')
+        
     with open(args.tex_file, 'w') as f:
         final_text = PAPER['TEX'].format(**PAPER)
         f.write(final_text)

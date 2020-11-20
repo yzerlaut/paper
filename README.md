@@ -1,11 +1,11 @@
 <div><img src="https://github.com/yzerlaut/finalyz/raw/master/docs/report.png" alt="finalyz logo" width="50%" align="right" style="margin-left: 10px"></div>
 
-# finalyz
+# finalyZ
 
 *A plain text (.txt)-based framework to efficiently describe methods and results in scientific communications.*
 
 Part of the software suite for data science:
-[analyz](https://github.com/yzerlaut/analyz), [datavyz](https://github.com/yzerlaut/datavyz), [finalyz](https://github.com/yzerlaut/finalyz)
+[analyZ](https://github.com/yzerlaut/analyz), [datavyZ](https://github.com/yzerlaut/datavyz), [finalyZ](https://github.com/yzerlaut/finalyz)
 
 ## Idea / Principle
 
@@ -18,15 +18,20 @@ What this software enables is to:
 
 ## Installation
 
+- Need a LaTeX distribution, e.g. [MiKTeX](https://miktex.org/download) on MsWin, TeXlive on Linux (`apt-get install texlive-base`). Some additional LaTeX packages will be need (e.g. `float`, `wrapgfig`, `multirow`, ...)
+
+- `finalyZ` source code
+
 Clone the repository and `source` the main script with:
 ```
 git clone https://github.com/yzerlaut/finalyz
 source finalyz/run.sh
 ```
 
+
 ## Use 
 
-1. perform your quantitative analysis as store your results as `your_study_file.npz` (see the [documentation notebook](https://github.com/yzerlaut/finalyz/blob/master/docs/notebook.ipynb))
+1. perform your quantitative analysis as store your results as `your_study_file.npz` (see the [documentation notebook](./docs/notebook.ipynb) for an example of such analysis file)
 2. draft your paper on a "txt" file (see the templates in the [template folder](https://github.com/yzerlaut/finalyz/tree/master/templates)
 3. compile it with:
 
