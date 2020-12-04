@@ -18,7 +18,7 @@ parser.add_argument("filename", help="filename", type=str)
 # type of manuscript
 parser.add_argument('-j', "--journal", help="journal type", type=str, default='preprint')
 parser.add_argument('-sf', "--study_file",
-                    help="study parameters and analysis ouput", type=str, default='study.npz')
+                    help="study parameters and analysis ouput", type=str, default='study.npy')
 parser.add_argument("-r", "--report", help="", action="store_true")
 parser.add_argument("-fo", "--figures_only", help="", action="store_true")
 parser.add_argument("-js",

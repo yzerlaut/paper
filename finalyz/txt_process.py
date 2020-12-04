@@ -165,7 +165,8 @@ def process_manuscript(args):
     if os.path.isfile(args.study_file):
         print('\n using "%s" as the "study-file" !' % args.study_file)
         try:
-            for key, val in dict(np.load(args.study_file)).items():
+            study = np.load(args.study_file, allow_pickle=True).item()
+            for key, val in study.items():
                 PAPER['text'] = PAPER['text'].replace('{'+key+'}', str(val))
         except BaseException as be:
             print(be)
