@@ -164,8 +164,12 @@ def process_manuscript(args):
         
     if os.path.isfile(args.study_file):
         print('\n using "%s" as the "study-file" !' % args.study_file)
-        for key, val in dict(np.load(args.study_file)).items():
-            PAPER['text'] = PAPER['text'].replace('{'+key+'}', str(val))
+        try:
+            for key, val in dict(np.load(args.study_file)).items():
+                PAPER['text'] = PAPER['text'].replace('{'+key+'}', str(val))
+        except BaseException as be:
+            print(be)
+            print('\n ---> Problem with "%s" !' % args.study_file)
     else:
         print('No analysis file used ...')
         print('"%s" not found' % args.study_file)
