@@ -25,7 +25,8 @@ PAPER = {'text':'', # full text
          'Main Text':'',
          'Introduction':'','Methods':'','Results':'','Discussion':'',
          'Figures':'', 'Tables':'',
-         'Supplementary':'', 'Supplementary Figures':'', 'Supplementary Tables':'',
+         'Supplementary':'',
+         # 'Supplementary Figures':'', 'Supplementary Tables':'',
          'References':'',
          'Informations':'',
          'Other':'', # this shouldn't be exported
@@ -94,10 +95,15 @@ def process_manuscript(args):
                 'Figures', 'Tables',
                 'Supplementary',
                 'Other',
-                # 'Supplementary Text', 'Supplementary Figures', 'Supplementary Tables',
                 'Informations']:
         for i in range(len(SECTIONS)):
-            if len(SECTIONS[i][:40].split(key))>1:
+            if (len(SECTIONS[i][:40].split(key))>1) and (key=='Supplementary') and args.with_supplementary:
+                SUBSECTIONS = SECTIONS[i].split('\n** ') # separator for the start of a given section in org-mode
+                for skey in ['Supplementary Text', 'Supplementary Figures', 'Supplementary Tables']:
+                    for j in range(len(SUBSECTIONS)):
+                        if len(SUBSECTIONS[j][:40].split(skey))>1:
+                            PAPER[skey] = SUBSECTIONS[j]
+            elif len(SECTIONS[i][:40].split(key))>1:
                 PAPER[key] = SECTIONS[i]
 
     #######################
@@ -106,8 +112,8 @@ def process_manuscript(args):
 
     if len(PAPER['Figures'])>10:
         process_figures(PAPER, args)
-    
-    if len(PAPER['Supplementary Figures'])>10:
+        
+    if args.with_supplementary and ('Supplementary Figures' in PAPER):
         process_figures(PAPER, args, supplementary=True)
 
     if len(PAPER['Tables'])>10:
@@ -147,12 +153,10 @@ def process_manuscript(args):
     else:
         add_figures_and_tables_at_the_end(PAPER, args)
 
-    # # supplementary at the end
-    if args.with_supplementary:
-        insert_supplementary(PAPER, args)
-    
     # then cross-referencing
     include_figure_cross_referencing(PAPER, args)
+    if args.with_supplementary:
+        include_figure_cross_referencing(PAPER, args, supplementary=True)
     include_table_cross_referencing(PAPER, args)
 
     if not args.figures_only:
@@ -161,6 +165,12 @@ def process_manuscript(args):
 
     if args.insert_informations_at_the_end:
         insert_informations_at_the_end(PAPER, args)
+        
+    # # supplementary at the end
+    if args.with_supplementary:
+        insert_supplementary(PAPER, args)
+        include_figure_cross_referencing(PAPER, args,
+                                         supplementary=True)
         
     if os.path.isfile(args.study_file):
         print('\n using "%s" as the "study-file" !' % args.study_file)

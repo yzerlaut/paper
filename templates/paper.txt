@@ -375,7 +375,9 @@ Lorem ipsum dolor sit amet, consectetuer adipisc- ing elit. Etiam lobortis facil
 ** Supplementary Text
 *** Section talking abour first supplementary result
 
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Etiam lobortis facilisis sem. Nullam nec mi et neque pharetra sollicitudin. Praesent imperdiet mi nec ante. Donec ullamcorper, felis non sodales commodo, lectus velit ultrices augue, a dignissim nibh lectus placerat pede. Vivamus nuncnunc, molestie ut, ultricies vel, semper in, velit. Ut porttitor. Praesent in sapien. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Duis fringilla tristique neque. Sed interdum libero ut metus. Pellentesque placerat. Nam rutrum augue a leo. Morbi sed elit sit amet ante lobortis solliciudin. Praesent blandit blandit mauris. Praesent lectus tellus, aliquet aliquam, luctus a, egestas a, turpis. Mauris lacinia lorem sit amet ipsum. Nuncquis urna dictum turpis accumsan semper.
+[[Figure {SuppFig1} around here]]
+
+Reference to Figure {SuppFig1}. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Etiam lobortis facilisis sem. Nullam nec mi et neque pharetra sollicitudin. Praesent imperdiet mi nec ante. Donec ullamcorper, felis non sodales commodo, lectus velit ultrices augue, a dignissim nibh lectus placerat pede. Vivamus nuncnunc, molestie ut, ultricies vel, semper in, velit. Ut porttitor. Praesent in sapien. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Duis fringilla tristique neque. Sed interdum libero ut metus. Pellentesque placerat. Nam rutrum augue a leo. Morbi sed elit sit amet ante lobortis solliciudin. Praesent blandit blandit mauris. Praesent lectus tellus, aliquet aliquam, luctus a, egestas a, turpis. Mauris lacinia lorem sit amet ipsum. Nuncquis urna dictum turpis accumsan semper.
 
 \begin{equation}
 \left\{
@@ -389,7 +391,7 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Etiam lobortis facilis
 ** Supplementary Figures
 
 *** Caption for first supplementary figure.
-#+options : {'label':'Fig1', 'extent':'single-column', 'file':'/Users/yzerlaut/work/graphs/fig2.png'}
+#+options : {'label':'SuppFig1', 'extent':'single-column', 'file':'/Users/yzerlaut/work/graphs/fig2.png'}
 (a) Generate the figure with : \url{python_code/script.py} Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Etiam lobortis facilisis sem. (b) Nullam necmi et neque pharetra sollicitudin. Praesent im-perdiet mi nec ante. Donec ullamcorper, felis nonsodales commodo, lectus velit ultrices augue, a dig-nissim nibh lectus placerat pede. Vivamus nuncnunc, molestie ut, ultricies vel, semper in, velit.Ut porttitor. Praesent in sapien. (c) Lorem ipsumdolor sit amet, consectetuer adipiscing elit. Duisfringilla tristique neque. Sed interdum libero utmetus. Pellentesque placerat. Nam rutrum auguea leo. Morbi sed elit sit amet ante lobortis sollici-tudin. Praesent blandit blandit mauris. Praesentlectus tellus, aliquet aliquam, luctus a, egestas a,turpis. Mauris lacinia lorem sit amet ipsum. Nuncquis urna dictum turpis accumsan semper.
 
 ** Supplementary Tables

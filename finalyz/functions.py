@@ -363,14 +363,24 @@ def process_figures(PAPER, args,
         insert_figure(PAPER, fig, args, supplementary=supplementary)
 
 
-def replace_text_indication_with_latex_fig(PAPER, args):
+def replace_text_indication_with_latex_fig(PAPER, args,
+                                           supplementary=False):
     """
     we replace the annotations in the text as:
              [[Figure {Fig1} around here]]
     with the latex code
     """
-    for fig in PAPER['FIGS']:
-        PAPER['text'] = PAPER['text'].replace('[[Figure {'+fig['label']+'} around here]]', '\n'+fig['latex_code']+'\n')
+    if not supplementary:
+        for fig in PAPER['FIGS']:
+            PAPER['text'] = PAPER['text'].replace(\
+                                '[[Figure {'+fig['label']+'} around here]]',
+                                '\n'+fig['latex_code']+'\n')
+    else:
+        for fig in PAPER['SUPP_FIGS']:
+            PAPER['Supplementary Text']=PAPER['Supplementary Text'].replace(\
+                                '[[Figure {'+fig['label']+'} around here]]',
+                                '\n'+fig['latex_code']+'\n')
+            
 
 def include_figure_cross_referencing(PAPER, args,
                                      supplementary=False):
@@ -379,7 +389,7 @@ def include_figure_cross_referencing(PAPER, args,
 
     if supplementary:
         s_FIGS = 'SUPP_FIGS'
-        figure_key = args.figure_key+'\,S'
+        figure_key = args.figure_key+'\,'
     else:
         s_FIGS = 'FIGS'
         figure_key = args.figure_key+'\,'
@@ -463,6 +473,19 @@ def process_subsection_titles(PAPER, args):
     for st in SUBSECTIONS_TITLES:
         PAPER['text'] = PAPER['text'].replace('*** '+st, '\subsubsection*{'+st+'} \n')
     
+def process_supplementary_text(PAPER, args):
+    """
+    
+    """
+    PAPER['Supplementary Text'] = PAPER['Supplementary Text'].replace('Supplementary Text', '')
+    SUBSECTIONS_HEADS = PAPER['Supplementary Text'].split('\n*** ')
+    SUBSECTIONS_TITLES = []
+    for sh in SUBSECTIONS_HEADS[1:]:
+        SUBSECTIONS_TITLES.append(sh.split('\n')[0])
+
+    for st in SUBSECTIONS_TITLES:
+        PAPER['Supplementary Text'] = PAPER['Supplementary Text'].replace('*** '+st, '\subsubsection*{'+st+'} \n')
+    
 
 #########################################################################
 ########## MANUSCRIPT ORGANIZATION ######################################
@@ -500,18 +523,20 @@ def insert_key_points(PAPER, args):
     
 def insert_supplementary(PAPER, args):
 
-    PAPER['text'] += '\n \\newpage \n '
+    PAPER['text'] += '\n\\newpage \\clearpage \n '
+    PAPER['text'] += '\n\\beginsupplement \n '
+    
     PAPER['text'] += '\\section*{%s} \n ' % args.supp_key
     
-    # if PAPER['Supplementary']!='':
-    #     PAPER['text'] += '\n \\newpage \n '
-    #     PAPER['text'] += PAPER['Supplementary']
-    # elif ('Supplementary Figures' in PAPER):
-    #     PAPER['text'] += '\n \\newpage \n '
-    #     PAPER['text'] += '\\section*{Supplementary Material} \n '
-    #     for fig in PAPER['SUPP_FIGS']:
+    if ('Supplementary Text' in PAPER):
+        process_supplementary_text(PAPER, args)
+        replace_text_indication_with_latex_fig(PAPER, args,
+                                               supplementary=True)        
+        PAPER['text'] += PAPER['Supplementary Text']
+    # if ('Supplementary Tables' in PAPER):
+    #     for tab in PAPER['SUPP_TABLES']:
     #         PAPER['text'] += '\n '
-    #         PAPER['text'] += fig['latex_code']
+    #         PAPER['text'] += tab['latex_code']
 
 
 def insert_informations_at_the_end(PAPER, args):
