@@ -1,0 +1,67 @@
+#+Title: Presentation template
+#+Subtitle: Assembling Inkscape slides with Latex-Beamer
+#+Authors: First Author{1}, Second Author{1,2}*
+#+Short_Title: Paper Template
+#+Short_Authors: Author et al.
+#+Affiliations: {1} My first affiliation, {2} Second author affiliation
+
+* Outline
+
+Outline:  
+%% \begin{multicols}{2}
+\centering
+\tableofcontents
+%% \end{multicols}
+
+* Motivation 
+
+**  
+
+\begin{itemize}
+\item being able to use the layers of Inkscape to make animations
+\item benefit from the pdf pages numbering 
+\end{itemize}
+   
+* Methods 
+
+** drawing in inkscape
+
+[[slides/drawing-in-inkscape]]   
+   
+** writing the presentation flow
+
+[[slides/flow-writing]]   
+   
+** compiling
+
+Compile with:
+
+\begin{verbatim}
+
+\$ python finalyz/presentation\_process.py ----filename templates/presentation.txt
+
+\end{verbatim}
+
+* Results 
+
+** presentation output
+
+\centering
+
+in progress   
+
+* Discussion 
+
+** to be done
+
+\begin{itemize}
+\item video integration
+\item better integration of style
+\end{itemize}
+
+* thanks          
+
+\centering
+
+Thank you for your attention !
+

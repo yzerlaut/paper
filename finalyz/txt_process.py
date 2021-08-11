@@ -71,7 +71,6 @@ def choose_export_style(args):
         PAPER['TEX'] = PAPER['TEX'].replace('\\begin{{document}}', '\hypersetup{{draft}}\n\\begin{{document}}')
         PAPER['TEX'] = PAPER['TEX'].replace(']{{article}}', ',draft]{{article}}')
         
-        
 
 
 def process_manuscript(args):

@@ -235,3 +235,59 @@ FIGURES_ONLY = \
 {text}
 \\end{{document}}
 """
+
+
+BEAMER_CLASS = \
+"""
+\\LoadClass[compress, 10pt, aspectratio=169]{{beamer}}
+
+%% Packages Used
+\\RequirePackage[utf8]{{inputenc}}
+\\RequirePackage{{graphicx}}
+\\RequirePackage{{hyperref}}
+\\RequirePackage{{microtype}}
+\\RequirePackage[T1]{{fontenc}}
+\\RequirePackage{{helvet}}
+\\RequirePackage{{pdfpages}}
+\\RequirePackage{{graphicx}}
+\\RequirePackage{{beamerbaseoptions}}
+\\RequirePackage{{multicol}}
+\\RequirePackage{{transparent}}
+\\RequirePackage{{verbatim}}
+
+% colors
+\\definecolor{{themeColor}}{{RGB}}{{1, 5, 68}}
+
+\\beamer@autopdfinfotrue
+\\beamer@notesnormalstrue
+
+\\usecolortheme[named=themeColor]{{structure}}
+
+\\useinnertheme{{rectangles}}
+\\useoutertheme[subsection=false]{{miniframes}}
+\\setbeamertemplate{{navigation symbols}}{{}}
+
+\\setbeamercolor{{section in head/foot}}{{bg=themeColor, fg=white}}
+"""
+
+
+BEAMER_TEMPLATE = \
+"""\\documentclass{{simple}}
+
+\\title[ {Title} ]{{ {Title} }}
+\\subtitle{{ {Subtitle} }}
+\\author{{ {Authors} }}
+\\institute{{ {Affiliations} }}
+\\date{{\\today}}
+
+\\begin{{document}}
+
+\\section*{{\\quad}}
+\\begin{{frame}}{{}}
+    \\maketitle
+\\end{{frame}}
+
+{text}
+
+\\end{{document}}
+"""

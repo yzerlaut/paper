@@ -33,7 +33,9 @@ def process_letter(args):
             full_text+=c
 
     LETTER = {'TEX':TEX_LETTER}
-    with open(args.filename.replace('.txt', '.tex'), 'w') as f:
+    # args.tex_file = args.filename.replace('.txt', '.tex')
+    # args.pdf_file = args.filename.replace('.txt', '.pdf')
+    with open(args.tex_file, 'w') as f:
         final_text = LETTER['TEX'].format(**LETTER)
         f.write(final_text)
 
@@ -47,7 +49,7 @@ if __name__=='__main__':
      """
     ,formatter_class=argparse.RawTextHelpFormatter)
     
-    parser.add_argument("--filename", '-f', help="filename",type=str, default='letter.txt')
+    parser.add_argument('-f', "--filename", help="filename",type=str, default='letter.txt')
     parser.add_argument("-wdoc", "--with_doc_export", help="with Ms-Word export", action="store_true")
     parser.add_argument("--debug", help="", action="store_true")
     parser.add_argument("--debug_draft", help="", action="store_true")
