@@ -87,6 +87,9 @@ def build_library(Reference_text, args,
         elif '_' in key:
             ref_key = key.replace('_', ', ')
             intext_key = key.replace('_', ' (')+')'
+        else:
+            ref_key = ''
+            intext_key = ''
 
         LIBRARY[key] = {'parenthesis_key':ref_key,
                         'intext_key':intext_key,
@@ -142,7 +145,7 @@ def process_references(PAPER, args):
            (len(PAPER['text'].split(LIBRARY[ref]['intext_key']))>1):
             REFS['key'].append(ref) # bibtex key of the ref (in * References)
             REFS['ParenthesisRef'].append(LIBRARY[ref]['parenthesis_key'])
-            REFS['ParenthesisRef_corrected'].append(LIBRARY[ref]['parenthesis_key'])#here you can modify 
+            REFS['ParenthesisRef_corrected'].append(LIBRARY[ref]['parenthesis_key']) # here you can modify 
             REFS['InTextRef'].append(LIBRARY[ref]['intext_key'])
             REFS['InTextRef_corrected'].append(LIBRARY[ref]['intext_key'])
             REFS['positions_in_text'].append(len(PAPER['text'].split(ref)[0]))

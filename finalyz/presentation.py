@@ -4,8 +4,8 @@ We start from a txt file compatible with the org-mode format and want to export 
 import os
 import numpy as np
 
-from tex_templates import BEAMER_CLASS, BEAMER_TEMPLATE
-from functions import *
+from .tex_templates import BEAMER_CLASS, BEAMER_TEMPLATE
+from .functions import *
 
 INFORMATION_KEYS = ['Title', 'Subtitle', 'Short_Title',
                     'Authors', 'Short_Authors', 'Affiliations']

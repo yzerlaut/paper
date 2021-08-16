@@ -4,9 +4,8 @@ We start from a txt file compatible with the org-mode format and want to export 
 import os
 import numpy as np
 
-from tex_templates import *
-from functions import *
-from txt_process import export_to_pdf, export_to_docx
+from .tex_templates import *
+from .functions import *
 
 NEW = []
 LETTER = {'text':'',

@@ -4,9 +4,9 @@ We start from a txt file compatible with the org-mode format and want to export 
 import os
 import numpy as np
 
-from tex_templates import *
-from functions import *
-from bib_process import process_references
+from .tex_templates import *
+from .functions import *
+from .biblio import process_references
 
 
 INFORMATION_KEYS = ['Title', 'Short_Title',
@@ -15,7 +15,6 @@ INFORMATION_KEYS = ['Title', 'Short_Title',
                     'Keywords', 'Conflict_of_interest',
                     'Data_availability',
                     'Acknowledgements', 'Funding']
-
 
 
 PAPER = {'text':'', # full text
