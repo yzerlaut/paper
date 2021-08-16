@@ -24,7 +24,6 @@ setup(
     ],
     keywords='science pdflatex org-mode',
     packages=find_packages(),
-    # package_data={'finalyz': ['templates/*', 'templates/*.txt', 'templates/slides/*.svg']},
     package_data={'': [path.join(here, 'templates', '*.txt'), path.join(here, 'templates',  'slides', '*.svg'),
                        path.join(here, 'templates',  'slides', 'pngs', '*.png')]},
     include_package_data=True    
