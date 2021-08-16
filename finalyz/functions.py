@@ -557,6 +557,7 @@ def insert_informations_at_the_end(PAPER, args):
         
 def export_to_pdf(args):
     os.system('if [ -d "tex/" ]; then echo ""; else mkdir tex/; fi;')
+    args.pdf_file = os.path.join('tex', os.path.basename(args.tex_file).replace('.tex', '.pdf'))
     if args.debug or args.debug_draft:
         os.system('pdflatex -output-directory=tex/ %s' % args.tex_file)
     else:

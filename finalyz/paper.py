@@ -187,7 +187,7 @@ def process_manuscript(args):
 
     if not os.path.isdir('tex'):
         os.mkdir('tex')
-        
+
     with open(args.tex_file, 'w') as f:
         final_text = PAPER['TEX'].format(**PAPER)
         f.write(final_text)

@@ -85,80 +85,21 @@ def process_presentation(args):
                 for l in subsection.split('\n')[1:]:
                     PRES['text'] += l+'\n'
                 PRES['text'] += '\\end{frame}{}\n\n'
-                
-    # # manuscript organization: assemble the text from the sections
 
 
-    # ##########################
-    # ## ASSEMBLE MANUSCRIPT
-    # PAPER['text'] = ''
-    
-    # if not args.figures_only:
-        
-    #     if len(PAPER['Key Points'])>10:
-    #         insert_key_points(PAPER, args)
-    #     if len(PAPER['Abstract'])>10:
-    #         insert_abstract(PAPER, args)
-    #     if len(PAPER['Significance'])>10:
-    #         insert_significance(PAPER, args)
+    if not os.path.isdir('tex'):
+        os.mkdir('tex')
 
-    #     if args.report:
-    #         PAPER['text'] += PAPER['Main Text']
-    #     else:
-    #         for key in PAPER['order']:
-    #             PAPER['text'] += PAPER[key]
-                
-    #     process_subsection_titles(PAPER, args)
+    with open('tex/simple.cls', 'w') as f:
+        txt = BEAMER_CLASS.format(**PRES)
+        f.write(str(txt))
 
-    #     # first including the latex figures
-    #     replace_text_indication_with_latex_fig(PAPER, args)
-    #     replace_text_indication_with_latex_table(PAPER, args)
-        
-    # else:
-    #     add_figures_and_tables_at_the_end(PAPER, args)
-
-    # # then cross-referencing
-    # include_figure_cross_referencing(PAPER, args)
-    # if args.with_supplementary:
-    #     include_figure_cross_referencing(PAPER, args, supplementary=True)
-    # include_table_cross_referencing(PAPER, args)
-
-    # if not args.figures_only:
-    #     process_references(PAPER, args)
-    #     process_equations(PAPER, args)
-
-    # if args.insert_informations_at_the_end:
-    #     insert_informations_at_the_end(PAPER, args)
-        
-    # # # supplementary at the end
-    # if args.with_supplementary:
-    #     insert_supplementary(PAPER, args)
-    #     include_figure_cross_referencing(PAPER, args,
-    #                                      supplementary=True)
-        
-    # if os.path.isfile(args.study_file):
-    #     print('\n using "%s" as the "study-file" !' % args.study_file)
-    #     try:
-    #         study = np.load(args.study_file, allow_pickle=True).item()
-    #         for key, val in study.items():
-    #             PAPER['text'] = PAPER['text'].replace('{'+key+'}', str(val))
-    #     except BaseException as be:
-    #         print(be)
-    #         print('\n ---> Problem with "%s" !' % args.study_file)
-    # else:
-    #     print('No analysis file used ...')
-    #     print('"%s" not found' % args.study_file)
-
-    # final_manuscript_analysis(PAPER, args)
-
-    # if not os.path.isdir('tex'):
-    #     os.mkdir('tex')
-        
-    # with open(args.tex_file, 'w') as f:
-    #     final_text = PAPER['TEX'].format(**PAPER)
-    #     f.write(final_text)
+    with open(args.tex_file, 'w') as f:
+        txt = BEAMER_TEMPLATE.format(**PRES)
+        f.write(str(txt))
 
     return PRES
+
 
 
 if __name__=='__main__':
@@ -194,6 +135,3 @@ if __name__=='__main__':
     args.pdf_file = 'tex/pres.pdf'
 
     export_to_pdf(args)
-    
-    
-    
