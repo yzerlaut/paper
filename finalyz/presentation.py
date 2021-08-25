@@ -26,14 +26,16 @@ def add_images_on_slide(subsection, PRES, base_dir):
     filename = location.split(os.path.sep)[-1]
     
     PRES['text'] += '\\begin{frame}{}\n'
-    files = [f for f in os.listdir(os.path.join(base_dir,'slides', 'pngs')) if (filename in f)]
-    for i, f in enumerate(files):
-        PRES['text'] += '\only<%i>{\n' % (i+1)
+    i = 1
+    f = os.path.join(base_dir,'slides', 'pngs', '%s-%i.png' % (filename, i))
+    while os.path.isfile(f) and (i<100):
+        PRES['text'] += '\only<%i>{\n' % i
         PRES['text'] += '\\vspace*{-1mm} \hspace*{-11mm}'
-        PRES['text'] += '\includegraphics[width=\paperwidth]{%s}' % os.path.join(base_dir,'slides', 'pngs', f)
+        PRES['text'] += '\includegraphics[width=\paperwidth]{%s}' % f
         PRES['text'] += '}\n'
+        i += 1
+        f = os.path.join(base_dir,'slides', 'pngs', '%s-%i.png' % (filename, i))
         
-    PRES['text'] += '%s \n' % filename
     PRES['text'] += '\\end{frame}{}\n\n'
     print(location)
 
