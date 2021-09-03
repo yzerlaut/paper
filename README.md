@@ -1,11 +1,11 @@
 <div><img src="https://github.com/yzerlaut/finalyz/raw/master/docs/report.png" alt="finalyz logo" width="50%" align="right" style="margin-left: 10px"></div>
 
-# finalyZ
+# finalyz
 
 *A plain text (.txt)-based framework to efficiently describe methods and results in scientific communications.*
 
 Part of the software suite for data science:
-[analyZ](https://github.com/yzerlaut/analyz), [datavyZ](https://github.com/yzerlaut/datavyz), [finalyZ](https://github.com/yzerlaut/finalyz)
+[analyz](https://github.com/yzerlaut/analyz), [datavyz](https://github.com/yzerlaut/datavyz), [finalyz](https://github.com/yzerlaut/finalyz)
 
 ## Idea / Principle
 
@@ -20,23 +20,23 @@ What this software enables is to:
 
 - Need a LaTeX distribution, e.g. [MiKTeX](https://miktex.org/download) on MsWin, TeXlive on Linux (`apt-get install texlive-base`). Some additional LaTeX packages will be need (e.g. `float`, `wrapgfig`, `multirow`, ...)
 
-- `finalyZ` source code
+- `finalyz` source code
 
-Clone the repository and `source` the main script with:
+Clone the repository and install the module
 ```
 git clone https://github.com/yzerlaut/finalyz
-source finalyz/run.sh
+cd finalyz/
+pip install . 
 ```
-
 
 ## Use 
 
 1. perform your quantitative analysis as store your results as `your_study_file.npz` (see the [documentation notebook](./docs/notebook.ipynb) for an example of such analysis file)
-2. draft your paper on a "txt" file (see the templates in the [template folder](https://github.com/yzerlaut/finalyz/tree/master/templates)
+2. draft your paper/presentation/report on a "txt" file (see the templates in the [template folder](https://github.com/yzerlaut/finalyz/tree/master/templates)
 3. compile it with:
 
 ```
-finalyz you_paper.txt --study_file your_study_file.npz
+python -m finalyz you_paper.txt --study_file your_study_file.npz
 ```
 (see the below section  [Manuscript Templates](https://github.com/yzerlaut/finalyz#manuscript-templates) for a few shortcuts to specific journal formats, preprint templates, ...)
 
