@@ -1,4 +1,4 @@
-#+Title: A \textit{finalyz} template for scientific papers -- Report
+#+Title: A \textit{finalyz} template for scientific papers in the report format
 #+Authors: First Author{1}, Second Author{1,2}*
 #+Short_Title: Report Template
 #+Short_Authors: Author et al.

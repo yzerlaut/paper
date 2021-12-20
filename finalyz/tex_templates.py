@@ -93,7 +93,6 @@ TEX = \
 \\def\\shortauthor{{ {Short_Authors} }}
 \\date{{ \\today }}
 
-
 \\begin{{document}}
 
 \\maketitle
@@ -114,7 +113,6 @@ REPORT = \
 \\usepackage{{longtable, float, wrapfig, rotating, graphicx, multirow, xcolor}}
 \\usepackage{{amsmath, textcomp, marvosym, wasysym, amssymb, hyperref}}
 \\tolerance=1000
-\\setcounter{{tocdepth}}{{5}}
 \\usepackage[utf8]{{inputenc}}
 \\usepackage{{lmodern, microtype}} % Slightly tweak font spacing for aesthetics
 \\usepackage{{geometry}}
@@ -128,14 +126,6 @@ REPORT = \
 \\def\\shortdate{{\\today}}
 \\definecolor{{lightgray}}{{gray}}{{0.9}}
 \\hypersetup{{allcolors = [rgb]{{0.1,0.1,0.6}} }} % to have all the hyperlinks in 1 color
-\\def\\TODO#1{{\\colorbox{{red}}{{TODO: \\underline{{#1}}}}{{}}}}
-\\def\\NOTE#1{{\\colorbox{{green}}{{\\underline{{#1}}}}{{}}}}
-\\usepackage{{fancyhdr}} % Headers and footers
-\\pagestyle{{fancy}} % All pages have headers and footers
-\\fancyhead{{}} % Blank out the default header
-\\fancyfoot{{}} % Blank out the default footer
-\\fancyhead[C]{{\\footnotesize \\shorttitle \\quad $\\bullet$ \\quad \\shortauthor \\quad $\\bullet$ \\quad \\shortdate \\normalsize }}
-\\fancyfoot[C]{{\\thepage}} % Custom footer text
 
 \\newcommand{{\\beginsupplement}}{{
      \\setcounter{{table}}{{0}}
@@ -145,23 +135,17 @@ REPORT = \
 }}
 
 
-\\author{{ {Authors} }}
-\\title{{ {Title} }}
-\\def\\shorttitle{{ {Short_Title} }}
-\\def\\shortauthor{{ {Short_Authors} }}
-\\date{{ \\today }}
-
-
 \\begin{{document}}
 
-\\flushleft
-\\Large \\textbf{{ {Title} }}  \\\\[.2cm]
-\\normalsize 
-\\textsc{{ {Authors} }} 
-\\blfootnote{{  {Affiliations} \, }}
-\\blfootnote{{  *correspondence: {Correspondence} }} \\\\[.2cm]
+\\noindent \\Large \\textbf{{ {Title} }}  \\\\[.3cm]
+\\normalsize \\scshape {Authors} \\blfootnote{{  {Affiliations} \, }} \\blfootnote{{  *correspondence: {Correspondence} }} \\\\[.2cm]
 \\normalfont
+\\hspace*{{ \\fill }} \\today \\\\[.2cm]
 
+\\bfseries
+{Abstract}
+
+\\normalfont
 {text}
 
 \\end{{document}}
