@@ -1,6 +1,6 @@
 import argparse, os, shutil, pathlib
 
-from . import paper, presentation, letter, functions, biblio
+from . import paper, report, presentation, letter, functions, biblio
 
 parser=argparse.ArgumentParser(description=
  """ 
@@ -99,9 +99,11 @@ elif args.filename.endswith('.txt') or args.filename.endswith('.org'):
         PAPER = paper.process_manuscript(args)
         functions.export_to_pdf(args)
     elif (args.processing=='report') or (args.filename=='report.txt'):
-        pass
+        PAPER = report.process_manuscript(args)
+        functions.export_to_pdf(args)
     else:
         print(' "%s" processing is not a valid option' % args.processing)
+        print('   -> please pass a valid processing option ("report", "presentation", ...)' % args.processing)
     
 else:
     print(' "%s" filename not a valid filename, provide a ".txt" or a ".org" file ' % args.filename)

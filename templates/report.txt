@@ -70,7 +70,6 @@ neque. Sed interdum libero ut metus. Pellentesque placerat.
 
 [[Figure {Fig2} around here]]
 
-
 Lorem ipsum dolor sit amet, consectetuer adipisc- ing elit. Etiam
 lobortis facilisis sem. Nullam nec mi et neque pharetra
 sollicitudin. Praesent im- perdiet mi nec ante. Donec ullamcorper,
