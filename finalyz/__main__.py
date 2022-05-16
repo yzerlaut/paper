@@ -1,6 +1,6 @@
 import argparse, os, shutil, pathlib
 
-from . import paper, report, presentation, letter, functions, biblio
+from . import paper, presentation, letter, functions, biblio, svg
 
 parser=argparse.ArgumentParser(description=
  """ 
