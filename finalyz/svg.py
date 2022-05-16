@@ -5,6 +5,8 @@ def export_to_png(svg_filename):
     """
     png_folder = os.path.join(os.path.dirname(svg_filename), 'pngs', 
             os.path.basename(svg_filename).replace('.svg',''))
+    if not os.path.isdir(os.path.join(os.path.dirname(svg_filename), 'pngs')):
+        os.mkdir(os.path.join(os.path.dirname(svg_filename), 'pngs'))
     if not os.path.isdir(png_folder):
         os.mkdir(png_folder)
     cmd = """
