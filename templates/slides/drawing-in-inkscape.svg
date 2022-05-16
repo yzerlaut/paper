@@ -43,7 +43,7 @@
      showgrid="false"
      units="px"
      inkscape:zoom="0.35355339"
-     inkscape:cx="451.13413"
+     inkscape:cx="878.47241"
      inkscape:cy="548.71486"
      inkscape:window-width="1462"
      inkscape:window-height="897"
@@ -484,7 +484,7 @@
        style="stroke-linecap:butt;stroke-linejoin:round" />
     <path
        style="fill:none;stroke:#000000;stroke-width:0.489326px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 447.61351,22.956221 V 219.88648"
+       d="M 447.61351,22.956221 V 198.71981"
        id="path25269"
        sodipodi:nodetypes="cc"
        inkscape:connector-curvature="0" />
@@ -505,41 +505,42 @@
          style="stroke-linecap:butt;stroke-linejoin:round">Small font for ref, 2021</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.37057301,0,0,0.37057301,22.603882,174.82781)"
        id="text2171"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.84749985px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;white-space:pre;shape-inside:url(#rect2173);fill:#000000;stroke-linecap:butt;stroke-linejoin:round"><tspan
-         x="43.339844"
-         y="45.195152"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46666718px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;white-space:pre;shape-inside:url(#rect2173);fill:#000000;stroke-width:0.37057301;stroke-linecap:butt;stroke-linejoin:round"
+       x="17.312216"
+       y="174.8278"><tspan
+         x="33.372791"
+         y="191.57591"
          id="tspan35465"
-         style="stroke-linecap:butt;stroke-linejoin:round">to produce the desired animation:
+         style="stroke-width:0.37057301;stroke-linecap:butt;stroke-linejoin:round">to produce the desired animation:
 </tspan><tspan
-         x="43.339844"
-         y="73.754524"
+         x="33.372791"
+         y="202.15924"
          id="tspan35467"
-         style="stroke-linecap:butt;stroke-linejoin:round">--&gt; export  one by one to pngs using the different combinations of layers
+         style="stroke-width:0.37057301;stroke-linecap:butt;stroke-linejoin:round">--&gt; export  one by one to pngs using the different combinations of layers
 </tspan><tspan
-         x="43.339844"
-         y="102.3139"
+         x="33.372791"
+         y="212.74258"
          id="tspan35469"
-         style="stroke-linecap:butt;stroke-linejoin:round">                    
+         style="stroke-width:0.37057301;stroke-linecap:butt;stroke-linejoin:round">                    
 </tspan><tspan
-         x="43.339844"
-         y="130.87328"
+         x="33.372791"
+         y="223.32591"
          id="tspan35473"
-         style="stroke-linecap:butt;stroke-linejoin:round"><tspan
-           dx="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -0.00011110306 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.00010585785 -0.00011110306"
+         style="stroke-width:0.37057301;stroke-linecap:butt;stroke-linejoin:round"><tspan
+           dx="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -4.1171796e-05 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3.9228064e-05 -4.1171796e-05"
            id="tspan35471"
-           style="stroke-linecap:butt;stroke-linejoin:round">                              N.B.  export the pngs as &quot;xx-1.png&quot;, &quot;xx-2.png&quot; where &quot;xx.svg&quot; is the slide file in &quot;./slides/&quot;
+           style="stroke-width:0.37057301;stroke-linecap:butt;stroke-linejoin:round">                              N.B.  export the pngs as &quot;xx-1.png&quot;, &quot;xx-2.png&quot; where &quot;xx.svg&quot; is the slide file in &quot;./slides/&quot;
 </tspan></tspan><tspan
-         x="43.339844"
-         y="159.43265"
+         x="33.372791"
+         y="233.90924"
          id="tspan35475"
-         style="stroke-linecap:butt;stroke-linejoin:round">                                       follow the arborescence: &quot;./slides/pngs/&quot;, 
+         style="stroke-width:0.37057301;stroke-linecap:butt;stroke-linejoin:round">                                       follow the arborescence: &quot;./slides/pngs/&quot;, 
 </tspan><tspan
-         x="43.339844"
-         y="187.99203"
+         x="33.372791"
+         y="244.49258"
          id="tspan35477"
-         style="stroke-linecap:butt;stroke-linejoin:round">  </tspan></text>
+         style="stroke-width:0.37057301;stroke-linecap:butt;stroke-linejoin:round">  </tspan></text>
   </g>
   <script
      id="mesh_polyfill"
