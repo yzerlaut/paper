@@ -85,8 +85,10 @@ if args.create_new:
         shutil.copy(os.path.join(pathlib.Path(__file__).resolve().parents[1], 'templates', 'presentation.txt'), 'presentation.txt')
         if not os.path.isdir('slides'):
             shutil.copytree(os.path.join(pathlib.Path(__file__).resolve().parents[1], 'templates', 'slides'), 'slides', symlinks=False, ignore=None)
+
     if ('paper' in args.filename) or (args.processing=='paper'):
         shutil.copy(os.path.join(pathlib.Path(__file__).resolve().parents[1], 'templates', 'paper.txt'), 'paper.txt')
+
     if ('report' in args.filename) or (args.processing=='report'):
         shutil.copy(os.path.join(pathlib.Path(__file__).resolve().parents[1], 'templates', 'report.txt'), 'report.txt')
 

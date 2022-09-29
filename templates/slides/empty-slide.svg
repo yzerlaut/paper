@@ -2,23 +2,23 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="1920"
    height="1010"
    viewBox="0 0 508.00001 267.22916"
    version="1.1"
    id="svg5"
-   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
+   inkscape:version="1.2 (1:1.2.1+202207142221+cd75a1ee6d)"
    sodipodi:docname="empty-slide.svg"
    inkscape:export-filename="/home/yann/work/finalyz/templates/slides/pngs/flow-writing-1.png"
    inkscape:export-xdpi="100"
-   inkscape:export-ydpi="100">
+   inkscape:export-ydpi="100"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
   <metadata
      id="metadata137">
     <rdf:RDF>
@@ -42,20 +42,22 @@
      showgrid="false"
      units="px"
      inkscape:zoom="0.35355339"
-     inkscape:cx="1217.0702"
-     inkscape:cy="428.71486"
+     inkscape:cx="1217.6379"
+     inkscape:cy="429.92092"
      inkscape:window-width="1920"
      inkscape:window-height="1009"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer2"
+     inkscape:current-layer="svg5"
      width="1920px"
      fit-margin-top="0"
      fit-margin-left="0"
      fit-margin-right="0"
      fit-margin-bottom="0"
-     inkscape:snap-text-baseline="false" />
+     inkscape:snap-text-baseline="false"
+     inkscape:showpageshadow="2"
+     inkscape:deskcolor="#d1d1d1" />
   <defs
      id="defs2">
     <marker
@@ -531,10 +533,10 @@
     <flowRoot
        xml:space="preserve"
        id="flowRoot943"
-       style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#4d4d4d;fill-opacity:1;stroke:none;stroke-linecap:butt;stroke-linejoin:round;"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#4d4d4d;fill-opacity:1;stroke:none;stroke-linecap:butt;stroke-linejoin:round"
        transform="matrix(0.26458333,0,0,0.26458333,401.81166,213.48252)"><flowRegion
          id="flowRegion945"
-         style="stroke-linecap:butt;stroke-linejoin:round;fill:#4d4d4d;"><rect
+         style="fill:#4d4d4d;stroke-linecap:butt;stroke-linejoin:round"><rect
            id="rect947"
            width="1332.1892"
            height="429.92093"
@@ -542,54 +544,26 @@
            y="147.32973"
            style="stroke-linecap:butt;stroke-linejoin:round;fill:#4d4d4d;" /></flowRegion><flowPara
          id="flowPara949"
-         style="font-size:26.66666794px;stroke-linecap:butt;stroke-linejoin:round;fill:#4d4d4d;">Author et al. (2022)</flowPara></flowRoot>  </g>
-  <g
-     inkscape:groupmode="layer"
-     id="layer2"
-     inkscape:label="Layer 2"
-     style="display:inline;stroke-linecap:butt;stroke-linejoin:round">
-    <flowRoot
-       xml:space="preserve"
-       id="flowRoot951"
-       style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-linecap:butt;stroke-linejoin:round"
-       transform="scale(0.26458333)"><flowRegion
-         id="flowRegion953"
-         style="stroke-linecap:butt;stroke-linejoin:round"><rect
-           id="rect955"
-           width="984"
-           height="744"
-           x="220"
-           y="398"
-           style="stroke-linecap:butt;stroke-linejoin:round" /></flowRegion><flowPara
-         id="flowPara957"
-         style="stroke-linecap:butt;stroke-linejoin:round" /></flowRoot>    <flowRoot
-       xml:space="preserve"
-       id="flowRoot959"
-       style="fill:black;fill-opacity:1;stroke:none;font-family:sans-serif;font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;letter-spacing:0px;word-spacing:0px"><flowRegion
-         id="flowRegion961"><rect
-           id="rect963"
-           width="961.66522"
-           height="758.01849"
-           x="195.16147"
-           y="435.82928"
-           style="stroke-linecap:butt;stroke-linejoin:round" /></flowRegion><flowPara
-         id="flowPara965"></flowPara></flowRoot>    <path
-       style="fill:none;stroke:#000000;stroke-width:1.00999999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Mend)"
+         style="font-size:26.6667px;fill:#4d4d4d;stroke-linecap:butt;stroke-linejoin:round">Author et al. (2022)</flowPara></flowRoot>
+    <path
+       style="display:inline;stroke-linecap:butt;stroke-linejoin:miter;fill:none;stroke:#000000;stroke-width:1.00999999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Mend)"
        d="m 148.75735,128.00049 h 23.1637"
        id="path967"
        inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cc" />
+       sodipodi:nodetypes="cc"
+       transform="translate(0.69355146,0.20143971)" />
     <path
        sodipodi:nodetypes="cc"
        inkscape:connector-curvature="0"
        id="path1833"
        d="M 150.73272,93.043123 H 176.9973"
-       style="fill:none;stroke:#000000;stroke-width:3.72354221;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow2Send)" />
+       style="display:inline;stroke-linecap:butt;stroke-linejoin:miter;fill:none;stroke:#000000;stroke-width:3.72354221;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow2Send)"
+       transform="translate(0.69355146,0.20143971)" />
     <flowRoot
        xml:space="preserve"
        id="flowRoot2527"
-       style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-linecap:butt;stroke-linejoin:round"
-       transform="matrix(0.26458333,0,0,0.26458333,-0.74835473,-237.9768)"><flowRegion
+       style="display:inline;stroke-linecap:butt;stroke-linejoin:round;font-style:normal;font-weight:normal;font-size:32px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       transform="matrix(0.26458333,0,0,0.26458333,26.158986,-246.01007)"><flowRegion
          id="flowRegion2529"
          style="stroke-linecap:butt;stroke-linejoin:round"><rect
            id="rect2531"
@@ -598,12 +572,9 @@
            x="155.56349"
            y="1094.8528"
            style="stroke-linecap:butt;stroke-linejoin:round" /></flowRegion><flowPara
-         id="flowPara2533"
-         style="stroke-linecap:butt;stroke-linejoin:round">A list of items:</flowPara><flowPara
-         style="stroke-linecap:butt;stroke-linejoin:round"
-         id="flowPara2535">- item 1</flowPara><flowPara
-         style="stroke-linecap:butt;stroke-linejoin:round"
-         id="flowPara2537">- item 2</flowPara></flowRoot>  </g>
+         style="font-size:32px;stroke-linecap:butt;stroke-linejoin:round"
+         id="flowPara2537">This is a default slide</flowPara></flowRoot>
+  </g>
   <script
      id="mesh_polyfill"
      type="text/javascript">
