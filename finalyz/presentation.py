@@ -1,7 +1,7 @@
 """
 We start from a txt file compatible with the org-mode format and want to export it to a tex file
 """
-import os
+import os, pathlib
 import numpy as np
 
 from .tex_templates import BEAMER_CLASS, BEAMER_TEMPLATE
@@ -20,24 +20,45 @@ PRES = {'text':'', # full text
 for key in INFORMATION_KEYS:
     PRES[key] = ''
 
+
+def layer_png(base_dir, figname, index):
+    return os.path.join(base_dir,'slides', 'pngs', '%s-layer%i.png' %\
+                                            (figname, index))
+
+def include_graphics(png, visible=1):
+    """
+    """
+    latex_code = '\only<%i> { \\node (0,0) { \includegraphics[width=\paperwidth]{%s}} } \n' % (visible, png)
+    return latex_code 
+
 def add_images_on_slide(subsection, PRES, base_dir):
 
     location = subsection.split(']]')[0].split('[[')[1]
     filename = location.split(os.path.sep)[-1]
     
+
     PRES['text'] += '\\begin{frame}{}\n'
-    i = 1
-    f = os.path.join(base_dir,'slides', 'pngs', '%s-%i.png' % (filename, i))
-    while os.path.isfile(f) and (i<100):
-        PRES['text'] += '\only<%i>{\n' % i
-        PRES['text'] += '\\vspace*{-1mm} \hspace*{-11mm}'
-        PRES['text'] += '\includegraphics[width=\paperwidth]{%s}' % f
-        PRES['text'] += '}\n'
-        i += 1
-        f = os.path.join(base_dir,'slides', 'pngs', '%s-%i.png' % (filename, i))
+    PRES['text'] += '\\vspace*{-3mm}'
+    PRES['text'] += '\\begin{overlayarea}{\\textwidth}{\\textheight}\n'
+    PRES['text'] += '\\begin{tikzpicture}\n'
+    PRES['text'] += '\hspace*{-1.1cm}'
+
+    if '<!---' in subsection:
+
+        # this means ANIMATIONS
+
+        exec(subsection.split('\n-->')[0].split('<!---\n')[1], globals())
+
+        for a, layers in enumerate(anim):
+            for l in layers:
+                PRES['text'] += include_graphics(layer_png(base_dir, filename, l), visible=a+1)
+
+    else:
+        PRES['text'] += include_graphics(layer_png(base_dir, filename, 1))
         
+    PRES['text'] += '\\end{tikzpicture}\n'
+    PRES['text'] += '\\end{overlayarea}\n'
     PRES['text'] += '\\end{frame}{}\n\n'
-    print(location)
 
 def process_presentation(args):
 
@@ -47,8 +68,9 @@ def process_presentation(args):
         full_text = ''
         for c in content:
             full_text+=c
+
     # organizing the text, secion by section
-    SECTIONS = full_text.split('\n* ') # separator for the start of a given section in org-mode
+    SECTIONS = full_text.split('\n# ') # separator for the start of a given section in markdown
 
     ####### PREAMBLE ##########
     PRES['Preamble'] = SECTIONS[0] # text above the section is the preamble
@@ -65,23 +87,20 @@ def process_presentation(args):
 
     for isec in range(istart, len(SECTIONS)):
         section = SECTIONS[isec].split('\n')[0]
+
         if 'thanks' in section:
             PRES['text'] += '\\section*{\\quad}\n'
-            text = SECTIONS[isec].split('\n')[1:]
-            if '[[' in text:
-                add_images_on_slide(text[1], PRES, os.path.dirname(args.filename))
-            else: # we just paste the content into frames
-                PRES['text'] += '\\begin{frame}{}\n'
-                for l in text:
-                    PRES['text'] += l+'\n'
-                PRES['text'] += '\\end{frame}{}\n\n'
         else:
             PRES['text'] += '\\section{%s}\n' % section
         
-        for subsection in SECTIONS[isec].split('\n** ')[1:]:
+        for subsection in SECTIONS[isec].split('\n## ')[1:]:
+
             PRES['text'] += '\\subsection{%s}\n' % subsection.split('\n')[0]
+            
             if '[[' in subsection:
-                add_images_on_slide(subsection, PRES, os.path.dirname(args.filename))
+                # this means a slide from inkscape
+                add_images_on_slide(subsection, PRES,
+                                    os.path.dirname(args.filename))
             else: # we just paste the content into frames
                 PRES['text'] += '\\begin{frame}{}\n'
                 for l in subsection.split('\n')[1:]:
@@ -103,13 +122,38 @@ def process_presentation(args):
     return PRES
 
 
+def export_svg_layers_to_png(filename):
+    """
+    """
+
+    slides_dir = os.path.join(os.path.dirname(os.path.abspath(filename)), 'slides')
+
+    pngs_dir = os.path.join(os.path.dirname(os.path.abspath(filename)), 'slides', 'pngs')
+
+    os.system('mkdir %s -p' % pngs_dir) 
+
+    SVG_FILES = [f for f in os.listdir(slides_dir) if f.endswith('.svg')]
+
+    bash_script=os.path.join(str(pathlib.Path(__file__).resolve().parent), 'layers2png.sh')
+
+    for svg in SVG_FILES:
+
+        print('\n -- exporting layers for "%s" [...]' % svg)
+
+        bash_code = """
+        /bin/bash -c \"source %s; layers2png %s %s \" """ % (bash_script,
+                                                             os.path.join(slides_dir, svg),
+                                                             os.path.join(pngs_dir, svg.replace('.svg','')))
+        # print(bash_code)
+        os.system(bash_code)
+
 
 if __name__=='__main__':
 
     import argparse
     parser=argparse.ArgumentParser(description=
      """ 
-     A script to export simple txt files manuscripts
+     A script to export presentation txt files to beamer presentations
      """
     ,formatter_class=argparse.RawTextHelpFormatter)
     

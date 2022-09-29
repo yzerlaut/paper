@@ -43,6 +43,8 @@ def process_preamble_and_informations(PAPER,
         for key in INFORMATION_KEYS:
             if len(line.split('#+%s: ' % key))>1:
                 PAPER[key] = line.split('#+%s: ' % key)[1]
+            elif len(line.split(' +%s: ' % key))>1:
+                PAPER[key] = line.split(' +%s: ' % key)[1]
 
                 
     # HANDLING AUTHORS
@@ -569,8 +571,8 @@ def export_to_docx(args):
     needs pandoc
     """
     os.system('if [ -d "tex/" ]; then echo ""; else mkdir tex/; fi;')
-    tex_file = args.filename.replace('.txt', '.tex')
-    docx_file = args.filename.replace('.txt', '.docx')
+    tex_file = args.filename.replace('.md', '.tex')
+    docx_file = args.filename.replace('.md', '.docx')
     os.system('pandoc '+tex_file+' -o '+docx_file)
 
     

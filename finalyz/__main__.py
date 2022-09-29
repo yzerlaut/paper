@@ -12,7 +12,7 @@ parser=argparse.ArgumentParser(description=
 
 
 # filename
-parser.add_argument("filename", help='filename (either a ".txt" or a ".org" file or the keyword "new" to start a new document)', type=str)
+parser.add_argument("filename", help='filename (either a ".txt" or a ".md" file or the keyword "new" to start a new document)', type=str)
 
 # processing type
 parser.add_argument('-p', "--processing",
@@ -76,13 +76,16 @@ parser.add_argument("--debug_draft",
 parser.add_argument("--draft",
                     help="", action="store_true")
 
+parser.add_argument("--with_fig",
+                    help="compute png for each layers of the svgs", action="store_true")
+
 args = parser.parse_args()
-args.tex_file = os.path.join('tex', os.path.basename(args.filename).replace('.txt', '.tex'))
+args.tex_file = os.path.join('tex', os.path.basename(args.filename).replace('.md', '.tex'))
 
 if args.create_new:
     
     if ('presentation' in args.filename) or (args.processing=='presentation'):
-        shutil.copy(os.path.join(pathlib.Path(__file__).resolve().parents[1], 'templates', 'presentation.txt'), 'presentation.txt')
+        shutil.copy(os.path.join(pathlib.Path(__file__).resolve().parents[1], 'templates', 'presentation.md'), 'presentation.md')
         if not os.path.isdir('slides'):
             shutil.copytree(os.path.join(pathlib.Path(__file__).resolve().parents[1], 'templates', 'slides'), 'slides', symlinks=False, ignore=None)
 
@@ -92,11 +95,14 @@ if args.create_new:
     if ('report' in args.filename) or (args.processing=='report'):
         shutil.copy(os.path.join(pathlib.Path(__file__).resolve().parents[1], 'templates', 'report.txt'), 'report.txt')
 
-elif args.filename.endswith('.txt') or args.filename.endswith('.org'):
+elif args.filename.endswith('.txt') or args.filename.endswith('.md'):
     
-    if (args.processing=='presentation') or (args.filename=='presentation.txt'):
-        PRES= presentation.process_presentation(args)
-        functions.export_to_pdf(args)
+    if (args.processing=='presentation') or ('presentation' in args.filename):
+        if args.figures_only:
+            presentation.export_svg_layers_to_png(args.filename)
+        else:
+            PRES= presentation.process_presentation(args)
+            functions.export_to_pdf(args)
     elif (args.processing=='paper') or (args.filename=='paper.txt'):
         PAPER = paper.process_manuscript(args)
         functions.export_to_pdf(args)
@@ -108,7 +114,7 @@ elif args.filename.endswith('.txt') or args.filename.endswith('.org'):
         print('   -> please pass a valid processing option ("report", "presentation", ...)' % args.processing)
     
 else:
-    print(' "%s" filename not a valid filename, provide a ".txt" or a ".org" file ' % args.filename)
+    print(' "%s" filename not a valid filename, provide a ".txt" or a ".md" file ' % args.filename)
 
 
 

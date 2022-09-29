@@ -8,7 +8,7 @@
    version="1.1"
    id="svg5"
    inkscape:version="1.2 (1:1.2.1+202207142221+cd75a1ee6d)"
-   sodipodi:docname="empty-slide.svg"
+   sodipodi:docname="slide-template.svg"
    inkscape:export-filename="/home/yann/work/finalyz/templates/slides/pngs/flow-writing-1.png"
    inkscape:export-xdpi="100"
    inkscape:export-ydpi="100"
@@ -41,15 +41,15 @@
      inkscape:document-units="mm"
      showgrid="false"
      units="px"
-     inkscape:zoom="0.35355339"
-     inkscape:cx="1217.6379"
-     inkscape:cy="429.92092"
+     inkscape:zoom="0.5"
+     inkscape:cx="837"
+     inkscape:cy="484"
      inkscape:window-width="1920"
      inkscape:window-height="1009"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg5"
+     inkscape:current-layer="layer1"
      width="1920px"
      fit-margin-top="0"
      fit-margin-left="0"
@@ -60,6 +60,43 @@
      inkscape:deskcolor="#d1d1d1" />
   <defs
      id="defs2">
+    <marker
+       style="overflow:visible"
+       id="marker3330"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Arrow1L"
+       markerWidth="8.75"
+       markerHeight="5"
+       viewBox="0 0 8.75 5"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         style="fill:context-stroke;fill-rule:evenodd;stroke:none"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path3328"
+         transform="scale(-0.5)" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Arrow1L"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Arrow1L"
+       markerWidth="8.75"
+       markerHeight="5"
+       viewBox="0 0 8.75 5"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         style="fill:context-stroke;fill-rule:evenodd;stroke:none;stroke-width:0.5"
+         d="M 0,0 -2.5,2.5 6.25,0 -2.5,-2.5 Z"
+         id="arrow1L" />
+    </marker>
     <marker
        inkscape:isstock="true"
        style="overflow:visible;"
@@ -89,33 +126,22 @@
          id="path3659" />
     </marker>
     <marker
-       inkscape:stockid="Arrow2Send"
-       orient="auto"
-       refY="0.0"
-       refX="0.0"
-       id="Arrow2Send"
-       style="overflow:visible;"
-       inkscape:isstock="true"
-       inkscape:collect="always">
-      <path
-         id="path1002"
-         style="fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round;stroke:#000000;stroke-opacity:1;fill:#000000;fill-opacity:1"
-         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
-         transform="scale(0.3) rotate(180) translate(-2.3,0)" />
-    </marker>
-    <marker
        inkscape:stockid="Arrow2Mend"
        orient="auto"
-       refY="0.0"
-       refX="0.0"
+       refY="0"
+       refX="0"
        id="Arrow2Mend"
-       style="overflow:visible;"
-       inkscape:isstock="true">
+       style="overflow:visible"
+       inkscape:isstock="true"
+       viewBox="0 0 6.9304588 5.1962256"
+       markerWidth="6.9304585"
+       markerHeight="5.1962256"
+       preserveAspectRatio="xMidYMid">
       <path
          id="path996"
-         style="fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round;stroke:#000000;stroke-opacity:1;fill:#000000;fill-opacity:1"
-         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
-         transform="scale(0.6) rotate(180) translate(0,0)" />
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         transform="scale(-0.6)" />
     </marker>
     <marker
        inkscape:isstock="true"
@@ -130,21 +156,6 @@
          style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1;fill:#000000;fill-opacity:1"
          d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
          id="path1835" />
-    </marker>
-    <marker
-       inkscape:stockid="Arrow1Mend"
-       orient="auto"
-       refY="0.0"
-       refX="0.0"
-       id="Arrow1Mend"
-       style="overflow:visible;"
-       inkscape:isstock="true"
-       inkscape:collect="always">
-      <path
-         id="path978"
-         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
-         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1;fill:#000000;fill-opacity:1"
-         transform="scale(0.4) rotate(180) translate(10,0)" />
     </marker>
     <rect
        x="43.340809"
@@ -515,6 +526,18 @@
        width="273.79042"
        height="94.53835"
        id="rect2173-5" />
+    <rect
+       x="43.340809"
+       y="24.980873"
+       width="1000.7945"
+       height="79.221558"
+       id="rect3480-6" />
+    <rect
+       x="179.23523"
+       y="195.43634"
+       width="888.24158"
+       height="303.57172"
+       id="rect401" />
   </defs>
   <g
      inkscape:label="Layer 1"
@@ -546,34 +569,48 @@
          id="flowPara949"
          style="font-size:26.6667px;fill:#4d4d4d;stroke-linecap:butt;stroke-linejoin:round">Author et al. (2022)</flowPara></flowRoot>
     <path
-       style="display:inline;stroke-linecap:butt;stroke-linejoin:miter;fill:none;stroke:#000000;stroke-width:1.00999999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Mend)"
-       d="m 148.75735,128.00049 h 23.1637"
-       id="path967"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cc"
-       transform="translate(0.69355146,0.20143971)" />
+       style="display:inline;fill:#010544;fill-opacity:1;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 54.342466,0.33373121 35.929966,30.333731 H 231.27968 l 16.5211,-29.99999979 z"
+       id="path944"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/yann/work/finalyz/templates/slides/path944.png"
+       inkscape:export-xdpi="100"
+       inkscape:export-ydpi="100"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       transform="matrix(0.38619252,0,0,0.38619252,53.011236,-0.59105773)"
+       id="text3478"
+       style="font-size:27.4043px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect3480-6);display:inline;fill:#e6e6e6;stroke-linecap:butt;stroke-linejoin:round"><tspan
+         x="43.339844"
+         y="49.226852"
+         id="tspan1427">drawing slides in Inkscape</tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,2.8805926,16.936961)"
+       id="text399"
+       style="font-style:normal;font-weight:normal;font-size:32px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect401);display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-linecap:butt;stroke-linejoin:round"><tspan
+         x="179.23438"
+         y="223.74805"
+         id="tspan1429">Use this default slide template:
+</tspan><tspan
+         x="179.23438"
+         y="263.74805"
+         id="tspan1433">                  available in <tspan
+   style="font-style:italic"
+   id="tspan1431">templates/slide-template.svg</tspan></tspan></text>
     <path
        sodipodi:nodetypes="cc"
        inkscape:connector-curvature="0"
-       id="path1833"
-       d="M 150.73272,93.043123 H 176.9973"
-       style="display:inline;stroke-linecap:butt;stroke-linejoin:miter;fill:none;stroke:#000000;stroke-width:3.72354221;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow2Send)"
-       transform="translate(0.69355146,0.20143971)" />
-    <flowRoot
-       xml:space="preserve"
-       id="flowRoot2527"
-       style="display:inline;stroke-linecap:butt;stroke-linejoin:round;font-style:normal;font-weight:normal;font-size:32px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
-       transform="matrix(0.26458333,0,0,0.26458333,26.158986,-246.01007)"><flowRegion
-         id="flowRegion2529"
-         style="stroke-linecap:butt;stroke-linejoin:round"><rect
-           id="rect2531"
-           width="1023.8906"
-           height="472.34732"
-           x="155.56349"
-           y="1094.8528"
-           style="stroke-linecap:butt;stroke-linejoin:round" /></flowRegion><flowPara
-         style="font-size:32px;stroke-linecap:butt;stroke-linejoin:round"
-         id="flowPara2537">This is a default slide</flowPara></flowRoot>
+       id="path298"
+       d="M 23.976884,143.21135 H 485.35276"
+       style="display:inline;fill:#999999;stroke:#999999;stroke-width:3.72354;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#Arrow1L);marker-end:url(#marker3330)" />
+    <path
+       sodipodi:nodetypes="cc"
+       inkscape:connector-curvature="0"
+       id="path3450"
+       d="M 345.75464,23.191826 V 245.38438"
+       style="display:inline;fill:#999999;stroke:#999999;stroke-width:3.72354;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#Arrow1L);marker-end:url(#marker3330)" />
   </g>
   <script
      id="mesh_polyfill"

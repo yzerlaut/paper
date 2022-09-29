@@ -288,6 +288,7 @@ BEAMER_CLASS = \
 
 %% Packages Used
 \\RequirePackage[utf8]{{inputenc}}
+\\RequirePackage{{tikz}}
 \\RequirePackage{{graphicx}}
 \\RequirePackage{{hyperref}}
 \\RequirePackage{{microtype}}

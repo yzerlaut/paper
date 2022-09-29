@@ -24,7 +24,9 @@ setup(
     ],
     keywords='science pdflatex org-mode',
     packages=find_packages(),
-    package_data={'': [path.join(here, 'templates', '*.txt'), path.join(here, 'templates',  'slides', '*.svg'),
-                       path.join(here, 'templates',  'slides', 'pngs', '*.png')]},
-    include_package_data=True    
+    package_data={'': [path.join(here, 'finalyz', 'layers2png.sh'),
+                       path.join(here, 'templates', '*.md'), 
+                       path.join(here, 'templates', '*.txt'), 
+                       path.join(here, 'templates',  'slides', '*.svg'),
+                       path.join(here, 'templates',  'slides', 'pngs', '*.png')]}
 )
