@@ -70,7 +70,7 @@ def build_apa_citation(entry):
 def build_library(Reference_text, args,
                   verbose=False, find_duplicates=False):
 
-    Ref_bases = Reference_text.split('@')[1:]
+    Ref_bases = Reference_text.split('\n@')[1:-1] # the last one is a jabref section
 
     LIBRARY = {}
 
@@ -105,8 +105,16 @@ def build_library(Reference_text, args,
                 pass
                 # print(field0, value0)
 
-        LIBRARY[key]['apa'] = build_apa_citation(LIBRARY[key])
-        LIBRARY[key]['doi'] = build_doi_url(LIBRARY[key])
+        try:
+            LIBRARY[key]['apa'] = build_apa_citation(LIBRARY[key])
+            LIBRARY[key]['doi'] = build_doi_url(library[key])
+            print(key, ' succeded [ok]')
+        except BaseException as be:
+            LIBRARY[key]['apa'] = key
+            LIBRARY[key]['doi'] = ''
+            print(LIBRARY[key]['apa'], ' failed [X]')
+            print(build_doi_url(LIBRARY[key]))
+            print(ref)
         
     return LIBRARY
 
@@ -209,4 +217,24 @@ def process_references(PAPER, args):
 
 
     
+if __name__=='__main__':
+
+    import argparse
+    parser=argparse.ArgumentParser(description=
+     """ 
+     Interface to the finalyz program. The script process manuscript and bibliography files.
+     """
+    ,formatter_class=argparse.RawTextHelpFormatter)
+
+    # filename
+    parser.add_argument("filename",
+        help='filename (either a ".txt" or a ".md" file or the keyword "new" to start a new document)', type=str)
+    parser.add_argument("--bib_file", default='./biblio.bib')
+    
+    args = parser.parse_args()
+
+    with open(args.bib_file) as f:
+        text = f.read()
+        LIBRARY = build_library(text, args,
+                                verbose=True, find_duplicates=False)
 
