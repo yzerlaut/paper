@@ -28,7 +28,7 @@ def layer_png(base_dir, figname, index):
 def include_graphics(png, visible=1):
     """
     """
-    latex_code = '\only<%i> { \\node (0,0) { \includegraphics[width=\paperwidth]{%s}} } \n' % (visible, png)
+    latex_code = '\only<%i> { \\node (0,0) { \\hspace{-0.5em} \includegraphics[width=\paperwidth]{%s}} } \n' % (visible, png)
     return latex_code 
 
 def add_images_on_slide(subsection, PRES, base_dir):
