@@ -61,6 +61,9 @@ def process_preamble_and_informations(PAPER,
     for key in INFORMATION_KEYS:
         if key not in PAPER:
             PAPER[key] = '[...]'
+
+    if PAPER['Date']=='[...]':
+        PAPER['Date'] = '\\today' # today by default
     
 
             

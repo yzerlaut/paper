@@ -7,7 +7,7 @@ import numpy as np
 from .tex_templates import BEAMER_CLASS, BEAMER_TEMPLATE
 from .functions import *
 
-INFORMATION_KEYS = ['Title', 'Subtitle', 'Short_Title',
+INFORMATION_KEYS = ['Title', 'Subtitle', 'Short_Title', 'Date',
                     'Authors', 'Short_Authors', 'Affiliations']
 
 PRES = {'text':'', # full text

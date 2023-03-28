@@ -324,7 +324,7 @@ BEAMER_TEMPLATE = \
 \\subtitle{{ {Subtitle} }}
 \\author{{ {Authors} }}
 \\institute{{ {Affiliations} }}
-\\date{{\\today}}
+\\date{{ {Date} }}
 
 \\begin{{document}}
 
