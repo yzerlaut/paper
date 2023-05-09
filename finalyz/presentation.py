@@ -29,13 +29,13 @@ def include_graphics(png, visible=1):
     """
     """
     latex_code = '\only<%i> { \\node (0,0) { \\hspace{-0.5em} \includegraphics[width=\paperwidth]{%s}} } \n' % (visible, png)
-    return latex_code 
+    return latex_code
 
 def add_images_on_slide(subsection, PRES, base_dir):
 
     location = subsection.split(']]')[0].split('[[')[1]
     filename = location.split(os.path.sep)[-1]
-    
+
 
     PRES['text'] += '\\begin{frame}{}\n'
     PRES['text'] += '\\vspace*{-3mm}'
@@ -55,7 +55,7 @@ def add_images_on_slide(subsection, PRES, base_dir):
 
     else:
         PRES['text'] += include_graphics(layer_png(base_dir, filename, 1))
-        
+
     PRES['text'] += '\\end{tikzpicture}\n'
     PRES['text'] += '\\end{overlayarea}\n'
     PRES['text'] += '\\end{frame}{}\n\n'
@@ -92,11 +92,11 @@ def process_presentation(args):
             PRES['text'] += '\\section*{\\quad}\n'
         else:
             PRES['text'] += '\\section{%s}\n' % section
-        
+
         for subsection in SECTIONS[isec].split('\n## ')[1:]:
 
             PRES['text'] += '\\subsection{%s}\n' % subsection.split('\n')[0]
-            
+
             if '[[' in subsection:
                 # this means a slide from inkscape
                 add_images_on_slide(subsection, PRES,
@@ -122,7 +122,7 @@ def process_presentation(args):
     return PRES
 
 
-def export_svg_layers_to_png(filename):
+def export_svg_layers_to_png(filename, dpi=96):
     """
     """
 
@@ -130,7 +130,7 @@ def export_svg_layers_to_png(filename):
 
     pngs_dir = os.path.join(os.path.dirname(os.path.abspath(filename)), 'slides', 'pngs')
 
-    os.system('mkdir %s -p' % pngs_dir) 
+    os.system('mkdir %s -p' % pngs_dir)
 
     SVG_FILES = [f for f in os.listdir(slides_dir) if f.endswith('.svg')]
 
@@ -141,9 +141,10 @@ def export_svg_layers_to_png(filename):
         print('\n -- exporting layers for "%s" [...]' % svg)
 
         bash_code = """
-        /bin/bash -c \"source %s; layers2png %s %s \" """ % (bash_script,
-                                                             os.path.join(slides_dir, svg),
-                                                             os.path.join(pngs_dir, svg.replace('.svg','')))
+        /bin/bash -c \"source %s; layers2png %s %s %s\" """ % (bash_script,
+                                                               os.path.join(slides_dir, svg),
+                                                               os.path.join(pngs_dir, svg.replace('.svg','')),
+                                                               dpi)
         # print(bash_code)
         os.system(bash_code)
 
@@ -152,17 +153,17 @@ if __name__=='__main__':
 
     import argparse
     parser=argparse.ArgumentParser(description=
-     """ 
+     """
      A script to export presentation txt files to beamer presentations
      """
     ,formatter_class=argparse.RawTextHelpFormatter)
-    
+
     parser.add_argument('-f', "--filename", help="filename",type=str, default='presentation.txt')
     # parser.add_argument("-wdoc", "--with_doc_export", help="with Ms-Word export", action="store_true")
     parser.add_argument("--debug", help="", action="store_true")
     parser.add_argument("--debug_draft", help="", action="store_true")
     # parser.add_argument("--draft", help="", action="store_true")
-    
+
     args = parser.parse_args()
 
     PRES = process_presentation(args)

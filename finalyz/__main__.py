@@ -3,7 +3,7 @@ import argparse, os, shutil, pathlib
 from . import paper, presentation, letter, functions, biblio, svg
 
 parser=argparse.ArgumentParser(description=
- """ 
+ """
 
  Interface to the finalyz program. The script process manuscript and bibliography files.
 
@@ -17,6 +17,10 @@ parser.add_argument("filename", help='filename (either a ".txt" or a ".md" file 
 # processing type
 parser.add_argument('-p', "--processing",
                     help="either:\n      'paper', 'report', 'presentation' \n ", type=str)
+
+# figure export option
+parser.add_argument("--dpi",
+                    help="DPI for the figures in presentations", default=96, type=int)
 
 # create new document
 parser.add_argument("--create_new",
@@ -83,7 +87,7 @@ args = parser.parse_args()
 args.tex_file = os.path.join('tex', os.path.basename(args.filename).replace('.md', '.tex'))
 
 if args.create_new:
-    
+
     if ('presentation' in args.filename) or (args.processing=='presentation'):
         shutil.copy(os.path.join(pathlib.Path(__file__).resolve().parents[1], 'templates', 'presentation.md'), 'presentation.md')
         if not os.path.isdir('slides'):
@@ -96,10 +100,10 @@ if args.create_new:
         shutil.copy(os.path.join(pathlib.Path(__file__).resolve().parents[1], 'templates', 'report.txt'), 'report.txt')
 
 elif args.filename.endswith('.txt') or args.filename.endswith('.md'):
-    
+
     if (args.processing=='presentation') or ('presentation' in args.filename):
         if args.figures_only:
-            presentation.export_svg_layers_to_png(args.filename)
+            presentation.export_svg_layers_to_png(args.filename, args.dpi)
         else:
             PRES= presentation.process_presentation(args)
             functions.export_to_pdf(args)
@@ -112,7 +116,7 @@ elif args.filename.endswith('.txt') or args.filename.endswith('.md'):
     else:
         print(' "%s" processing is not a valid option' % args.processing)
         print('   -> please pass a valid processing option ("report", "presentation", ...)' % args.processing)
-    
+
 else:
     print(' "%s" filename not a valid filename, provide a ".txt" or a ".md" file ' % args.filename)
 

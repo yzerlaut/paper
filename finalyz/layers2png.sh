@@ -8,7 +8,7 @@ layers2png() {
     do
       echo $(cut -d ' ' -f 1 <<< $i)
       myLayer=$(cut -d ' ' -f 1 <<< $i)
-      $(inkscape --export-area-page --actions="export-id-only;export-id:$myLayer;export-filename:$2-layer$count.png;export-do;" $1)
+      $(inkscape --export-area-page --export-dpi=$3 --actions="export-id-only;export-id:$myLayer;export-filename:$2-layer$count.png;export-do;" $1)
       count+=1
       # echo $count
     done
