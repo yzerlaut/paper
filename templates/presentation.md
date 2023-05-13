@@ -5,7 +5,9 @@
 #+Short_Title: Paper Template
 #+Short_Authors: Author et al.
 #+Affiliations: {1} My first affiliation, {2} Second author affiliation
+#+with_titlepage: True
 -->
+
 
 # Outline
 

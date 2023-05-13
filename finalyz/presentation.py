@@ -8,7 +8,8 @@ from .tex_templates import BEAMER_CLASS, BEAMER_TEMPLATE
 from .functions import *
 
 INFORMATION_KEYS = ['Title', 'Subtitle', 'Short_Title', 'Date',
-                    'Authors', 'Short_Authors', 'Affiliations']
+                    'Authors', 'Short_Authors', 'Affiliations',
+                    'with_titlepage']
 
 PRES = {'text':'', # full text
         'Preamble':'',
@@ -77,16 +78,15 @@ def process_presentation(args):
 
     process_preamble_and_informations(PRES, args, INFORMATION_KEYS)
 
-    istart=1
 
-    if ('no title' in SECTIONS[istart]):
-        istart+=1
-    else:
+    if not ('False' in PRES['with_titlepage']):
         PRES['text'] += '\\section*{{\\quad}}'
         PRES['text'] += '\\begin{{frame}}{{}}'
         PRES['text'] += '    \\maketitle'
         PRES['text'] += '\\end{{frame}}'
         PRES['text'] += '\\end{frame}{}\n\n'
+
+    istart=1
 
     if ('Table of content' in SECTIONS[istart]) or ('Outline' in SECTIONS[istart]):
         PRES['text'] += '\\begin{frame}{}\n'

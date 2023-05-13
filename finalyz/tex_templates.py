@@ -328,11 +328,6 @@ BEAMER_TEMPLATE = \
 
 \\begin{{document}}
 
-\\section*{{\\quad}}
-\\begin{{frame}}{{}}
-    \\maketitle
-\\end{{frame}}
-
 {text}
 
 \\end{{document}}
