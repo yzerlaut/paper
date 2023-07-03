@@ -7,7 +7,7 @@ TEX_LETTER = \
 \\name{{Yann Zerlaut}}
 \\address{{Piazza Principe N.4 \\\\ 16126 Genova, Italie}}
 \\signature{{Dr. Yann Zerlaut \\\\ \\includegraphics[width=.6\\textwidth]{{/Users/yzerlaut/Documents/signature.png}} }}
-\\date{{date d'expdition}} 
+\\date{{date d'expdition}}
 
 \\begin{{document}}
 \\begin{{letter}}{{ Destinataire }}
@@ -182,7 +182,7 @@ JPHYSIOL = \
 \\begin{{itemize}}
 {Key Points}
 \\end{{itemize}}
-\\newpage 
+\\newpage
 \\linenumbers
 \\subsection*{{Abstract}}
 \\bfseries
@@ -224,7 +224,7 @@ JNEUROSCI = \
 \\noindent\\underline{{\\textsc{{Conflict of Interest:}}}} {Conflict_of_interest}\\\\[.2cm]
 \\noindent\\underline{{\\textsc{{Acknowledgements:}}}} {Acknowledgements} {Funding}\\\\[.2cm]
 
-\\newpage 
+\\newpage
 \\linenumbers
 
 \\subsection*{{Abstract}}
@@ -327,11 +327,6 @@ BEAMER_TEMPLATE = \
 \\date{{ {Date} }}
 
 \\begin{{document}}
-
-\\section*{{\\quad}}
-\\begin{{frame}}{{}}
-    \\maketitle
-\\end{{frame}}
 
 {text}
 
