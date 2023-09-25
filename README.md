@@ -31,7 +31,7 @@ pip install .
 
 ## Use 
 
-1. perform your quantitative analysis as store your results as `your_study_file.npz` (see the [documentation notebook](./docs/notebook.ipynb) for an example of such analysis file)
+1. perform your quantitative analysis and store your results as `your_study_file.npz` (see the [documentation notebook](./docs/notebook.ipynb) for an example of such analysis file)
 2. draft your paper/presentation/report on a "txt" file (see the templates in the [template folder](https://github.com/yzerlaut/finalyz/tree/master/templates)
 3. compile it with:
 
