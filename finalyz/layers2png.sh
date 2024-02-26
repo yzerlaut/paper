@@ -1,3 +1,5 @@
+# /bin/bash 
+
 layers2png() {
 
     readarray array <<< cut -d ' '  -f 3 <<< $(inkscape --actions="select-all:layers;select-list;" $1)
